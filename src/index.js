@@ -1,6 +1,6 @@
 import './styles/styles.scss';
 import './styles/normalize.css';
-console.group('%cСамооценка, максимальная 160', 'color: #696969; background-color:  #7fffd4')
+console.group('%cСамооценка', 'color: #696969; background-color:  #7fffd4')
   console.log('%c+10. Вёрстка валидная', 'color: #696969; background-color:  #7fffd4')
   console.log('%cНадпись "Document checking completed. No errors or warnings to show." https://validator.w3.org/nu/?doc=https%3A%2F%2Fdilbarakkaya.github.io%2Frsschool-cv%2F', 'color: #696969; background-color:  #7fffd4')
   console.log('%c+22. Вёрстка семантическая. В коде страницы присутствуют следующие элементы (указано минимальное количество, может быть больше)', 'color: #696969; background-color: #7fffd4')
