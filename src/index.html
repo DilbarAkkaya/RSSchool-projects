@@ -148,29 +148,37 @@
                   </div>
                 </div>
                 <div class="video__wrapper-video">
-                  <video src="/src/assets/video/video0.mp4" class="video__video" poster="./assets/video/poster0.jpg" controls></video>
+                  <video src="/src/assets/video/video0.mp4" class="video__video" poster="assets/video/videowrapper.jpg"></video>
+                  <button class="play__button"></button>
                 </div>
-              </div>
-              <div class="video__slider">
-                <div class="video__slide">
-                  <img src="./assets/video/Videoslideitem.png" alt="  " class="video__slider-slide">
+                <div class="video__controls">
+                  <button class="video__controls-play"></button>
+                  <input class="video__controls-time" type="range" name="time" min="0" max="100" value="50">
+                  <button class="video__volume"></button>
+                  <input class="volume" type="range" name="volume" min="0" max="100" value="50" step="1">
+                  <button class="video__full"></button>
                 </div>
-                <div class="video__slide">
-                  <img src="./assets/video/Videoslideitem(1).png" alt="  " class="video__slider-slide">
+                <div class="video__slider">
+                  <div class="video__slide">
+                    <img src="./assets/video/Videoslideitem.png" alt="  " class="video__slider-slide">
+                  </div>
+                  <div class="video__slide">
+                    <img src="./assets/video/Videoslideitem(1).png" alt="  " class="video__slider-slide">
+                  </div>
+                  <div class="video__slide">
+                    <img src="./assets/video/Videoslideitem(2).png" alt="  " class="video__slider-slide">
+                  </div>
                 </div>
-                <div class="video__slide">
-                  <img src="./assets/video/Videoslideitem(2).png" alt="  " class="video__slider-slide">
+                <div class="video__slide-carousel">
+                  <div class="video__arrow-prev"></div>
+                  <div class="video-slide-carousel__pagination vidoe-slide-carousel__pagination-active "></div>
+                  <div class="video-slide-carousel__pagination back-color__gri"></div>
+                  <div class="video-slide-carousel__pagination back-color__gri"></div>
+                  <div class="video-slide-carousel__pagination back-color__gri"></div>
+                  <div class="video-slide-carousel__pagination back-color__gri"></div>
+                  <div class="video-slide-carousel__pagination back-color__gri"></div>
+                  <div class="video__arrow-next"></div>
                 </div>
-              </div>
-              <div class="video__slide-carousel">
-                <div class="video__arrow-prev"></div>
-                <div class="video-slide-carousel__pagination vidoe-slide-carousel__pagination-active "></div>
-                <div class="video-slide-carousel__pagination back-color__gri"></div>
-                <div class="video-slide-carousel__pagination back-color__gri"></div>
-                <div class="video-slide-carousel__pagination back-color__gri"></div>
-                <div class="video-slide-carousel__pagination back-color__gri"></div>
-                <div class="video-slide-carousel__pagination back-color__gri"></div>
-                <div class="video__arrow-next"></div>
               </div>
             </div>
           </section>
