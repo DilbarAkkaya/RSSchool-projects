@@ -10,8 +10,8 @@
   <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
-  <div class="wrapper">
-    <header class= "header back-color__black">
+  <header class= "header back-color__black">
+    <div class="wrapper">
         <div class="content-wrapper">
           <div class="header__wrapper">
             <div class="header__logo">
@@ -30,17 +30,19 @@
             </nav>
           </div>
         </div>
+        </div>
     </header>
       <main class= "main">
-        <div class="back-color__black">
           <section class="section section__dark">
-            <div class="section__dark-back">
-              <div class="content-wrapper">
+            <div class="content-wrapper">
+              <div class="section__dark-back">
                 <div class="section__dark-title-wrapper">
                   <h2 class="section__title colored-white">Welcome</h2>
                   <h2 class="section__title colored-white">to the louvre</h2>
                   <p class="section__subtitle colored-white">From the castle to the museum</p>
-                  <button class="section__dark-button colored-white"><a href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736" class="dis" target="_blank">Discover the Louvre</a></button>
+                  <form action="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736" target="_blank">
+                  <button class="section__dark-button colored-white">Discover the Louvre</button>
+                  </form>
                 </div>
                 <div class="slider__wrapper back-color__black">
                   <p class="slide-number colored-white">01 | 05</p>
@@ -59,7 +61,6 @@
               </div>
             </div>
           </section>
-        </div>
           <section class="virtual-tour" id="virtual-tour">
             <div class="content-wrapper">
               <div class="section__title-wrapper">
@@ -70,7 +71,7 @@
                   <a href="tour1.html" class="cards__card-link" target="_blank">
                     <img class="cards__card-image" src="./assets/img/virtual_tour_section/RoyalPalace.jpg" alt="RoyalPalace">
                   <h3 class="cards__card-title colored-black">royal palace</h3>
-                  <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
                 </div>
@@ -78,7 +79,7 @@
                   <a href="tour2.html" class="cards__card-link" target="_blank">
                     <img class="cards__card-image" src="./assets/img/virtual_tour_section/Denon.jpg" alt="denon wing">
                   <h3 class="cards__card-title colored-black">denon wing</h3>
-                  <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
                 </div>
@@ -86,7 +87,7 @@
                   <a href="tour3.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/colonade.jpg" alt="ColonnadePerrlaut">
                   <h3 class="cards__card-title colored-black">colonnade perrault</h3>
-                  <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
                 </div>
@@ -94,21 +95,21 @@
                   <a href="tour4.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/greek.jpg" alt="Greekhall" width="70">
                   <h3 class="cards__card-title colored-black">greek hall</h3>
-                  <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p></a>
                 </div>
                 <div class="cards__card">
                   <a href="tour5.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/liza.jpg" alt="monalisa">
                  <h3 class="cards__card-title colored-black">mona lisa</h3>
-                 <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                 <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p></a>
                 </div>
                 <div class="cards__card">
                   <a href="tour6.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/night.jpg" alt="NightPalace">
                  <h3 class="cards__card-title colored-black">night palace</h3>
-                 <h4 class="cards__card-subtitle colored-black">360° Virtual tour</h4>
+                 <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                  <p class="cards__card-text colored-black">Google Street Panorama View</p>
                 </a>
                 </div>
@@ -160,24 +161,21 @@
                 </div>
                 <div class="video__slider">
                   <div class="video__slide">
-                    <img src="./assets/video/Videoslideitem.png" alt="  " class="video__slider-slide">
-                  </div>
-                  <div class="video__slide">
-                    <img src="./assets/video/Videoslideitem(1).png" alt="  " class="video__slider-slide">
-                  </div>
-                  <div class="video__slide">
-                    <img src="./assets/video/Videoslideitem(2).png" alt="  " class="video__slider-slide">
+                    <iframe width="452" height="254" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                   </div>
                 </div>
                 <div class="video__slide-carousel">
-                  <div class="video__arrow-prev"></div>
-                  <div class="video-slide-carousel__pagination vidoe-slide-carousel__pagination-active "></div>
-                  <div class="video-slide-carousel__pagination back-color__gri"></div>
-                  <div class="video-slide-carousel__pagination back-color__gri"></div>
-                  <div class="video-slide-carousel__pagination back-color__gri"></div>
-                  <div class="video-slide-carousel__pagination back-color__gri"></div>
-                  <div class="video-slide-carousel__pagination back-color__gri"></div>
-                  <div class="video__arrow-next"></div>
+                  <button class="video__arrow-prev"></button>
+                    <ul class="video__list">
+                      <li class="video-slide-carousel__pagination"></li>
+                      <li class="video-slide-carousel__pagination"></li>
+                      <li class="video-slide-carousel__pagination"></li>
+                      <li class="video-slide-carousel__pagination"></li>
+                      <li class="video-slide-carousel__pagination"></li>
+                    </ul>
+                  <button class="video__arrow-next"></button>
                 </div>
               </div>
             </div>
@@ -206,6 +204,8 @@
                     <img src="./assets/img/galery/galery14.jpg" alt="artgallery" class="art__box-content-img">
                   </div>
                 </div>
+                </div>
+              </div>
             </div>
           </section>
           <section class="tickets back-color__white" id="tickets">
@@ -282,46 +282,45 @@
             </div>
           </section>
         </main>
-      <footer class="footer">
-        <div class="wrapper back-color__black">
-          <div class="content__wrapper">
-            <div class="footer__wrapper">
-              <div class="header__logo-ico widht-logo">
-                <a href="#" class="header__logo-link"><p class="header__logo-title padd">Louvre</p></a>
+      <footer class="footer back-color__black">
+          <div class="wrapper">
+            <div class="content__wrapper">
+              <div class="footer__wrapper">
+                <div class="header__logo-ico widht-logo">
+                  <a href="#" class="header__logo-link"><p class="header__logo-title padd">Louvre</p></a>
+                </div>
+                <div class="footer__navigation-wrapper">
+                  <nav class="footer__navigation">
+                    <ul class="footer__list colored-white">
+                      <li><a href="#virtual-tour">Visiting</a></li>
+                      <li><a href="#explore">Explore</a></li>
+                      <li><a href="#video">Video</a></li>
+                      <li><a href="#art">Gallery</a></li>
+                      <li><a href="#tickets">Tickets</a></li>
+                      <li><a href="#contacts">Contacts</a></li>
+                     </ul>
+                   </nav>
+                </div>
+                <div class="footer__links">
+                  <ul class="social">
+                    <li><a class="social__links youtube" href="https://www.youtube.com/user/louvre" target="_blank"></a></li>
+                    <li><a class="social__links insta" href="https://www.instagram.com/museelouvre/" target="_blank"></a></li>
+                    <li><a class="social__links face" href="https://www.facebook.com/museedulouvre" target="_blank"></a></li>
+                    <li><a class="social__links tw" href="http://twitter.com/museelouvre" target="_blank"></a></li>
+                    <li><a class="social__links pin" href="https://www.pinterest.fr/museedulouvre/" target="_blank"></a></li>
+                  </ul>
+                </div>
               </div>
-              <div class="footer__navigation-wrapper">
-                <nav class="footer__navigation">
-                  <ul class="footer__list colored-white">
-                    <li><a href="#virtual-tour">Visiting</a></li>
-                    <li><a href="#explore">Explore</a></li>
-                    <li><a href="#video">Video</a></li>
-                    <li><a href="#art">Gallery</a></li>
-                    <li><a href="#tickets">Tickets</a></li>
-                    <li><a href="#contacts">Contacts</a></li>
-                   </ul>
-                 </nav>
+              <div class="border"></div>
+              <div class="rss">
+                <div>@2021</div>
+                <div class="rss__logo">The Roling Scope School</div>
+                <div><a href="https://github.com/DilbarAkkaya" class="user">Dilbar Akkaya</a></div>
               </div>
-              <div class="footer__links">
-                <ul class="social">
-                  <li><a href=""><img src="assets/svg/Youtube.svg" alt="youtube"></a></li>
-                  <li><a href=""><img src="assets/svg/Instagram.svg" alt="instagram"></a></li>
-                  <li><a href=""><img src="assets/svg/Facebook.svg" alt="facerbook"></a></li>
-                  <li><a href=""><img src="assets/svg/Twitter.svg" alt="twiter"></a></li>
-                  <li><a href=""><img src="assets/svg/Pinterest.svg" alt="pinterest"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="border"></div>
-            <div class="rss">
-              <div>@2021</div>
-              <div class="rss__logo">The Roling Scope School</div>
-              <div><a href="https://github.com/DilbarAkkaya" class="user">Dilbar Akkaya</a></div>
             </div>
           </div>
-        </div>
-
       </footer>
-  </div>
+
   <div id="popup" class="popup">
 <div class="popup__body">
   <div class="popup__content">
