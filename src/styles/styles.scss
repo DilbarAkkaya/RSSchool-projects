@@ -1,4 +1,3 @@
-@import url("./media.scss");
 @font-face{
   font-family: Forum;
   src:url("../assets/fonts/Forum-Regular.ttf");
@@ -29,8 +28,7 @@
   font-weight: 700;
  }
  /*.......................................................................................................*/
- $wh: #ffffff;
- $bl: #030303;
+
 /*.........................................................*/
 html{
   box-sizing: border-box;
@@ -58,10 +56,10 @@ li {
   margin: 0 auto;
 }
 .back-color__black{
-  background-color: $bl;
+  background-color: #000000;
 }
 .back-color__white{
-  background-color: $wh;
+  background-color: #000000;
 }
 .content-wrapper{
   margin: 0 auto;
@@ -72,8 +70,8 @@ li {
   max-width: 1440px;
   height: 150px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 .header__logo{
   display: flex;
@@ -101,17 +99,31 @@ li {
   line-height: 31px;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: $wh;
+  color: #ffffff;
 }
 .header__navigation{
-  max-width: 775px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .navigation{
   display: flex;
-  flex-direction: row;
+  column-gap: 35px;
+  justify-content: space-around;
+  background-color: brown;
+}
+
+.hamburger-menu{
+  display: none;
+}
+.line{
+  width: 32px;
+  height: 2px;
+  background-color: #ffffff;
+  margin: 6px;
+  cursor: pointer;
 }
 .navigation__item{
-  padding-right: 55px;
   list-style: none;
 }
 .navigation__item-link{
@@ -120,7 +132,7 @@ li {
   font-weight: 100;
   font-size: 22px;
   letter-spacing: 2px;
-  color: $wh;
+  color: #000000;
 }
 .navigation__item-link:hover{
   color:#9D8665;
@@ -155,7 +167,7 @@ li {
   text-transform: uppercase;
 }
 .colored-white{
-  color: $wh;
+  color:#ffffff;
 }
 .colored-braun{
   color:#9D8665;
@@ -881,4 +893,41 @@ li {
   width: 100%;
   height: 100%;
   border: 0;
+}
+@media (max-width: 1024px)
+{
+  .wrapper{
+    max-width: 1024px;
+  }
+  .content-wrapper{
+    max-width: calc(100% - 40px);
+  }
+  body{
+    overflow-x: hidden;
+  }
+  .navigation{
+    position: absolute;
+    top: 150px;
+    right:0;
+    width: 300px;
+    height: 586px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  }
+  .navigation__item{
+    opacity: 0;
+  }
+  .hamburger-menu{
+    display: block;
+  }
+  .nav-active{
+    transform: translateX(0%);
+    background-color:green;
+  }
 }

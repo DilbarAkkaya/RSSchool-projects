@@ -1,5 +1,15 @@
-import './styles/styles.scss';
-import './styles/normalize.css';
+import ('./styles/styles.scss')
+const navSlide = () => {
+  const burger = document.querySelector('hamburger-menu');
+  const nav = document.querySelector('navigation');
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('nav-active');
+  });
+}
+
+ navSlide();
+
+
 
 console.group('%cСамооценка', 'color: #696969; background-color:  #7fffd4')
   console.log('%c+10. Вёрстка валидная', 'color: #696969; background-color:  #7fffd4')
