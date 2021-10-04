@@ -1,9 +1,27 @@
 import ('./styles/styles.scss')
 const navSlide = () => {
-  const burger = document.querySelector('hamburger-menu');
-  const nav = document.querySelector('navigation');
+  const burger = document.querySelector('.hamburger-menu');
+  const nav = document.querySelector('.navigation');
+  const navLinks = document.querySelectorAll('.navigation__item');
+  const title = document.querySelectorAll('.title1');
+
   burger.addEventListener('click', () => {
+    //toggle nav
     nav.classList.toggle('nav-active');
+    //opasity title
+  title.forEach((el) => {
+    el.classList.toggle('opas');
+   });
+  //animated links
+  navLinks.forEach((link, index) => {
+    if(link.style.animation){
+      link.style.animation = '';
+    } else{
+      link.style.animation = link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.4}s`;
+    }
+    });
+    //burger animation
+    burger.classList.toggle('toggle');
   });
 }
 
