@@ -42,8 +42,8 @@
             <div class="content-wrapper">
               <div class="section__dark-back">
                 <div class="section__dark-title-wrapper">
-                  <h2 class="section__title colored-white">Welcome</h2>
-                  <h2 class="section__title colored-white title1">to the louvre</h2>
+                  <h2 class="section__title colored-white adap">Welcome</h2>
+                  <h2 class="section__title colored-white title1 adap">to the louvre</h2>
                   <p class="section__subtitle colored-white title1">From the castle to the museum</p>
                   <form action="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736" target="_blank">
                   <button class="section__dark-button colored-white title1">Discover the Louvre</button>
@@ -76,6 +76,7 @@
                   <a href="tour1.html" class="cards__card-link" target="_blank">
                     <img class="cards__card-image" src="./assets/img/virtual_tour_section/RoyalPalace.jpg" alt="RoyalPalace">
                   <h3 class="cards__card-title colored-black">royal palace</h3>
+                  <div class="underline"></div>
                   <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
@@ -84,6 +85,7 @@
                   <a href="tour2.html" class="cards__card-link" target="_blank">
                     <img class="cards__card-image" src="./assets/img/virtual_tour_section/Denon.jpg" alt="denon wing">
                   <h3 class="cards__card-title colored-black">denon wing</h3>
+                  <div class="underline"></div>
                   <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
@@ -92,6 +94,7 @@
                   <a href="tour3.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/colonade.jpg" alt="ColonnadePerrlaut">
                   <h3 class="cards__card-title colored-black">colonnade perrault</h3>
+                  <div class="underline"></div>
                   <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p>
                   </a>
@@ -100,6 +103,7 @@
                   <a href="tour4.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/greek.jpg" alt="Greekhall" width="70">
                   <h3 class="cards__card-title colored-black">greek hall</h3>
+                  <div class="underline"></div>
                   <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p></a>
                 </div>
@@ -107,6 +111,7 @@
                   <a href="tour5.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/liza.jpg" alt="monalisa">
                  <h3 class="cards__card-title colored-black">mona lisa</h3>
+                 <div class="underline"></div>
                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                   <p class="cards__card-text colored-black">Google Street Panorama View</p></a>
                 </div>
@@ -114,6 +119,7 @@
                   <a href="tour6.html" class="cards__card-link" target="_blank">
                       <img class="cards__card-image" src="./assets/img/virtual_tour_section/night.jpg" alt="NightPalace">
                  <h3 class="cards__card-title colored-black">night palace</h3>
+                 <div class="underline"></div>
                  <h4 class="cards__card-subtitle colored-black">360° Virtual Tour</h4>
                  <p class="cards__card-text colored-black">Google Street Panorama View</p>
                 </a>
@@ -135,8 +141,17 @@
                       <p class="explore__text colored-white">The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
                     </div>
                   </div>
-                  <div class="explore__image">
-                    <!--img src="assets/img/explore-slider/before.jpg" alt="explore">-->
+                  <div class="explorer-image__wrapper">
+                    <div class="explore__image">
+                      <div class="img1"></div>
+                      <div class="img2"></div>
+                    </div>
+                    <div class="explorer-slider">
+                      <div class="drag-line">
+                        <span></span>
+                      </div>
+                      <input type="range" min="0" max="100" value="50" class="explorer-slider__input">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,7 +162,7 @@
               <div class="conteiner">
                 <div class="video__title-wrapper">
                   <div>
-                    <h3 class="section__title colored-braun">Video journey</h3>
+                    <h3 class="section__title colored-braun marg">Video journey</h3>
                   </div>
                   <div class="video-text__wrapper">
                     <p class="explore__text colored-black">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
@@ -263,7 +278,7 @@
               <div class="content-wrapper">
                 <div class="contacts__wrapper">
                   <div class="contacts__title section__title-wrapper">
-                    <h2 class="section__title colored-braun">Contacts</h2>
+                    <h2 class="section__title colored-braun top">Contacts</h2>
                   </div>
                   <div class="contacts__information">
                     <div class="contacts__text">
@@ -287,9 +302,9 @@
         </main>
       <footer class="footer back-color__black">
           <div class="wrapper">
-            <div class="content__wrapper">
+            <div class="content-wrapper">
               <div class="footer__wrapper">
-                <div class="header__logo-ico widht-logo">
+                <div class="header__logo-ico widht-logo bottom">
                   <a href="#" class="header__logo-link"><p class="header__logo-title padd">Louvre</p></a>
                 </div>
                 <div class="footer__navigation-wrapper">

@@ -28,6 +28,22 @@ const navSlide = () => {
  navSlide();
 
 
+ const slider = document.querySelector(".explorer-slider__input");
+ const img = document.querySelector(".img2");
+ const dragLine = document.querySelector(".drag-line");
+slider.oninput = () => {
+  let sliderValue = slider.value;
+  dragLine.style.left = sliderValue + "%";
+  img.style.width = sliderValue + "%";
+}
+
+
+
+
+
+
+
+
 
 console.group('%cСамооценка', 'color: #696969; background-color:  #7fffd4')
   console.log('%c+10. Вёрстка валидная', 'color: #696969; background-color:  #7fffd4')
