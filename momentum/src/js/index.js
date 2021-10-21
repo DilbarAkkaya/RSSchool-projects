@@ -1,4 +1,5 @@
 import ('../styles/style.css')
+import ('../styles/owfont-regular.css')
 //------------time----------
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
@@ -110,7 +111,6 @@ function setBg() {
   }
 }
 setBg();
-
 function getSlidePrev() {
  bgNum = bgNum - 1;
  if(bgNum === min - 1) {
@@ -125,3 +125,22 @@ function getSlideNext() {
   }setBg();
  }
  slideNext.addEventListener('click', getSlideNext);
+
+ const weatherIcon = document.querySelector('.weather-icon');
+ const temperature = document.querySelector('.temperature');
+ const weatherDescription = document.querySelector('.weather-description');
+ const city = document.querySelector('.city');
+
+ async function getWeather() {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(data);
+  weatherIcon.style.display = 'block';
+  weatherIcon.style.fontSize = '50px';
+  weatherIcon.className = 'weather-icon owf';
+  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+  temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+  weatherDescription.textContent = data.weather[0].description;
+}
+city.addEventListener('change', () => getWeather(city.value));
