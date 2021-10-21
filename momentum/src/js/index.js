@@ -3,9 +3,14 @@ import ('../styles/style.css')
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
 const greeting = document.querySelector('.greeting');
+const slidePrev = document.querySelector('.slide-prev');
+const slideNext = document.querySelector('.slide-next');
 time.textContent = 'Text';
 date.textContent = 'Text';
 greeting.innerText = 'Text';
+let bgNum;
+let min = 1;
+let max = 20;
 
 function showTime() {
   const day = new Date();
@@ -54,7 +59,6 @@ function showGreeting(){
 }
 //----------name------
 const nameOfUser = document.querySelector('.name');
-
 function setLocalStorage(){
   localStorage.setItem('name', nameOfUser.value);
   console.log(nameOfUser.value)
@@ -94,7 +98,6 @@ function getTimeOfDay(){
 function setBg() {
   let timeOfDay = getTimeOfDay();
   let bgNum = getRandomNum().toString();
-  console.log(bgNum)
   if(bgNum < 10) {
     bgNum = bgNum.padStart(2, '0');
   }
@@ -107,3 +110,18 @@ function setBg() {
   }
 }
 setBg();
+
+function getSlidePrev() {
+ bgNum = bgNum - 1;
+ if(bgNum === min - 1) {
+   bgNum = 20;
+ }setBg();
+}
+slidePrev.addEventListener('click', getSlidePrev);
+function getSlideNext() {
+  bgNum = bgNum + 1;
+  if(bgNum === max + 1) {
+    bgNum = 0;
+  }setBg();
+ }
+ slideNext.addEventListener('click', getSlideNext);
