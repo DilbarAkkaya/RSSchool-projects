@@ -62,7 +62,6 @@ function showGreeting(){
 const nameOfUser = document.querySelector('.name');
 function setLocalStorage(){
   localStorage.setItem('name', nameOfUser.value);
-  console.log(nameOfUser.value)
 }
 
 function getLocalStorage(){
@@ -128,19 +127,41 @@ function getSlideNext() {
 
  const weatherIcon = document.querySelector('.weather-icon');
  const temperature = document.querySelector('.temperature');
+ const wind = document.querySelector('.wind');
+ const humidity = document.querySelector('.humidity');
  const weatherDescription = document.querySelector('.weather-description');
  const city = document.querySelector('.city');
 
+ /*function setLocalStorageCity(){
+   localStorage.setItem('city', city.value);
+ }
+
+ function getLocalStorageCity(){
+   if(localStorage.getItem('city')) {
+     city.value = localStorage.getItem('city');
+   }
+ }*/
+
  async function getWeather() {
+  // getLocalStorageCity();
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
-  console.log(data);
+  //console.log(data)
   weatherIcon.style.display = 'block';
   weatherIcon.style.fontSize = '50px';
   weatherIcon.className = 'weather-icon owf';
   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
   temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+  wind.textContent = `Ветер: ${data.wind.speed} м/с`;
+  humidity.textContent = `Влажность:  ${data.main.humidity}`
   weatherDescription.textContent = data.weather[0].description;
 }
-city.addEventListener('change', () => getWeather(city.value));
+
+city.addEventListener('change', () => {
+  //setLocalStorageCity
+  getWeather(city.value)
+ });
+ // window.addEventListener('load', getLocalStorageCity, getWeather)
+  //window.addEventListener('beforunload', setLocalStorageCity, getWeather);
+
