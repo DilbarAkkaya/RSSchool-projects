@@ -1,5 +1,8 @@
 import ('../styles/style.css')
 import ('../styles/owfont-regular.css')
+import { library } from 'webpack';
+import playList from './playList.js';
+
 //------------time----------
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
@@ -172,7 +175,6 @@ const changeQuote = document.querySelector('.change-quote');
 async function  getQuotes() {
   const res = await fetch('assets/json/quotes.json');
   const data = await res.json();
-  console.log(data);
   let random = data[Math.floor(Math.random() * data.length)];
   quote.innerText = `" ${random.quote} "`;
   author.innerText = random.source;
@@ -180,3 +182,38 @@ async function  getQuotes() {
 getQuotes();
 window.addEventListener('load', getQuotes())
 changeQuote.addEventListener('click', getQuotes)
+//-------------player-----------------
+const playPrev = document.querySelector('.play-prev');
+const playNext = document.querySelector('.play-next');
+const playBtn = document.querySelector('.play');
+let isPlay = false;
+
+let playNum = 0;
+const audio = new Audio();
+function playAudio(){
+  audio.src = playList[playNum].src;
+  audio.currentTime = 0;
+  if(!isPlay) {
+    audio.play();
+    isPlay = true;
+  } else {
+    audio.pause();
+    isPlay = false;
+  }
+}
+
+const playListContainer = document.querySelector('.play-list');
+for (let i = 0; i < playList.length; i++){
+const li = document.createElement('li');
+li.classList.add('play-item');
+li.textContent = playList[i].title;
+playListContainer.append(li);
+}
+//const items = document.querySelectorAll('.play-item');
+//items[playNum].classList.add('item-active');
+
+function toggleBtn() {
+  playBtn.classList.toggle('pause')
+}
+playBtn.addEventListener('click', playAudio);
+playBtn.addEventListener('click', toggleBtn);
