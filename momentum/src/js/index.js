@@ -49,13 +49,13 @@ function showGreeting(){
   let hours = day.getHours();
   const arrayOfGreeting = ['morning', 'afternoon', 'evening', 'night'];
   if (hours < 6 && hours >= 0) {
-    greeting.innerText = `Good ${arrayOfGreeting[3]}`;
+    greeting.innerText = `Good ${arrayOfGreeting[3]}, dear`;
   } else if (hours < 12 && hours >= 6) {
-    greeting.innerText = `Good ${arrayOfGreeting[0]}`;
+    greeting.innerText = `Good ${arrayOfGreeting[0]}, dear`;
   } else if (hours >= 12 && hours < 18) {
-    greeting.innerText  = `Good ${arrayOfGreeting[1]}`;
+    greeting.innerText  = `Good ${arrayOfGreeting[1]}, dear`;
   } else {
-    greeting.innerText  = `Good ${arrayOfGreeting[2]}`;
+    greeting.innerText  = `Good ${arrayOfGreeting[2]}, dear`;
   }
 }
 //----------name------
@@ -144,17 +144,17 @@ function getSlideNext() {
 
  async function getWeather() {
   // getLocalStorageCity();
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
   //console.log(data)
   weatherIcon.style.display = 'block';
-  weatherIcon.style.fontSize = '50px';
+  weatherIcon.style.fontSize = '150px';
   weatherIcon.className = 'weather-icon owf';
   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
   temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-  wind.textContent = `Ветер: ${data.wind.speed} м/с`;
-  humidity.textContent = `Влажность:  ${data.main.humidity}`
+  wind.textContent = `Wind: ${data.wind.speed} м/с`;
+  humidity.textContent = `Humidity:  ${data.main.humidity}`
   weatherDescription.textContent = data.weather[0].description;
 }
 
@@ -165,3 +165,18 @@ city.addEventListener('change', () => {
  // window.addEventListener('load', getLocalStorageCity, getWeather)
   //window.addEventListener('beforunload', setLocalStorageCity, getWeather);
 
+//------------quotes-----
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const changeQuote = document.querySelector('.change-quote');
+async function  getQuotes() {
+  const res = await fetch('assets/json/quotes.json');
+  const data = await res.json();
+  console.log(data);
+  let random = data[Math.floor(Math.random() * data.length)];
+  quote.innerText = `" ${random.quote} "`;
+  author.innerText = random.source;
+}
+getQuotes();
+window.addEventListener('load', getQuotes())
+changeQuote.addEventListener('click', getQuotes)

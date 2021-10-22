@@ -124,15 +124,25 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   row-gap: 5px;
-  width: 180px;
+  width: 220px;
   min-height: 180px;
   text-align: left;
 }
-
+.weather-description{
+  font-size: 30px;
+}
 .weather-error {
   margin-top: -10px;
 }
-
+.temperature{
+  font-size: 30px;
+}
+.wind{
+  font-size: 30px;
+}
+.humidity{
+  font-size: 30px;
+}
 .description-container {
   display: flex;
   flex-wrap: wrap;
@@ -149,7 +159,7 @@ body {
   width: 170px;
   height: 34px;
   padding: 5px;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 24px;
   color: #fff;
   border: 0;
@@ -214,25 +224,27 @@ body {
   align-items: center;
   min-height: 48px;
   width: 100vw;
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .greeting {
   flex: 1;
   padding: 10px;
   text-align: right;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .name {
   flex: 1;
   max-width: 50%;
   padding: 10px;
-  font-size: 40px;
+  font-size: 50px;
   text-align: left;
   color: #fff;
   background-color: transparent;
   border: 0;
   outline: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .name::placeholder {
@@ -258,10 +270,12 @@ body {
 
 .quote {
   min-height: 32px;
+  font-size: 30px;
 }
 
 .author {
   min-height: 20px;
+  font-size: 20px;
 }
 
 @media (max-width: 768px) {
@@ -283,4 +297,14 @@ body {
     font-size: 32px;
     padding: 5px;
   }
+}
+
+
+
+.change-quote{
+  animation: circle 5s linear 0s infinite;
+}
+@keyframes circle {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
 }
