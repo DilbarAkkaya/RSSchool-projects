@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="assets/favicon.ico" rel="shortcut icon" />
-  <link rel="stylesheet" href="src/styles/owfont-regular.css" />
+  <link rel="stylesheet" href="styles/owfont-regular.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
   <title>momentum</title>
 </head>
@@ -17,6 +19,51 @@
         <button class="play-next player-icon"></button>
       </div>
       <ul class="play-list"></ul>
+    </div>
+    <div class="player-wrapper">
+      <div class="top-bar">
+        <i class="material-icons">expand_more</i>
+        <span class="nowplay">Now Playing</span>
+        <i class="material-icons">more_horiz</i>
+      </div>
+      <div class="song-details">
+        <p class="song-title"></p>
+        <p class="artist"></p>
+      </div>
+      <div class="progress-area">
+        <div class="progress-bar"></div>
+        <div class="timer">
+          <span class="current-time">0:00</span>
+          <span class="max-duration">0:39</span>
+        </div>
+      </div>
+      <div class="controls">
+        <i id = "repeat-plist" class="material-icons" title ="Playlist looped">repeat</i>
+        <i id ="prev" class="material-icons">skip_previous</i>
+        <div class="play-pause">
+          <i class="material-icons">play_arrow</i>
+        </div>
+        <i id ="next" class="material-icons">skip_next</i>
+        <i id ="more-music" class="material-icons">queue_music</i>
+      </div>
+      <div class="music-list">
+        <div class="headerm">
+          <div class="row">
+            <i class="material-icons">queue_music</i>
+            <span>Music list</span>
+          </div>
+          <i id = "close" class ="material-icons">close</i>
+        </div>
+        <ul>
+          <li>
+            <div class="row">
+              <span>titlesong</span>
+              <p>author</p>
+            </div>
+            <span class="audio-duration">3:40</span>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="weather">
       <input type="text" class="city" />

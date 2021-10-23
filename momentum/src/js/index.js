@@ -220,7 +220,6 @@ function addClassItemActive(){
    }
   })
 }
-
 function toggleBtn() {
   playBtn.classList.toggle('pause')
 }
@@ -228,3 +227,106 @@ function toggleBtn() {
 playBtn.addEventListener('click', playAudio);
 playBtn.addEventListener('click', toggleBtn);
 playBtn.addEventListener('click', addClassItemActive);
+//-------avd player-----
+const wrapper = document.querySelector('.player-wrapper');
+const musicName = wrapper.querySelector('.song-details .song-title');
+const playPauseBtn = wrapper.querySelector('.play-pause');
+const prevBtn = wrapper.querySelector('#prev');
+const nextBtn = wrapper.querySelector('#next');
+const progressBar = wrapper.querySelector('.progress-bar');
+
+let musicIndex = 1;
+window.addEventListener('load', ()=>{
+  loadMusic(musicIndex);
+})
+function loadMusic(indexNumb){
+  musicName.innerText = playList[indexNumb-1].title;
+  audio.src = playList[indexNumb - 1].src;
+}
+function playMusic(){
+  wrapper.classList.add('paused');
+  playPauseBtn.querySelector('i').innerText='pause';
+  audio.play();
+  addClassItemActive(playNum);
+}
+
+function pauseMusic(){
+  wrapper.classList.remove('paused');
+  playPauseBtn.querySelector('i').innerText='play_arrow';
+  audio.pause();
+}
+function nextMusic(){
+  musicIndex++;
+  musicIndex > playList.length ? musicIndex = 1 : musicIndex = musicIndex;
+  loadMusic(musicIndex);
+  playMusic();
+}
+function prevMusic(){
+  musicIndex--;
+  musicIndex < 1 ? musicIndex = playList.length : musicIndex = musicIndex;
+  loadMusic(musicIndex);
+  playMusic();
+}
+playPauseBtn.addEventListener('click', ()=>{
+  const isMusicPaused = wrapper.classList.contains('paused');
+  isMusicPaused ? pauseMusic() : playMusic();
+})
+
+nextBtn.addEventListener('click', ()=>{
+  nextMusic();
+})
+prevBtn.addEventListener('click', ()=>{
+  prevMusic();
+})
+audio.addEventListener('timeupdate', (e) => {
+  const currentTime = e.target.currentTime;
+  const duration = e.target.duration;
+  let progressWidth = (currentTime / duration) * 100;
+  progressBar.style.width = `${progressWidth}%`;
+
+  let musicCurrentTime = wrapper.querySelector('.current-time');
+  let musicDuration = wrapper.querySelector('.max-duration');
+  audio.addEventListener('loadeddata', ()=> {
+   //update song totaal duration
+    let audioDuration = audio.duration;
+    let totalMin = Math.floor(audioDuration / 60);
+    let totalSec = Math.floor(audioDuration % 60);
+    if (totalSec < 10){
+      totalSec = `0${totalSec}`;
+    }
+    musicDuration.innerText = `${totalMin}:${totalSec}`;
+  });
+  //update playing song current time
+  let currentMin = Math.floor(currentTime / 60);
+  let currentSec = Math.floor(currentTime % 60);
+  if(currentSec < 10) {
+    currentSec = `0${currentSec}`;
+  }
+  musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+});
+const progressArea = wrapper.querySelector('.progress-area');
+progressArea.addEventListener('click', (e)=>{
+  let progressWidthval = progressArea.clientWidth;
+  let clickedOffSetX = e.offsetX;
+  let songDuration = audio.duration;
+  audio.currentTime = (clickedOffSetX / progressWidthval)* songDuration
+  audio.play();
+});
+const repeatBtn = wrapper.querySelector('#repeat-plist');
+repeatBtn.addEventListener('click', ()=>{
+  let getText = repeatBtn.innerText;
+  switch(getText){
+    case "repeat":
+      repeatBtn.innerText = "repeat_one";
+      repeatBtn.setAttribute('title','Song looped');
+      break;
+      case "repeat_one":
+        repeatBtn.innerText = "shuffle";
+        repeatBtn.setAttribute('title','Playback shuffle');
+        break;
+        case "shuffle":
+          repeatBtn.innerText = "repeat";
+          repeatBtn.setAttribute('title',"Playlist looped");
+          break;
+  }
+})
