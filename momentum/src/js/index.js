@@ -204,16 +204,27 @@ function playAudio(){
 
 const playListContainer = document.querySelector('.play-list');
 for (let i = 0; i < playList.length; i++){
-const li = document.createElement('li');
+const li = document.createElement('li')
 li.classList.add('play-item');
 li.textContent = playList[i].title;
 playListContainer.append(li);
 }
-//const items = document.querySelectorAll('.play-item');
-//items[playNum].classList.add('item-active');
+const liList = document.querySelectorAll('.play-item');
+
+function addClassItemActive(){
+  liList.forEach((el,i) => {
+   if(playNum !== i){
+     el.classList.remove('item-active')
+   } else{
+     el.classList.add('item-active');
+   }
+  })
+}
 
 function toggleBtn() {
   playBtn.classList.toggle('pause')
 }
+
 playBtn.addEventListener('click', playAudio);
 playBtn.addEventListener('click', toggleBtn);
+playBtn.addEventListener('click', addClassItemActive);
