@@ -142,7 +142,7 @@ body {
 }
 .progress-area .progress-bar{
   height: inherit;
-  width: 50%;
+  width: 0%;
   position: relative;
   border: inherit;
   background: linear-gradient(90deg, #f15871 0%, violet 100%);
@@ -153,7 +153,7 @@ body {
   height: 12px;
   width: 12px;
   background: #000000;
-  border-radius: inherit;
+  border-radius: 50%;
   top: 50%;
   right: -5px;
   transform: translateY(-50%);
@@ -251,6 +251,7 @@ background: linear-gradient(#f15871 0%, violet 100%);
   margin-left: 5px;
 }
 .headerm #close {
+  cursor: pointer;
   font-size:22px;
   color: #000000;
 }

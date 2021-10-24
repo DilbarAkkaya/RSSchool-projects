@@ -234,6 +234,10 @@ const playPauseBtn = wrapper.querySelector('.play-pause');
 const prevBtn = wrapper.querySelector('#prev');
 const nextBtn = wrapper.querySelector('#next');
 const progressBar = wrapper.querySelector('.progress-bar');
+const musicList = wrapper.querySelector('.music-list');
+const showMoreBtn = wrapper.querySelector('#more-music');
+const hideMoreBtn = musicList.querySelector('#close');
+
 
 let musicIndex = 1;
 window.addEventListener('load', ()=>{
@@ -351,4 +355,10 @@ audio.addEventListener('ended', ()=> {
           playMusic();
           break;
   }
-})
+});
+showMoreBtn.addEventListener('click', ()=>{
+  musicList.classList.toggle('show');
+});
+hideMoreBtn.addEventListener('click',()=>{
+  showMoreBtn.click();
+});
