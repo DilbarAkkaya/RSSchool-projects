@@ -12,59 +12,54 @@
 </head>
 <body>
   <header class="header">
-    <div class="player">
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
-      </div>
-      <ul class="play-list"></ul>
-    </div>
-    <div class="player-wrapper">
-      <div class="top-bar">
-        <i class="material-icons">expand_more</i>
-        <span class="nowplay">Now Playing</span>
-        <i class="material-icons">more_horiz</i>
-      </div>
-      <div class="song-details">
-        <p class="song-title"></p>
-        <p class="artist"></p>
-      </div>
-      <div class="progress-area">
-        <div class="progress-bar"></div>
-        <div class="timer">
-          <span class="current-time">0:00</span>
-          <span class="max-duration">0:39</span>
+    <div class="wrap">
+      <div class="player">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
         </div>
+        <ul class="play-list"></ul>
       </div>
-      <div class="controls">
-        <i id = "repeat-plist" class="material-icons" title ="Playlist looped">repeat</i>
-        <i id ="prev" class="material-icons">skip_previous</i>
-        <div class="play-pause">
-          <i class="material-icons">play_arrow</i>
+      <div class="player-wrapper">
+        <div class="top-bar">
+          <i class="material-icons">expand_more</i>
+          <span class="nowplay">Now Playing</span>
+          <i class="material-icons">more_horiz</i>
         </div>
-        <i id ="next" class="material-icons">skip_next</i>
-        <i id ="more-music" class="material-icons">queue_music</i>
-      </div>
-      <div class="music-list">
-        <div class="headerm">
-          <div class="row">
-            <i class="material-icons">queue_music</i>
-            <span>Music list</span>
+        <div class="song-details">
+          <p class="song-title"></p>
+          <p class="artist"></p>
+        </div>
+        <div class="progress-area">
+          <div class="progress-bar"></div>
+          <div class="timer">
+            <span class="current-time">0:00</span>
+            <span class="max-duration">0:39</span>
           </div>
-          <i id = "close" class ="material-icons">close</i>
         </div>
-        <ul>
-          <li>
+        <div class="controls">
+          <i id = "repeat-plist" class="material-icons" title ="Playlist looped">repeat</i>
+          <i id ="prev" class="material-icons">skip_previous</i>
+          <div class="play-pause">
+            <i class="material-icons">play_arrow</i>
+          </div>
+          <i id ="next" class="material-icons">skip_next</i>
+          <i id ="more-music" class="material-icons">queue_music</i>
+        </div>
+        <div class="music-list">
+          <div class="headerm">
             <div class="row">
-              <span>titlesong</span>
-              <p>author</p>
+              <i class="material-icons">queue_music</i>
+              <span>Music list</span>
             </div>
-            <span class="audio-duration">3:40</span>
-          </li>
-        </ul>
+            <i id = "close" class ="material-icons">close</i>
+          </div>
+          <ul class="play-list1"></ul>
+        </div>
       </div>
     </div>
+
     <div class="weather">
       <input type="text" class="city" />
       <i class="weather-icon owf"></i>

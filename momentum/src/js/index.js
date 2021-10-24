@@ -1,6 +1,6 @@
 import ('../styles/style.css')
 import ('../styles/owfont-regular.css')
-import { library } from 'webpack';
+//import { library } from 'webpack';
 import playList from './playList.js';
 
 //------------time----------
@@ -190,9 +190,10 @@ let isPlay = false;
 
 let playNum = 0;
 const audio = new Audio();
+audio.src = playList[playNum].src;
+audio.currentTime = 0;
+
 function playAudio(){
-  audio.src = playList[playNum].src;
-  audio.currentTime = 0;
   if(!isPlay) {
     audio.play();
     isPlay = true;
@@ -200,25 +201,14 @@ function playAudio(){
     audio.pause();
     isPlay = false;
   }
-}
-
-const playListContainer = document.querySelector('.play-list');
-for (let i = 0; i < playList.length; i++){
-const li = document.createElement('li')
-li.classList.add('play-item');
-li.textContent = playList[i].title;
-playListContainer.append(li);
-}
-const liList = document.querySelectorAll('.play-item');
-
-function addClassItemActive(){
-  liList.forEach((el,i) => {
-   if(playNum !== i){
-     el.classList.remove('item-active')
-   } else{
-     el.classList.add('item-active');
-   }
+  audio.addEventListener('ended', ()=>{
+    playNextAudio();
   })
+}
+function playNextAudio(){
+  playNum++;
+  if(playNum > playList.length -1) playNum=0;
+  playAudio();
 }
 function toggleBtn() {
   playBtn.classList.toggle('pause')
@@ -226,8 +216,11 @@ function toggleBtn() {
 
 playBtn.addEventListener('click', playAudio);
 playBtn.addEventListener('click', toggleBtn);
-playBtn.addEventListener('click', addClassItemActive);
+//playBtn.addEventListener('click', addClassItemActive(playNum));
 //-------avd player-----
+
+
+
 const wrapper = document.querySelector('.player-wrapper');
 const musicName = wrapper.querySelector('.song-details .song-title');
 const playPauseBtn = wrapper.querySelector('.play-pause');
@@ -237,7 +230,6 @@ const progressBar = wrapper.querySelector('.progress-bar');
 const musicList = wrapper.querySelector('.music-list');
 const showMoreBtn = wrapper.querySelector('#more-music');
 const hideMoreBtn = musicList.querySelector('#close');
-
 
 let musicIndex = 1;
 window.addEventListener('load', ()=>{
@@ -251,7 +243,10 @@ function playMusic(){
   wrapper.classList.add('paused');
   playPauseBtn.querySelector('i').innerText='pause';
   audio.play();
-  addClassItemActive(playNum);
+  chClassItemActive(musicIndex);
+  audio.addEventListener('.ended', ()=>{
+    nextMusic()
+  })
 }
 
 function pauseMusic(){
@@ -314,7 +309,7 @@ progressArea.addEventListener('click', (e)=>{
   let clickedOffSetX = e.offsetX;
   let songDuration = audio.duration;
   audio.currentTime = (clickedOffSetX / progressWidthval)* songDuration
-  audio.play();
+  playMusic()
 });
 const repeatBtn = wrapper.querySelector('#repeat-plist');
 repeatBtn.addEventListener('click', ()=>{
@@ -362,3 +357,20 @@ showMoreBtn.addEventListener('click', ()=>{
 hideMoreBtn.addEventListener('click',()=>{
   showMoreBtn.click();
 });
+const playListContainer = document.querySelector('.play-list');
+for (let i = 0; i < playList.length; i++){
+  const li = document.createElement('li')
+  li.classList.add('play-item');
+  li.textContent = playList[i].title;
+  playListContainer.append(li);
+}
+const liList = document.querySelectorAll('.play-item');
+function chClassItemActive(){
+  liList.forEach((el,i) => {
+   if(musicIndex-1 !== i){
+     el.classList.remove('item-active')
+   } else{
+     el.classList.add('item-active');
+   }
+  })
+}

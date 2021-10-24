@@ -30,9 +30,14 @@ body {
   min-height: 220px;
   padding: 20px;
 }
-
-.player-controls {
+.wrap{
   display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.player-controls {
+  display: none;
   align-items: center;
   justify-content: space-between;
   width: 120px;
@@ -66,7 +71,7 @@ body {
 }
 
 .item-active::before {
-  color: #C5B358;
+  color: #f15871;
 }
 
 .player-icon,
@@ -172,6 +177,7 @@ body {
 }
 .controls {
 margin: 40px 0 5px 0;
+margin-bottom: 50px;
 }
 .controls i{
   font-size: 28px;
@@ -223,7 +229,7 @@ background: linear-gradient(#f15871 0%, violet 100%);
 .music-list{
   position:absolute;
   left: 0;
-  bottom: -55%;
+  top: 0;
   opacity: 0;
   pointer-events: none;
   width: 100%;
@@ -234,7 +240,7 @@ background: linear-gradient(#f15871 0%, violet 100%);
   transition: all 0.14s ease-out;
 }
 .music-list.show{
-  bottom: 0;
+  top: 0;
   opacity: 1;
   pointer-events: auto;
 }
@@ -256,9 +262,9 @@ background: linear-gradient(#f15871 0%, violet 100%);
   color: #000000;
 }
 .music-list ul {
-  margin: 10px 0;
-  max-height: 260px;
-  overflow: auto;
+  margin: 20px 0;
+  max-height: 80px;
+  overflow-y: auto;
 }
 .music-list ul::-webkit-scrollbar{
   width: 0px;
