@@ -56,6 +56,7 @@ body {
   opacity: .8;
   cursor: pointer;
   transition: .3s;
+  font-size: 18px;
 }
 
 .play-item:hover {
@@ -71,6 +72,8 @@ body {
 }
 
 .item-active::before {
+  width: 20px;
+  height: 20px;
   color: #f15871;
 }
 
@@ -127,7 +130,7 @@ body {
   position: relative;
   overflow: hidden;
 }
-.top-bar, .progress-area .timer, .controls, .music-list .headerm, .music-list li{
+.top-bar, .progress-area .timer, .controls, .music-list .headerm, .volume, .music-list li{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -136,6 +139,7 @@ body {
   font-size: 30px;
 }
 .song-details{
+  font-size: 18px;
   text-align: center;
   margin: 10px 0;
 }
@@ -176,8 +180,8 @@ body {
   font-size: 13px;
 }
 .controls {
-margin: 40px 0 5px 0;
-margin-bottom: 50px;
+margin: 40px 0 25px 0;
+
 }
 .controls i{
   font-size: 28px;
@@ -225,6 +229,43 @@ background: linear-gradient(#f15871 0%, violet 100%);
   position: relative;
   -webkit-background-clip: text;
   -webkit-text-fill-color:transparent;
+}
+.volume{
+  width: 80%;
+  height: 6px;
+  appearance: none;
+  background: #ffffff;
+  cursor: pointer;
+}
+.volume::-webkit-slider-thumb{
+-webkit-appearance: none;
+width: 15px;
+height: 15px;
+border-radius: 50%;
+background-color: #ffffff;
+cursor: ew-resize;
+}
+.volume-wr{
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.volume-wr i{
+  padding-top: 3px;
+  font-size: 28px;
+  user-select: none;
+  background: linear-gradient(#f15871 0%, violet 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.formusic{
+  font-size: 30px;
+  color: #f15871;
+  background: #d1939e;
 }
 .music-list{
   position:absolute;

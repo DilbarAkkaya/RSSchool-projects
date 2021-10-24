@@ -66,14 +66,14 @@ const nameOfUser = document.querySelector('.name');
 function setLocalStorage(){
   localStorage.setItem('name', nameOfUser.value);
 }
-
+//let defaultCity = localStorage.getItem('city') == undefined ? 'Minsk' : localStorage.getItem('city');
 function getLocalStorage(){
   if(localStorage.getItem('name')) {
     nameOfUser.value = localStorage.getItem('name');
   }
 }
 nameOfUser.addEventListener('change', setLocalStorage)
-window.addEventListener('load', getLocalStorage)
+window.addEventListener('load', getLocalStorage, getLocalStorageCity)
 window.addEventListener('beforunload', setLocalStorage);
 //-------------slider-----------------------
 const bodyBgImage = document.body;
@@ -137,20 +137,20 @@ function getSlideNext() {
 
  /*function setLocalStorageCity(){
    localStorage.setItem('city', city.value);
- }
-
- function getLocalStorageCity(){
-   if(localStorage.getItem('city')) {
-     city.value = localStorage.getItem('city');
-   }
  }*/
 
+ function getLocalStorageCity(){
+  if (localStorage.getItem('city')) {
+    city.value = localStorage.getItem('city');
+  } else city.value = 'Minsk';
+  getWeather();
+}
  async function getWeather() {
   // getLocalStorageCity();
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
-  //console.log(data)
+  console.log(city.value)
   weatherIcon.style.display = 'block';
   weatherIcon.style.fontSize = '150px';
   weatherIcon.className = 'weather-icon owf';
@@ -161,11 +161,8 @@ function getSlideNext() {
   weatherDescription.textContent = data.weather[0].description;
 }
 
-city.addEventListener('change', () => {
-  //setLocalStorageCity
-  getWeather(city.value)
- });
- // window.addEventListener('load', getLocalStorageCity, getWeather)
+city.addEventListener('change', getWeather);
+window.addEventListener('load', getLocalStorageCity)
   //window.addEventListener('beforunload', setLocalStorageCity, getWeather);
 
 //------------quotes-----
@@ -374,3 +371,34 @@ function chClassItemActive(){
    }
   })
 }
+const volumeRange = wrapper.querySelector('.volume');
+const volWrap = wrapper.querySelector('.volume-wr');
+const ivolume = wrapper.querySelector('.i-volume');
+
+function volumeToggle(){
+  audio.muted = !audio.muted;
+  if (audio.muted) {
+    volumeRange.value = '0';
+    volWrap.querySelector('i').innerText = 'volume_off';
+    volumeRange.style.background = `linear-gradient(to right, rgba(238,130,238, 1) 0%, rgba(253,238,240, 1) 0%)`;
+  } else {
+   // video.muted = false;
+    volumeRange.value = audio.volume * 100;
+    volWrap.querySelector('i').innerText = 'volume_up';
+
+  }
+};
+volumeRange.addEventListener('input', function(e) {
+  volumeRange.style.background = `linear-gradient(to right, rgba(238,130,238, 1) ${this.value}%, rgba(253,238,240, 1) ${this.value}%)`;
+  audio.volume = volumeRange.value / 100;
+ if (volumeRange.value <= 0) {
+  volWrap.querySelector('i').innerText = 'volume_off';
+ } else {
+  volWrap.querySelector('i').innerText = 'volume_up';
+ }
+ }, false);
+
+window.addEventListener('load', ()=> {
+  volumeRange.style.background = `linear-gradient(to right, rgba(238,130,238, 1) 30%, rgba(253,238,240, 1) 30%)`;
+})
+ ivolume.addEventListener('click', volumeToggle);

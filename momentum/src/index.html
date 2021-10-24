@@ -47,6 +47,12 @@
           <i id ="next" class="material-icons">skip_next</i>
           <i id ="more-music" class="material-icons">queue_music</i>
         </div>
+        <div class="volume-wr">
+          <div class = 'i-volume'>
+            <i class="material-icons">volume_up</i>
+          </div>
+          <input class="volume" type="range" name="volume" min="0" max="100" value="30">
+        </div>
         <div class="music-list">
           <div class="headerm">
             <div class="row">
@@ -55,13 +61,14 @@
             </div>
             <i id = "close" class ="material-icons">close</i>
           </div>
-          <ul class="play-list1"></ul>
+          <ul class="play-list1">
+            <li class="formusic">Music come soon...</li>
+          </ul>
         </div>
       </div>
     </div>
-
     <div class="weather">
-      <input type="text" class="city" />
+      <input type="text" class="city" placeholder="Enter city"/>
       <i class="weather-icon owf"></i>
       <div class="weather-error"></div>
       <div class="description-container">
