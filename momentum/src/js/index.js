@@ -109,7 +109,7 @@ const nameOfUser = document.querySelector('.name');
 function setLocalStorage(){
   localStorage.setItem('name', nameOfUser.value);
 }
-//let defaultCity = localStorage.getItem('city') == undefined ? 'Minsk' : localStorage.getItem('city');
+
 function getLocalStorage(){
   if(localStorage.getItem('name')) {
     nameOfUser.value = localStorage.getItem('name');
@@ -143,7 +143,6 @@ function getTimeOfDay(){
 }
 getTimeOfDay();
 localStorage.setItem('timeOfDay',timeOfDay)
-
 
 function setBg() {
   let timeOfDay = getTimeOfDay();
@@ -182,9 +181,6 @@ function getSlideNext() {
  const weatherDescription = document.querySelector('.weather-description');
  const city = document.querySelector('.city');
 
- /*function setLocalStorageCity(){
-   localStorage.setItem('city', city.value);
- }*/
 const errorContent = document.querySelector('.weather-error');
  function getLocalStorageCity(){
   if (localStorage.getItem('city')) {
@@ -216,7 +212,9 @@ const errorContent = document.querySelector('.weather-error');
     temperature.textContent = '';
     humidity.textContent = '';
     weatherDescription.textContent = '';
+
   }
+
 }
 
 city.addEventListener('change', getWeather);
@@ -491,6 +489,19 @@ now.textContent = langSetting.now;
  const enBtn = document.querySelector('.eng');
  const settingList = document.querySelector('.setting-list');
 
-//ruBtn.addEventListener('click', changeLanguage)
-//enBtn.addEventListener('click', changeLanguage)
-settingList.addEventListener('click', changeLanguage)
+ruBtn.addEventListener('click', changeLanguage)
+enBtn.addEventListener('click', changeLanguage)
+//settingList.addEventListener('click', changeLanguage)
+
+async function getLinkToImage(){
+  const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17'
+  const res = await fetch(url);
+  const data = await res.json();
+  let dataUrl = data.urls.regular;
+  let imageFromApi = new Image();
+  imageFromApi.src = `${dataUrl}`;
+  imageFromApi.addEventListener('load', ()=> {
+    body.style.backgroundImage = `url('${dataUrl}')`;
+  })}
+const fotoApi = document.querySelector('.api');
+fotoApi.addEventListener('click', getLinkToImage)
