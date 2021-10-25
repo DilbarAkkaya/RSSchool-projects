@@ -28,7 +28,8 @@ const greetingTranslation = {
     wind: 'Скорость ветра',
     units: 'м/с',
     humidity: 'Влажность',
-    now: 'Сейчас проигрывается'
+    now: 'Сейчас проигрывается',
+    error: 'Ошибка, неверный город'
   },
   en: {
     greeting:{
@@ -40,7 +41,8 @@ const greetingTranslation = {
     wind: 'Wind',
     units: 'm/s',
     humidity: 'Humidity',
-    now: 'Now playing'
+    now: 'Now playing',
+    error: 'Error, wrong city'
   },
 
 }
@@ -183,7 +185,7 @@ function getSlideNext() {
  /*function setLocalStorageCity(){
    localStorage.setItem('city', city.value);
  }*/
-
+const errorContent = document.querySelector('.weather-error');
  function getLocalStorageCity(){
   if (localStorage.getItem('city')) {
     city.value = localStorage.getItem('city');
@@ -194,23 +196,31 @@ function getSlideNext() {
   let lang = localStorage.getItem('language');
   let langSetting = greetingTranslation[lang];
   // getLocalStorageCity();
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
-  const res = await fetch(url);
-  const data = await res.json();
-  //console.log(city.value)
- weatherIcon.style.display = 'block';
-  weatherIcon.style.fontSize = '150px';
-  weatherIcon.classList.add('weather-icon', 'owf');
-  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-  wind.textContent = `${langSetting.wind}: ${data.wind.speed} ${langSetting.units}`;
-  humidity.textContent = `${langSetting.humidity}:  ${data.main.humidity}`;
-  weatherDescription.textContent = data.weather[0].description;
+  try{
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+    //console.log(city.value)
+    weatherIcon.style.display = 'block';
+    weatherIcon.style.fontSize = '150px';
+    weatherIcon.classList.add('weather-icon', 'owf');
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+    wind.textContent = `${langSetting.wind}: ${data.wind.speed} ${langSetting.units}`;
+    humidity.textContent = `${langSetting.humidity}:  ${data.main.humidity}`;
+    weatherDescription.textContent = data.weather[0].description;
+  } catch (e) {
+    errorContent.textContent = `${langSetting.error}`;
+    weatherIcon.style.display = 'none';
+    wind.textContent ='';
+    temperature.textContent = '';
+    humidity.textContent = '';
+    weatherDescription.textContent = '';
+  }
 }
 
 city.addEventListener('change', getWeather);
-window.addEventListener('load', getLocalStorageCity)
-  //window.addEventListener('beforunload', setLocalStorageCity, getWeather);
+window.addEventListener('load', getLocalStorageCity);
 
 //------------quotes-----
 const quote = document.querySelector('.quote');
@@ -234,15 +244,14 @@ async function  getQuotes() {
 }
 getQuotes();
 
-
 window.addEventListener('load', getQuotes())
 changeQuote.addEventListener('click', getQuotes)
+
 //-------------player-----------------
 const playPrev = document.querySelector('.play-prev');
 const playNext = document.querySelector('.play-next');
 const playBtn = document.querySelector('.play');
 let isPlay = false;
-
 let playNum = 0;
 const audio = new Audio();
 audio.src = playList[playNum].src;
@@ -271,7 +280,6 @@ function toggleBtn() {
 
 playBtn.addEventListener('click', playAudio);
 playBtn.addEventListener('click', toggleBtn);
-//playBtn.addEventListener('click', addClassItemActive(playNum));
 
 //-------avd player-----
 const wrapper = document.querySelector('.player-wrapper');

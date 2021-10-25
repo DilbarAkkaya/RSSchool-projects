@@ -345,6 +345,7 @@ cursor: ew-resize;
 }
 .weather-error {
   margin-top: -10px;
+  font-size: 30px;
 }
 .temperature{
   font-size: 30px;
