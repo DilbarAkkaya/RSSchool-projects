@@ -500,6 +500,9 @@ cursor: ew-resize;
   border-radius: 15px;
 /* visibility:hidden;*/
 }
+.none{
+  visibility: hidden;
+}
 .nav-item{
   list-style: none;
   margin-right: 25px;

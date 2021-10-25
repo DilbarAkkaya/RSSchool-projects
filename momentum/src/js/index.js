@@ -460,11 +460,10 @@ window.addEventListener('load', ()=> {
  ivolume.addEventListener('click', volumeToggle);
 
  //------setting------
- /*const settingBtn = document.querySelectorAll('.i-setting');
- const settingList = document.querySelectorAll('.setting-list');
+ const settingBtn = document.querySelector('.i-setting i');
  settingBtn.addEventListener('click', ()=> {
-  settingList.style.visibility = 'visible'
- })*/
+  settingList.classList.toggle('none');
+ })
 const now = document.getElementById('now');
 let lang = localStorage.getItem('language');
 let langSetting = greetingTranslation[lang];
