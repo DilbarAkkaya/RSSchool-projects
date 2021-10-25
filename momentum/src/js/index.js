@@ -9,13 +9,46 @@ const date = document.querySelector('.date');
 const greeting = document.querySelector('.greeting');
 const slidePrev = document.querySelector('.slide-prev');
 const slideNext = document.querySelector('.slide-next');
+const greetingId = document.getElementById('greeting');
 time.textContent = 'Text';
 date.textContent = 'Text';
 greeting.innerText = 'Text';
 let bgNum;
 let min = 1;
 let max = 20;
+if (localStorage.getItem('language') === '' || localStorage.getItem('language') === null) localStorage.setItem('language', 'en');
+const greetingTranslation = {
+  ru: {
+    greeting:{
+      morning: 'Доброе утро',
+      afternoon: 'Добрый день',
+      evening: 'Добрый вечер',
+      night: 'Доброй ночи'
+    },
+    wind: 'Скорость ветра',
+    units: 'м/с',
+    humidity: 'Влажность',
+    now: 'Сейчас проигрывается'
+  },
+  en: {
+    greeting:{
+      morning: 'Good morning',
+      afternoon: 'Good aftenoon',
+      evening: 'Good evening',
+      night: 'Good night'
+    },
+    wind: 'Wind',
+    units: 'm/s',
+    humidity: 'Humidity',
+    now: 'Now playing'
+  },
 
+}
+function showGreeting(){
+  let lang = localStorage.getItem('language');
+  let langSetting = greetingTranslation[lang];
+  greetingId.textContent = langSetting.greeting[localStorage.getItem('timeOfDay')]
+}
 function showTime() {
   const day = new Date();
   let hours = day.getHours();
@@ -36,18 +69,26 @@ function showTime() {
   setTimeout(showTime, 1000);
 }
 showTime();
+
 //-----------date----------------------
 function showDate() {
 const week = new Array('Sunday','Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+const weekRu = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота','Воскресенье'];
 const day = new Date();
 const daysName = day.getDay();
-const month = day.toLocaleString('default', { month: 'long' });
+const month = day.toLocaleString(localStorage.getItem('language'), { month: 'long'});
 const today = day.getDate();
-const dayOfWeek = week[daysName];
+if(localStorage.getItem('language') === 'en') {
+  const dayOfWeek = week[daysName];
+date.textContent = dayOfWeek + ',' + ' ' + month + ' ' + today;
+}else {
+  const dayOfWeek = weekRu[daysName];
 date.textContent = dayOfWeek + ',' + ' ' + month + ' ' + today;
 }
+
+}
 //--------------greeting-------------------
-function showGreeting(){
+/*function showGreeting(){
   const day = new Date();
   let hours = day.getHours();
   const arrayOfGreeting = ['morning', 'afternoon', 'evening', 'night'];
@@ -60,7 +101,7 @@ function showGreeting(){
   } else {
     greeting.innerText  = `Good ${arrayOfGreeting[2]}, dear`;
   }
-}
+}*/
 //----------name------
 const nameOfUser = document.querySelector('.name');
 function setLocalStorage(){
@@ -83,10 +124,10 @@ function getRandomNum(min, max) {
   let bgNum = Math.floor(Math.random() * (max - min + 1)) + min;
   return bgNum;
 }
+let timeOfDay = '';
 function getTimeOfDay(){
   const day = new Date();
   let hours = day.getHours();
-  let timeOfDay = '';
   if (hours < 6 && hours >= 0) {
     timeOfDay = 'night';
   } else if (hours < 12 && hours >= 6) {
@@ -98,6 +139,10 @@ function getTimeOfDay(){
   }
   return timeOfDay
 }
+getTimeOfDay();
+localStorage.setItem('timeOfDay',timeOfDay)
+
+
 function setBg() {
   let timeOfDay = getTimeOfDay();
   let bgNum = getRandomNum().toString();
@@ -146,18 +191,20 @@ function getSlideNext() {
   getWeather();
 }
  async function getWeather() {
+  let lang = localStorage.getItem('language');
+  let langSetting = greetingTranslation[lang];
   // getLocalStorageCity();
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=354e311f752282cc59a3b898c584baf1&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
-  console.log(city.value)
-  weatherIcon.style.display = 'block';
+  //console.log(city.value)
+ weatherIcon.style.display = 'block';
   weatherIcon.style.fontSize = '150px';
-  weatherIcon.className = 'weather-icon owf';
+  weatherIcon.classList.add('weather-icon', 'owf');
   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
   temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-  wind.textContent = `Wind: ${data.wind.speed} м/с`;
-  humidity.textContent = `Humidity:  ${data.main.humidity}`
+  wind.textContent = `${langSetting.wind}: ${data.wind.speed} ${langSetting.units}`;
+  humidity.textContent = `${langSetting.humidity}:  ${data.main.humidity}`;
   weatherDescription.textContent = data.weather[0].description;
 }
 
@@ -170,13 +217,24 @@ const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
 async function  getQuotes() {
-  const res = await fetch('assets/json/quotes.json');
-  const data = await res.json();
-  let random = data[Math.floor(Math.random() * data.length)];
-  quote.innerText = `" ${random.quote} "`;
-  author.innerText = random.source;
+  if(localStorage.getItem('language') === 'en'){
+
+    const res = await fetch('assets/json/quotes.json');
+    const data = await res.json();
+    let random = data[Math.floor(Math.random() * data.length)];
+    quote.innerText = `" ${random.quote} "`;
+    author.innerText = random.source;
+  } else {
+    const res = await fetch('assets/json/quotes_ru.json');
+    const data = await res.json();
+    let random = data[Math.floor(Math.random() * data.length)];
+    quote.innerText = `" ${random.text} "`;
+    author.innerText = random.author;
+  }
 }
 getQuotes();
+
+
 window.addEventListener('load', getQuotes())
 changeQuote.addEventListener('click', getQuotes)
 //-------------player-----------------
@@ -214,10 +272,8 @@ function toggleBtn() {
 playBtn.addEventListener('click', playAudio);
 playBtn.addEventListener('click', toggleBtn);
 //playBtn.addEventListener('click', addClassItemActive(playNum));
+
 //-------avd player-----
-
-
-
 const wrapper = document.querySelector('.player-wrapper');
 const musicName = wrapper.querySelector('.song-details .song-title');
 const playPauseBtn = wrapper.querySelector('.play-pause');
@@ -402,3 +458,32 @@ window.addEventListener('load', ()=> {
   volumeRange.style.background = `linear-gradient(to right, rgba(238,130,238, 1) 30%, rgba(253,238,240, 1) 30%)`;
 })
  ivolume.addEventListener('click', volumeToggle);
+
+ //------setting------
+ /*const settingBtn = document.querySelectorAll('.i-setting');
+ const settingList = document.querySelectorAll('.setting-list');
+ settingBtn.addEventListener('click', ()=> {
+  settingList.style.visibility = 'visible'
+ })*/
+const now = document.getElementById('now');
+let lang = localStorage.getItem('language');
+let langSetting = greetingTranslation[lang];
+now.textContent = langSetting.now;
+
+function changeLanguage(e) {
+  localStorage.setItem('language', e.target.textContent);
+  let lang = localStorage.getItem('language');
+  let langSetting = greetingTranslation[lang];
+
+ getWeather();
+ getQuotes();
+
+now.textContent = langSetting.now;
+}
+ const ruBtn = document.querySelector('.rus');
+ const enBtn = document.querySelector('.eng');
+ const settingList = document.querySelector('.setting-list');
+
+//ruBtn.addEventListener('click', changeLanguage)
+//enBtn.addEventListener('click', changeLanguage)
+settingList.addEventListener('click', changeLanguage)
