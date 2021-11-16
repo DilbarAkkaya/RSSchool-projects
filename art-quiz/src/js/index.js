@@ -40,7 +40,7 @@ class Raund {
     };*/
     this.el = raundBox;
     el.append(raundBox);
- el.append(imgRaund);
+    el.append(imgRaund);
   }
 }
 for (let i = 1; i < 13; i++) {
@@ -81,6 +81,32 @@ const questions ={
 }
 console.log(questions)
 console.log(answers)
+const raund1 = document.querySelector('.child-blok');
+const questionBox = document.querySelector('.question-box');
+
+function getImage(imageNum){
+  const img = new Image();
+  const url = `./assets/img/${imageNum}`;
+  img.src = `${url}`;
+}
+
+const artBox = document.querySelector('.art-box');
+
+raund1.addEventListener('click', ()=>{
+  boxBlok.classList.add('hide');
+  questionBox.classList.remove('hide');
+  let imgQ = document.createElement('img');
+  for(let i = 0; i < images.length; i++){
+    imgQ.src = `./assets/img/${images[i].imageNum}.jpg`;
+    console.log(imgQ);
+    artBox.append(imgQ);
+
+  // getImage(images[i].imageNum)
+   }
+})
+
+//console.log(getImage(imageNum))
+
 
 /*let childBlok = document.createElement('div');
 let imgRaund1 = document.createElement('img');
