@@ -5,6 +5,22 @@ const pages = document.querySelectorAll('.page');
 const bloks = document.querySelectorAll('.quiz-blok');
 const btnHome = document.querySelector('.category-btn');
 const pageHome = document.querySelector('.quiz-list');
+const boxBlok = document.querySelector('.blok-box');
+const questionBox = document.querySelector('.question-box');
+
+localStorage.setItem('currentRaund', 0);
+localStorage.setItem('currentQuestion', 0);
+
+let array =[];
+for(let i= 0; i < 12; i++) {
+  array.push(null);
+}
+if(localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
+  localStorage.setItem('authorsAnswer', JSON.stringify(array))
+}
+if(localStorage.getItem('picturesAnswer') === null || localStorage.getItem('picturesAnswer') === '') {
+  localStorage.setItem('picturesAnswer', JSON.stringify(array))
+}
 
 bloks.forEach(blok => blok.addEventListener('click', function() {
   const pageName = this.dataset.page;
@@ -19,33 +35,29 @@ bloks.forEach(blok => blok.addEventListener('click', function() {
 btnHome.addEventListener('click', function(){
   this.parentNode.classList.add('hide');
   pageHome.classList.remove('hide');
+  questionBox.classList.add('hide');
 })
 //----создание блоков под раунды-----
-const boxBlok = document.querySelector('.blok-box');
 class Raund {
   constructor(el, cont) {
     let raundBox = document.createElement("div");
-    let imgRaund = document.createElement('img');
     raundBox.classList.add("child-blok");
     raundBox.innerText = cont;
-
-    let arr =[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
-    for(let j = 0; j < arr.length;j=j+10){
-  //  imgRaund.src = `./assets/img/${arr[j]}.jpg`;
-//raundBox.setAttribute('data-key', arr[j]);
-    raundBox.style.backgroundImage = `url(./assets/img/${arr[j]}.jpg)`;
-    raundBox.style.backgroundRepeat = "no-repeat"}
-  /*  raundBox.onclick = () => {
-      this.onClick();
-    };*/
     this.el = raundBox;
     el.append(raundBox);
-    el.append(imgRaund);
   }
 }
-for (let i = 1; i < 13; i++) {
-  const cube = new Raund(boxBlok, `Raund ${i}`);
-}
+
+for (let i = 0; i < 12; i++) {
+  let cubes = new Raund(boxBlok, `Raund ${i+1}`);
+  }
+let cubes = boxBlok.querySelectorAll('.child-blok');
+
+ cubes.forEach((item, index) => {
+    item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
+    item.dataset.raund = index;
+ })
+
 const splitArr = (arr,chunks) =>[
   ...Array(chunks),
 ].map((_,c) => arr.filter((n, index) => index % chunks === c));
@@ -65,6 +77,7 @@ images.forEach((item, index) => {
   });
  }
 });
+
 const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
 const uniqAnswersByName = [...new Set(questionByName.map(item => item.author))];
 
@@ -82,51 +95,35 @@ const questions ={
 console.log(questions)
 console.log(answers)
 const raund1 = document.querySelector('.child-blok');
-const questionBox = document.querySelector('.question-box');
-
-function getImage(imageNum){
-  const img = new Image();
-  const url = `./assets/img/${imageNum}`;
-  img.src = `${url}`;
-}
-
 const artBox = document.querySelector('.art-box');
 
-raund1.addEventListener('click', ()=>{
+
+
+
+function getQuestion(raundNum, quesNum) {
   boxBlok.classList.add('hide');
   questionBox.classList.remove('hide');
   let imgQ = document.createElement('img');
-  for(let i = 0; i < images.length; i++){
-    imgQ.src = `./assets/img/${images[i].imageNum}.jpg`;
-    console.log(imgQ);
+    imgQ.src = `./assets/img/${raundNum * 10 + quesNum}.jpg`;
     artBox.append(imgQ);
+}
 
-  // getImage(images[i].imageNum)
-   }
-})
+function getAnswers(){
+  const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
+  let arrayOfAnswers = [];
 
-//console.log(getImage(imageNum))
-
-
-/*let childBlok = document.createElement('div');
-let imgRaund1 = document.createElement('img');
-let array = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
-for(let i = 0; i< array.length; i++){
-  imgRaund1.src = `./assets/img/${array[i]}.jpg`;
-  childBlok.className = 'child-blok';
-childBlok.innerHTML = `Raund ${array[i]}`;
-childBlok.append(imgRaund1);
-const categoryBlok = document.querySelector('.category');
-categoryBlok.appendChild(childBlok);
-}*/
-
-//------получение изображений из файла*/
-/*function setBg() {
-  let bgNum = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
-  for(let i = 0; i < bgNum.length; i++){
-    let imgRaund1 = document.createElement('img');
-  imgRaund1.src = `.assets/img/${bgNum[i]}.jpg`;
-  cube.append(imgRaund1);
+  function shuffle(uniqAnswersByAuthors) {
+    for (let i = uniqAnswersByAuthors.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [uniqAnswersByAuthors[i], uniqAnswersByAuthors[j]] = [uniqAnswersByAuthors[j], uniqAnswersByAuthors[i]];
+    }
   }
 }
-setBg()*/
+
+ raund1.addEventListener('click', ()=>{
+   let currRaund = +localStorage.getItem('currentRaund');
+   let currQues = +localStorage.getItem('currentQuestion');
+   console.log(currQues,currRaund);
+   getQuestion(currRaund, currQues);
+
+ })
