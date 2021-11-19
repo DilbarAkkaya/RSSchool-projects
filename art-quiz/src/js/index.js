@@ -8,8 +8,8 @@ const pageHome = document.querySelector('.quiz-list');
 const boxBlok = document.querySelector('.blok-box');
 const questionBox = document.querySelector('.question-box');
 
-localStorage.setItem('currentRaund', 0);
-localStorage.setItem('currentQuestion', 0);
+localStorage.setItem('currentRaund', 3);
+localStorage.setItem('currentQuestion', 3);
 
 let array =[];
 for(let i= 0; i < 12; i++) {
@@ -94,35 +94,64 @@ const questions ={
 }
 console.log(questions)
 console.log(answers)
-const raund1 = document.querySelectorAll('.child-blok');
+const raunds = document.querySelectorAll('.child-blok');
 const artBox = document.querySelector('.art-box');
 
 
 
 
 function getQuestion(raundNum, quesNum) {
+  const array = getAnswers();
   boxBlok.classList.add('hide');
   questionBox.classList.remove('hide');
   let imgQ = document.createElement('img');
     imgQ.src = `./assets/img/${raundNum * 10 + quesNum}.jpg`;
     artBox.append(imgQ);
+    for(let i = 0; i <= 3; i++){
+      let but = document.createElement('button');
+      but.classList.add('button');
+      but.textContent = array[i];
+      artBox.append(but);
+    }
+}
+
+function getRandom(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  let ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
+  return ranNum;
 }
 
 function getAnswers(){
   const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
   let arrayOfAnswers = [];
+  let currRaund = +localStorage.getItem('currentRaund');
+  let currQues = +localStorage.getItem('currentQuestion');
+  arrayOfAnswers.push(images[currRaund*10+currQues].author);
+  for(let i = 0; i < 3; i++){
+    let ranNum = getRandom(1,67);
+    if(arrayOfAnswers.some(el => el === uniqAnswersByAuthors[ranNum])) {
+      i--;
+    } else {
+    arrayOfAnswers.push(uniqAnswersByAuthors[ranNum]);
+  }
+  }
 
-  function shuffle(uniqAnswersByAuthors) {
-    for (let i = uniqAnswersByAuthors.length - 1; i > 0; i--) {
+  function shuffle(uniqArray) {
+    for (let i = uniqArray.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [uniqAnswersByAuthors[i], uniqAnswersByAuthors[j]] = [uniqAnswersByAuthors[j], uniqAnswersByAuthors[i]];
+      [uniqArray[i], uniqArray[j]] = [uniqArray[j], uniqArray[i]];
     }
   }
+  shuffle(arrayOfAnswers);
+  return arrayOfAnswers;
 }
 
- raund1.forEach(item => item.addEventListener('click', ()=>{
+
+ raunds.forEach(raund => raund.addEventListener('click', ()=>{
    let currRaund = +localStorage.getItem('currentRaund');
    let currQues = +localStorage.getItem('currentQuestion');
    console.log(currQues,currRaund);
    getQuestion(currRaund, currQues);
+   getAnswers()
  }))
