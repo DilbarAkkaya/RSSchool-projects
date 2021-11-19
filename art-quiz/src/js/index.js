@@ -94,7 +94,7 @@ const questions ={
 }
 console.log(questions)
 console.log(answers)
-const raund1 = document.querySelector('.child-blok');
+const raund1 = document.querySelectorAll('.child-blok');
 const artBox = document.querySelector('.art-box');
 
 
@@ -120,10 +120,9 @@ function getAnswers(){
   }
 }
 
- raund1.addEventListener('click', ()=>{
+ raund1.forEach(item => item.addEventListener('click', ()=>{
    let currRaund = +localStorage.getItem('currentRaund');
    let currQues = +localStorage.getItem('currentQuestion');
    console.log(currQues,currRaund);
    getQuestion(currRaund, currQues);
-
- })
+ }))
