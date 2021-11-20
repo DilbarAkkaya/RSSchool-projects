@@ -72,6 +72,7 @@ body {
   font-weight: 700;
   color: #660033;
 }
+
 .btn{
   display: flex;
   justify-content: space-between;
@@ -84,6 +85,7 @@ body {
   transform-style: preserve-3d;
   transition: all 0.5s;
   box-shadow: 0 0 0.25rem #000000;
+  color: #fff;
 }
 .btn:hover{
   transform: translateZ(2rem);
@@ -161,6 +163,7 @@ h2{
   z-index: 10;
   color: #660033;
   padding: 1rem;
+  width: 25rem;
 }
 .question-box:hover{
   transform: translateZ(2rem);
@@ -175,8 +178,8 @@ h2{
 .answers-box{
   display: flex;
   margin: 0 auto;
-  flex-direction: row;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 .art-box{
   margin: 0 auto;
