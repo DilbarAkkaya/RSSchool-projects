@@ -1,8 +1,10 @@
 import AppLoader from './appLoader';
+import { IDataResponse, callType, IData, ISource } from './controller-types';
+import { IFetchData } from '../view/appView';
 
 class AppController extends AppLoader {
-    getSources(callback) {
-        super.getResp(
+    getSources(callback: callType<IDataResponse>) {
+        super.getResp<IDataResponse>(
             {
                 endpoint: 'sources',
             },
@@ -10,16 +12,16 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e, callback) {
-        let target = e.target;
-        const newsContainer = e.currentTarget;
+    getNews(e: Event, callback: callType<IFetchData>) {
+        let target: HTMLDivElement = e.target as HTMLDivElement;
+        const newsContainer = <HTMLElement>e.currentTarget;
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {
                 const sourceId = target.getAttribute('data-source-id');
                 if (newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
+                    super.getResp<IFetchData>(
                         {
                             endpoint: 'everything',
                             options: {
@@ -31,7 +33,7 @@ class AppController extends AppLoader {
                 }
                 return;
             }
-            target = target.parentNode;
+            target = target.parentNode as HTMLInputElement;
         }
     }
 }
