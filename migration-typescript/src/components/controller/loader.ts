@@ -1,12 +1,4 @@
-import {callType, RequestMethods} from './controller-types';
-
-
-type optionsKey = {
-    apiKey: string;
-};
-type optionsSource = {
-    sources: string;
-};
+import {callType, RequestMethods, optionsKey, optionsSource} from './controller-types';
 
 class Loader {
     baseLink: string;
@@ -24,7 +16,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ) {
-        this.load<T>(RequestMethods.GET, endpoint, callback, options);
+        this.load<T>(RequestMethods.GETDATA, endpoint, callback, options);
     }
 
     errorHandler(res : Response) {

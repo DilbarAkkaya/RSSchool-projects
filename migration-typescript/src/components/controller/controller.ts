@@ -1,6 +1,5 @@
 import AppLoader from './appLoader';
-import { IDataResponse, callType, IData, ISource } from './controller-types';
-import { IFetchData } from '../view/appView';
+import { IDataResponse, callType, IFetchData } from './controller-types';
 
 class AppController extends AppLoader {
     getSources(callback: callType<IDataResponse>) {
@@ -14,7 +13,7 @@ class AppController extends AppLoader {
 
     getNews(e: Event, callback: callType<IFetchData>) {
         let target: HTMLDivElement = e.target as HTMLDivElement;
-        const newsContainer = <HTMLElement>e.currentTarget;
+        const newsContainer = e.currentTarget as HTMLElement;
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {

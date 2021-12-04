@@ -25,9 +25,20 @@ export interface IDataResponse{
     status: string;
     sources: ResponseData[];
 }
+export interface IFetchData{
+  articles: IData[];
+  status: string;
+  totalResults: number;
+}
 export type callType<T>= (data: T)=> void; 
 
-export enum RequestMethods {
-  GET = 'GET',
-  POST = 'POST',
+export enum RequestMethods{
+  GETDATA = 'GET',
+  POSTDATA = 'POST'
+}
+export type optionsKey = {
+  apiKey: string;
+}
+export type optionsSource = {
+  sources: string;
 }

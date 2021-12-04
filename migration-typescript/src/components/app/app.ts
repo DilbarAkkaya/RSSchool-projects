@@ -1,38 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
-interface ISource {
-    id: string;
-    name: string;
-  }
-interface IData {
-    author: string | null;
-    content: string;
-    description: string;
-    publishedAt: string;
-    source: ISource;
-    title: string;
-    url: string;
-    urlToImage: string;
-  }
-interface IDataResponse{
-    status: string;
-    totalResults: number;
-    articles: IData[];
-  }
-interface ControllerDataObj{
-    category: string;
-    country: string
-    description: string;
-    id: string;
-    language: string;
-    name: string;
-    url: string;
-  }
-interface ControllerData{
-    status: string;
-    sources: ControllerDataObj[];
-  }
 class App {
     controller: AppController;
     view: AppView;
