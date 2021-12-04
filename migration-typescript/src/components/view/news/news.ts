@@ -2,7 +2,7 @@ import './news.css';
 import {IData} from '../../controller/controller-types';
 
 class News {
-    draw(data: IData[]) {
+    public draw(data: IData[]) {
         //console.log(data)
 
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;

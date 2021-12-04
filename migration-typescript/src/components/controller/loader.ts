@@ -1,8 +1,8 @@
 import {callType, RequestMethods, optionsKey, optionsSource} from './controller-types';
 
 class Loader {
-    baseLink: string;
-    options: optionsKey;
+   readonly baseLink: string;
+    readonly options: optionsKey;
     
     constructor(baseLink: string, options: optionsKey) {
         this.baseLink = baseLink;
@@ -10,7 +10,7 @@ class Loader {
         //console.log(options)
     }
 
-    getResp<T>(
+    protected getResp<T>(
         { endpoint = 'string', options = {} },
         callback: callType<T> = () => {
             console.error('No callback for GET response');
@@ -29,7 +29,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: optionsSource, endpoint: string) {
+    private makeUrl(options: optionsSource, endpoint: string) {
         //console.log(options)
     
         const urlOptions = { ...this.options, ...options };

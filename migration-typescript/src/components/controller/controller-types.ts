@@ -1,6 +1,6 @@
 export interface ISource {
-  id: string;
-  name: string;
+  readonly id: string;
+  readonly name: string;
 };
 export interface IData {
   author: string;
@@ -21,6 +21,7 @@ export interface ResponseData{
   name: string;
   url: string;
 }
+export type PickResponseData = Pick<ResponseData, 'id' | 'name' >;
 export interface IDataResponse{
     status: string;
     sources: ResponseData[];

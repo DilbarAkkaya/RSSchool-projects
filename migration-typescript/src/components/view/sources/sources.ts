@@ -1,8 +1,8 @@
 import './sources.css';
-import { ResponseData } from '../../controller/controller-types';
+import { PickResponseData } from '../../controller/controller-types';
 class Sources {
 
-    draw(data: ResponseData[]) {
+    public draw(data: PickResponseData[]) {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
