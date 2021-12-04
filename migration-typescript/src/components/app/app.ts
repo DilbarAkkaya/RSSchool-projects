@@ -3,20 +3,24 @@ import { AppView } from '../view/appView';
 
 class App {
     controller: AppController;
+
     view: AppView;
+
     constructor() {
         this.controller = new AppController();
         this.view = new AppView();
     }
 
     start() {
-        (document
-            .querySelector('.sources') as HTMLElement)
-            .addEventListener('click', (e) => this.controller.getNews(e, (data) => {
+        (document.querySelector('.sources') as HTMLElement).addEventListener('click', (e) =>
+            this.controller.getNews(e, (data) => {
                 //console.log(data);
-                this.view.drawNews(data)}));
+                this.view.drawNews(data);
+            })
+        );
         this.controller.getSources((data) => {
-            this.view.drawSources(data)});
+            this.view.drawSources(data);
+        });
     }
 }
 

@@ -4,7 +4,9 @@ import Sources from './sources/sources';
 
 export class AppView {
     news: News;
+
     sources: Sources;
+
     constructor() {
         this.news = new News();
         this.sources = new Sources();
@@ -16,7 +18,6 @@ export class AppView {
     }
 
     drawSources(data: IDataResponse) {
-        
         const values = data?.sources ? data?.sources : [];
         this.sources.draw(values);
     }

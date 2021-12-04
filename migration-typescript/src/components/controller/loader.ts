@@ -1,10 +1,11 @@
-import {callType, RequestMethods, optionsKey, optionsSource} from './controller-types';
+import { CallType, RequestMethods, OptionsKey, OptionsSource } from './controller-types';
 
 class Loader {
-   readonly baseLink: string;
-    readonly options: optionsKey;
-    
-    constructor(baseLink: string, options: optionsKey) {
+    readonly baseLink: string;
+
+    readonly options: OptionsKey;
+
+    constructor(baseLink: string, options: OptionsKey) {
         this.baseLink = baseLink;
         this.options = options;
         //console.log(options)
@@ -12,14 +13,14 @@ class Loader {
 
     protected getResp<T>(
         { endpoint = 'string', options = {} },
-        callback: callType<T> = () => {
+        callback: CallType<T> = () => {
             console.error('No callback for GET response');
         }
     ) {
         this.load<T>(RequestMethods.GETDATA, endpoint, callback, options);
     }
 
-    errorHandler(res : Response) {
+    errorHandler(res: Response) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -29,27 +30,27 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: optionsSource, endpoint: string) {
+    private makeUrl(options: OptionsSource, endpoint: string) {
         //console.log(options)
-    
+
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        (Object.keys(urlOptions) as Array <keyof typeof urlOptions>).forEach((key) => {
+        (Object.keys(urlOptions) as Array<keyof typeof urlOptions>).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
-           //console.log(urlOptions)
-          //  console.log(Object.keys(urlOptions))
-          //  console.log(url)
-          //  console.log(key)
+            //console.log(urlOptions)
+            //  console.log(Object.keys(urlOptions))
+            //  console.log(url)
+            //  console.log(key)
         });
 
         return url.slice(0, -1);
     }
 
-    load<TData>(method: string, endpoint: string, callback: callType<TData>, options = {}) {
-     //console.log(options)
-  
-        fetch(this.makeUrl(options as optionsSource, endpoint), { method })
+    load<TData>(method: string, endpoint: string, callback: CallType<TData>, options = {}) {
+        //console.log(options)
+
+        fetch(this.makeUrl(options as OptionsSource, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json() as Promise<TData>)
             .then((data) => callback(data))

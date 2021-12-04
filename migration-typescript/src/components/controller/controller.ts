@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { IDataResponse, callType, IFetchData } from './controller-types';
+import { IDataResponse, CallType, IFetchData } from './controller-types';
 
 class AppController extends AppLoader {
-    getSources(callback: callType<IDataResponse>) {
+    getSources(callback: CallType<IDataResponse>) {
         super.getResp<IDataResponse>(
             {
                 endpoint: 'sources',
@@ -11,7 +11,7 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: Event, callback: callType<IFetchData>) {
+    getNews(e: Event, callback: CallType<IFetchData>) {
         let target: HTMLDivElement = e.target as HTMLDivElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
