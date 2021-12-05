@@ -8,7 +8,6 @@ class Loader {
     constructor(baseLink: string, options: OptionsKey) {
         this.baseLink = baseLink;
         this.options = options;
-        //console.log(options)
     }
 
     protected getResp<T>(
@@ -31,25 +30,17 @@ class Loader {
     }
 
     private makeUrl(options: OptionsSource, endpoint: string) {
-        //console.log(options)
-
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         (Object.keys(urlOptions) as Array<keyof typeof urlOptions>).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
-            //console.log(urlOptions)
-            //  console.log(Object.keys(urlOptions))
-            //  console.log(url)
-            //  console.log(key)
         });
 
         return url.slice(0, -1);
     }
 
     load<TData>(method: string, endpoint: string, callback: CallType<TData>, options = {}) {
-        //console.log(options)
-
         fetch(this.makeUrl(options as OptionsSource, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json() as Promise<TData>)

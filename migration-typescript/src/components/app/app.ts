@@ -14,7 +14,6 @@ class App {
     start() {
         (document.querySelector('.sources') as HTMLElement).addEventListener('click', (e) =>
             this.controller.getNews(e, (data) => {
-                //console.log(data);
                 this.view.drawNews(data);
             })
         );
