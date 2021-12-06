@@ -17,6 +17,7 @@ main {
     max-width: 1920px;
     display: flex;
     margin: 0 auto;
+    width: 100%;
 }
 
 footer {
@@ -27,34 +28,42 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
 footer .copyright {
     font-size: 14px;
     color: #333;
     text-align: center;
 }
+
 footer .copyright a {
     color: #444;
 }
+
 footer .copyright a:hover {
     color: #555;
 }
+
 footer .copyright:before {
     content: '©';
 }
-.rss{
+
+.rss {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     color: #30c5ff;
     padding-top: 2rem;
 }
-.rss__logo{
+
+.rss__logo {
     margin: 0 2rem 0 2rem;
 }
-.link{
+
+.link {
     text-decoration: none;
     color: #30c5ff;
 }
+
 .top {
     position: fixed;
     bottom: 5rem;
@@ -71,12 +80,42 @@ footer .copyright:before {
     padding-top: 1rem;
     border-radius: 2px;
     display: none;
-  }
-  
-  .top:hover {
+}
+
+.top:hover {
     background: #e9ebec;
-  }
-  
-  .top-show {
+}
+
+.top-show {
     display: block;
-  }
+}
+
+@media (min-width: 320px) {
+    header {
+        padding: 7px 10px;
+    }
+
+    header h1 {
+        font-size: 25px;
+        font-weight: 300;
+        padding-left: 70px;
+    }
+    
+.top {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+    padding-top: 0rem;
+    border-radius: 5px;
+    display: none;
+}
+
+.top:hover {
+    background: #e9ebec;
+}
+
+.top-show {
+    display: block;
+}
+
+}
