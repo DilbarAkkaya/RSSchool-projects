@@ -13,6 +13,12 @@ header h1 {
     font-weight: 800;
 }
 
+main {
+    max-width: 1920px;
+    display: flex;
+    margin: 0 auto;
+}
+
 footer {
     padding-top: 2rem;
     height: 100px;
@@ -49,3 +55,28 @@ footer .copyright:before {
     text-decoration: none;
     color: #30c5ff;
 }
+.top {
+    position: fixed;
+    bottom: 5rem;
+    right: 4rem;
+    z-index: 10000;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    line-height: 2rem;
+    background: #30c5ff;
+    color: #000;
+    font-size: 4rem;
+    cursor: pointer;
+    padding-top: 1rem;
+    border-radius: 2px;
+    display: none;
+  }
+  
+  .top:hover {
+    background: #e9ebec;
+  }
+  
+  .top-show {
+    display: block;
+  }

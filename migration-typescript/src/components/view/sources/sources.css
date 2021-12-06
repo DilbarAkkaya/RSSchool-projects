@@ -2,10 +2,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 100%;
+    width: 60%;
     height: auto;
-    overflow: auto;
-    align-items: center;
+
+    align-items: flex-start;
     font: 300 1em 'Fira Sans', sans-serif;
 }
 
@@ -14,7 +14,7 @@
     border: 2px solid #30c5ff;
     font: inherit;
     line-height: 0.2;
-    margin: 0.3em;
+    margin: 0.2em;
     padding: 1em 1em;
     color: #70d6ff;
     transition: 0.25s;
@@ -26,7 +26,7 @@
     border-color: #3fcc59;
     color: #69db7e;
     box-shadow: 0 0.5em 0.5em -0.4em #3fcc59;
-    transform: translateY(-0.25em);
+    transform: translateY(-0.2em);
 }
 
 .source__item-name {

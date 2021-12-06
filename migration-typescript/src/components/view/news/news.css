@@ -1,3 +1,7 @@
+.news{
+    width: 50%;
+}
+
 .news__item {
     display: flex;
     flex-direction: column;
