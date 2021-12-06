@@ -100,22 +100,22 @@ footer .copyright:before {
         font-weight: 300;
         padding-left: 70px;
     }
-    
-.top {
-    width: 2rem;
-    height: 2rem;
-    font-size: 2rem;
-    padding-top: 0rem;
-    border-radius: 5px;
-    display: none;
-}
 
-.top:hover {
-    background: #e9ebec;
-}
+    .top {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+        padding-top: 0rem;
+        border-radius: 5px;
+        display: none;
+    }
 
-.top-show {
-    display: block;
-}
+    .top:hover {
+        background: #e9ebec;
+    }
+
+    .top-show {
+        display: block;
+    }
 
 }
