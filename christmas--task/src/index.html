@@ -21,7 +21,7 @@
         </nav>
         <div class="header-search-block">
           <input type="search" class="search" autocomplete="off">
-          <div class="count"><span>0</span></div>
+          <div class="search-count"><span>0</span></div>
         </div>
       </div>
     </header>
@@ -33,6 +33,86 @@
           <p>"Наряди елку"</p>
         </h1>
         <button class="main-page-button" data-page="main-page">Начать игру</button>
+      </div>
+      <div class="page toys-page" data-page="toys-page">
+        <div class="toys-page-wrapper">
+          <div class="filter-block">
+            <div class="filter-block-value">
+              <div class="filter-title">Фильтр  по значению</div>
+              <div class="filter-shape">Форма:
+                <button class="filter-button" data-filter="шар"></button>
+                <button class="filter-button" data-filter="колокольчик"></button>
+                <button class="filter-button" data-filter="шишка"></button>
+                <button class="filter-button" data-filter="снежинка"></button>
+                <button class="filter-button" data-filter="фигурка"></button>
+              </div>
+              <div class="filter-color">Цвет:
+                <button class="filter-button" data-filter="желтый"></button>
+                <button class="filter-button" data-filter="красный"></button>
+                <button class="filter-button" data-filter="белый"></button>
+                <button class="filter-button" data-filter="зеленый"></button>
+                <button class="filter-button" data-filter="синий"></button>
+              </div>
+              <div class="filter-size">Размер:
+                <button class="filter-button" data-filter="большой"></button>
+                <button class="filter-button" data-filter="средний"></button>
+                <button class="filter-button" data-filter="маленький"></button>
+              </div>
+              <div class="filter-favorite">Только любимые:
+                <div class="filter-favorite-form">
+                  <input type="checkbox" class="filter-favorite-input" id="checkbox">
+                  <label for="" class="filter-favorite-label"></label>
+                </div>
+              </div>
+            </div>
+            <div class="filter-block-range">
+              <div class="filter-title">Фильтр  по диапозону
+                <div class="filter-count">
+                  <span class="filter-span">Количество экземпляров</span>
+                  <div class="filter-slider-wrapper">
+                    <output class="filter-output">1</output>
+                    <div class="slider" id ="slider-count"></div>
+                    <output class="filter-output">12</output>
+                  </div>
+                </div>
+                <div class="filter-year">
+                  <span class="filter-span">Год приобретения</span>
+                  <div class="filter-slider-wrapper">
+                    <output class="filter-output">1940</output>
+                    <div class="slider" id ="slider-year"></div>
+                    <output class="filter-output">2020</output>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="filter-block-sort">
+              <div class="filter-title">Сортировка
+                <select class="filter-select">
+                  <option selected value="max-name">По названию от А до Я</option>
+                  <option value="min-name">По названию от Я до А</option>
+                  <option value="max-count">По количеству по возрастанию</option>
+                  <option value="min-count">По количеству по убыванию</option>
+                </select>
+                <button class="reset main-page-button">Сброс фильтров</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-block">
+            <div class="card" data-num="1">
+              <h2 class="card-title">Большой шар с рисунком</h2>
+              <img src="/assets/toys/1.png" alt="toy" class="card-img">
+              <div class="card-descr">
+                <p class="count">Количество: <span>2</span></p>
+                <p class="year">Год покупки: <span>1960</span></p>
+                <p class="shape">Форма: <span>шар</span></p>
+                <p class="color">Цвет: <span>желтый</span></p>
+                <p class="size">Размер: <span>большой</span></p>
+                <p class="favorite">Любимая: <span>нет</span></p>
+              </div>
+              <div class="ribbon"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
     <footer class="footer">

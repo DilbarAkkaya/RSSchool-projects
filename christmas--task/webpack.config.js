@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const noUiSlider = require('nouislider');
 //const { Chunk } = require('webpack');
 
 const devServer = (isDev) => !isDev ? {} : {
