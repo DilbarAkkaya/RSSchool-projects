@@ -23,6 +23,22 @@ noUiSlider.create(sliderYear, {
     'max': 2020
   }
 })
+
+const pages = document.querySelectorAll('.page');
+const links = document.querySelectorAll('.link');
+const counterFavorite = document.querySelector('.favorite-count');
+
+links.forEach(link => link.addEventListener('click', function () {
+  const pageName = this.dataset.page;
+  pages.forEach(page => {
+    if (page.classList.contains(pageName)) {
+      page.classList.remove('hide');
+    } else {
+      page.classList.add('hide');
+    }
+  })
+}))
+
 const cardBlock = document.querySelector('.card-block');
 
 function drawToys(data) {
@@ -40,7 +56,7 @@ function drawToys(data) {
     data[i].favorite = data[i].favorite ? "Да" : "Нет";
 
     card.innerHTML = `
-        <div class="card" data-num="1">
+        <div class="card" ${data[i].num}>
               <h2 class="card-title">${data[i].name}</h2>
               <img src="/assets/toys/${i+1}.png" alt="toy" class="card-img">
               <div class="card-descr">
@@ -51,21 +67,64 @@ function drawToys(data) {
                 <p class="size">Размер: <span>${data[i].size}</span></p>
                 <p class="favorite">Любимая: <span>${data[i].favorite}</span></p>
               </div>
-              <div class="ribbon"></div>`
+              <div class="ribbon"></div>
+        </div>`
 
     cardDescr.appendChild(count, year, shape, color, size, favorite);
-
-    cardBlock.appendChild(card);
     card.appendChild(cardH2, cardDescr);
+     cardBlock.appendChild(card);
   }
 }
 
-window.addEventListener("load", function (event) {
-  drawToys(data);
-});
+drawToys(data);
 
+/*-----TODO-----*/
 document.onclick = event => {
+  let count = 0;
   if (event.target.classList.contains('card') && event.target.children[2].children[5].textContent == "Любимая: Да") {
-    console.log(1111111)
+    event.target.children[3].classList.add('colored');
+    countFavorite(data);
+    // countFavorite.innerHTML = countFavorite();
+    // console.log(countFavorite(data))
   }
 }
+
+function countFavorite(data) {
+  let counter = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].favorite === true) {
+      counter++;
+    }
+  }
+}
+
+const buttons = document.querySelectorAll('.filter-button');
+const cards = document.querySelectorAll('.card');
+console.log(cards)
+
+function filterCategory(category, items) {
+  items.forEach((item) => {
+    if (item.children[2].children[2].lastChild.textContent !== category) {
+      item.classList.add('anime');
+    } else {
+      item.classList.remove('hide-anime')
+      item.classList.remove('anime');
+    }
+  })
+}
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+   button.classList.add('active');
+   const currentCategory = button.dataset.filter;
+   filterCategory(currentCategory, cards);
+  })
+})
+
+cards.forEach((card)=>{
+  card.ontransitionend = function () {
+    if(card.classList.contains('anime')){
+      card.classList.add('hide-anime')
+    }
+  }
+})

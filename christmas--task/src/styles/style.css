@@ -253,7 +253,9 @@ header {
   filter: invert(35%);
 }
 
-.filter-button:active{
+
+
+.active{
   filter:invert(15%) hue-rotate(180deg) sepia(35%) contrast(70%) saturate(500%) brightness(65%)
 }
 
@@ -442,7 +444,6 @@ header {
   flex-wrap: wrap;
   width: 100%;
   max-width: 1600px;
-  margin: 0 auto;
   gap: 15px;
   margin: 0 auto;
   justify-content: flex-start;
@@ -460,6 +461,7 @@ header {
   border-radius: 30px;
   padding-left: 10px;
   cursor: pointer;
+  transition: 0.5s all;
 }
 
 .card-title{
@@ -516,4 +518,43 @@ header {
 
 .card.active .ribbon:after{
   border-left: 15px solid #cbb774;
+}
+
+.colored{
+  position: absolute;
+  top: 210px;
+  width: 70px;
+  height: 30px;
+  background-color: #cbb774;
+  left: -8px;
+}
+
+.anime{
+  transform: scale(0);
+  opacity: 0;
+}
+
+.hide{
+  display: none;
+}
+
+.hide-anime{
+  animation-name: hiden;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hiden {
+  0% {
+    visibility: visible;
+    height: 20px;
+  }
+  100% {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
+    max-width: 0;
+    font-size: 0;
+  }
 }
