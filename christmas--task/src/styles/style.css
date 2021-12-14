@@ -356,13 +356,26 @@ header {
 }
 
 .filter-favorite-label{
+  position: relative;
   display: flex;
   width: 35px;
   height: 42px;
   margin-left: 20px;
-  position: relative;
   border: 1px solid #24C5DB;
   border-radius: 5px;
+}
+
+.filter-favorite-input:checked + .filter-favorite-label::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 4px 4px 0;
+  transform: rotate(45deg);
 }
 
 .filter-span{
@@ -444,7 +457,6 @@ header {
   flex-wrap: wrap;
   width: 100%;
   max-width: 1600px;
-  gap: 15px;
   margin: 0 auto;
   justify-content: flex-start;
 }
@@ -460,6 +472,7 @@ header {
   border: 1px solid #24C5DB;
   border-radius: 30px;
   padding-left: 10px;
+  margin: 5px;
   cursor: pointer;
   transition: 0.5s all;
 }
@@ -547,7 +560,7 @@ header {
 @keyframes hiden {
   0% {
     visibility: visible;
-    height: 20px;
+    height: 280px;
   }
   100% {
     visibility: hidden;
@@ -556,5 +569,9 @@ header {
     margin: 0;
     max-width: 0;
     font-size: 0;
+    gap: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
   }
 }
