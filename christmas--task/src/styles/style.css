@@ -253,12 +253,13 @@ header {
   filter: invert(35%);
 }
 
-
-
 .active{
   filter:invert(15%) hue-rotate(180deg) sepia(35%) contrast(70%) saturate(500%) brightness(65%)
 }
 
+.color-active{
+  transform: scale(1.2);
+}
 .filter-shape{
   margin-top: 30px;
 }
@@ -377,6 +378,20 @@ header {
   border-width: 0 4px 4px 0;
   transform: rotate(45deg);
 }
+
+.filter-favorite-label .favorited::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 10px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 4px 4px 0;
+  transform: rotate(45deg);
+}
+
 
 .filter-span{
   text-transform: none;
@@ -540,6 +555,16 @@ header {
   height: 30px;
   background-color: #cbb774;
   left: -8px;
+}
+
+.ribbon.colored::before{
+  background-color: #cbb774;
+}
+
+.ribbon.colored::after{
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 15px solid #cbb774;
 }
 
 .anime{
