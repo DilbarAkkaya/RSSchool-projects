@@ -8,7 +8,7 @@ import {
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
   color: ['желтый', 'синий', 'красный', 'белый', 'зеленый'],
-  size: ['маленький', 'средний', 'большой'],
+  size: ['малый', 'средний', 'большой'],
   year: [1940, 2020],
   count: [1, 12],
   favorite: true
@@ -17,11 +17,18 @@ const setting = {
 if (localStorage.getItem('setting') === null || localStorage.getItem('setting') === '') {
   localStorage.setItem('setting', JSON.stringify(setting))
 }
-setSetting();
 const sliderCount = document.getElementById('slider-count');
+const cardBlock = document.querySelector('.card-block');
+const sliderYear = document.getElementById('slider-year');
+const checkBox = document.getElementById('checkbox');
+setSetting();
+const dataSetting = JSON.parse(localStorage.getItem('setting'));
 
-noUiSlider.create(sliderCount, {
-  start: [1, 12],
+
+function createCountSlider() {
+  const dataSetting = JSON.parse(localStorage.getItem('setting'));
+  noUiSlider.create(sliderCount, {
+  start: [dataSetting.count[0], dataSetting.count[1]],
   connect: true,
   range: {
     'min': 1,
@@ -29,18 +36,21 @@ noUiSlider.create(sliderCount, {
   },
   step: 1
 })
+}
 
-const sliderYear = document.getElementById('slider-year');
 
-noUiSlider.create(sliderYear, {
-  start: [1940, 2020],
-  connect: true,
-  range: {
-    'min': 1940,
-    'max': 2020
-  },
-  step: 5
-})
+function createYearSlider() {
+  const dataSetting = JSON.parse(localStorage.getItem('setting'));
+  noUiSlider.create(sliderYear, {
+    start: [dataSetting.year[0], dataSetting.year[1]],
+    connect: true,
+    range: {
+      'min': 1940,
+      'max': 2020
+    },
+    step: 5
+  })
+}
 
 let nodes = [
   document.getElementById('min-card-count'),
@@ -48,7 +58,14 @@ let nodes = [
 ];
 
 sliderCount.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
+  const dataSetting = JSON.parse(localStorage.getItem('setting'));
   nodes[handle].innerHTML = values[handle].slice(0, -3);
+  dataSetting.count[0] = parseInt(values[0].slice(0, -3));
+  dataSetting.count[1] = parseInt(values[1].slice(0, -3));
+  localStorage.setItem('setting', JSON.stringify(dataSetting));
+  cardBlock.textContent = '';
+  createCard();
+  console.log(1)
 });
 
 let nodesYear = [
@@ -57,17 +74,21 @@ let nodesYear = [
 ];
 
 sliderYear.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
+  const dataSetting = JSON.parse(localStorage.getItem('setting'));
   nodesYear[handle].innerHTML = values[handle].slice(0, -3);
+  dataSetting.year[0] = parseInt(values[0].slice(0, -3));
+  dataSetting.year[1] = parseInt(values[1].slice(0, -3));
+  localStorage.setItem('setting', JSON.stringify(dataSetting));
+  cardBlock.textContent = '';
+  createCard();
+  console.log(1)
 });
-
-
 
 function setSetting() {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
   let colorsArray = document.querySelectorAll('.filter-color .filter-button');
   let shapeArray = document.querySelectorAll('.filter-shape .filter-button');
   let sizeArray = document.querySelectorAll('.filter-size .filter-button');
-  let isFavorited = document.querySelector('.filter-favorite-label');
   colorsArray.forEach((item, index) => {
     dataSetting.color.includes(item.dataset.filter);
     if (dataSetting.color.includes(item.dataset.filter)) {
@@ -83,16 +104,13 @@ function setSetting() {
   sizeArray.forEach((item, index) => {
     dataSetting.size.includes(item.dataset.filter);
     if (dataSetting.size.includes(item.dataset.filter)) {
-      item.classList.add('color-active');
+      item.classList.add('active');
     }
   })
-  dataSetting.favorite === true;
-  if(isFavorited.checked){
-    !isFavorited.checked
-  }
+  checkBox.checked = dataSetting.favorite;
+  createCountSlider();
+  createYearSlider();
 }
-
-
 
 //const a = JSON.parse(localStorage.getItem('setting')).color;
 //console.log(a)
@@ -107,13 +125,15 @@ filterShape.addEventListener('click', function (e) {
     let array = [];
     shapeArray.forEach(item => {
       array.push(item.dataset.filter);
-
     })
     dataSetting.shape = array;
-    localStorage.setItem('setting', JSON.stringify(dataSetting))
-    //console.log(e.target.dataset.filter)
-    //console.log(array)
+    localStorage.setItem('setting', JSON.stringify(dataSetting));
+    cardBlock.textContent = '';
+    createCard();
+    console.log(1)
   }
+
+
 })
 
 const filterColor = document.querySelector('.filter-color');
@@ -126,11 +146,14 @@ filterColor.addEventListener('click', function (e) {
     let array = [];
     colorArray.forEach(item => {
       array.push(item.dataset.filter);
-
     })
     dataSetting.color = array;
-    localStorage.setItem('setting', JSON.stringify(dataSetting))
+    localStorage.setItem('setting', JSON.stringify(dataSetting));
+    cardBlock.textContent = '';
+    createCard();
+    console.log(1)
   }
+  cardBlock.textContent = '';
 })
 
 const filterSize = document.querySelector('.filter-size');
@@ -145,23 +168,47 @@ filterSize.addEventListener('click', function (e) {
       array.push(item.dataset.filter);
     })
     dataSetting.size = array;
-    localStorage.setItem('setting', JSON.stringify(dataSetting))
+    localStorage.setItem('setting', JSON.stringify(dataSetting));
+    cardBlock.textContent = '';
+    createCard();
+    console.log(1)
   }
+  cardBlock.textContent = '';
 })
 
 const filterFavorite = document.querySelector('.filter-favorite-label');
 
-filterFavorite.addEventListener('click', function (e) {
+checkBox.addEventListener('change', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
-    filterFavorite.classList.toggle('favorited');
-    let isFavorited = true;
-    dataSetting.favorite = isFavorited;
+  if (e.target.closest('.filter-favorite-form')) {
+    dataSetting.favorite = checkBox.checked;
     localStorage.setItem('setting', JSON.stringify(dataSetting))
-  })
+  }
+})
+
+
+function filterCards(){
+  let dataSetting = JSON.parse(localStorage.getItem('setting'));
+const colorFilter = new Set(dataSetting.color);
+const shapeFilter = new Set(dataSetting.shape);
+const sizeFilter = new Set(dataSetting.size);
+const dataFilter = data.filter(item => item.count >= dataSetting.count[0] && item.count <= dataSetting.count[1])
+  .filter(item => item.year >= dataSetting.year[0] && item.year <= dataSetting.year[1])
+  .filter(item => colorFilter.has(item.color))
+  .filter(item => sizeFilter.has(item.size))
+  .filter(item => shapeFilter.has(item.shape))
+  .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
+  console.log(dataFilter);
+  console.log(data);
+  console.log(colorFilter);
+  console.log(shapeFilter);
+  console.log(sizeFilter);
+  return dataFilter;
+}
 
 const pages = document.querySelectorAll('.page');
 const links = document.querySelectorAll('.link');
-const cardBlock = document.querySelector('.card-block');
+
 const counterFavorite = document.querySelector('.favorite-count');
 
 links.forEach(link => link.addEventListener('click', function () {
@@ -175,22 +222,26 @@ links.forEach(link => link.addEventListener('click', function () {
   })
 }))
 
-for (let i = 0; i < data.length; i++) {
-  data[i].favorite = data[i].favorite ? "Да" : "Нет";
-  let card = new Card(cardBlock, `
-        <h2 class="card-title">${data[i].name}</h2>
-        <img src="/assets/toys/${i+1}.png" alt="toy" class="card-img">
-        <div class="card-descr">
-          <p class="count">Количество: <span>${data[i].count}</span></p>
-          <p class="year">Год покупки: <span>${data[i].year}</span></p>
-          <p class="shape">Форма: <span>${data[i].shape}</span></p>
-          <p class="color">Цвет: <span>${data[i].color}</span></p>
-          <p class="size">Размер: <span>${data[i].size}</span></p>
-          <p class="favorite">Любимая: <span>${data[i].favorite}</span></p>
-        </div>
-        <div class="ribbon"></div>
-  </div>`);
+function createCard(){
+  const data = filterCards();
+  for (let i = 0; i < data.length; i++) {
+    data[i].favorite = data[i].favorite ? "Да" : "Нет";
+    let card = new Card(cardBlock, `
+          <h2 class="card-title">${data[i].name}</h2>
+          <img src="/assets/toys/${data[i].num}.png" alt="toy" class="card-img">
+          <div class="card-descr">
+            <p class="count">Количество: <span>${data[i].count}</span></p>
+            <p class="year">Год покупки: <span>${data[i].year}</span></p>
+            <p class="shape">Форма: <span>${data[i].shape}</span></p>
+            <p class="color">Цвет: <span>${data[i].color}</span></p>
+            <p class="size">Размер: <span>${data[i].size}</span></p>
+            <p class="favorite">Любимая: <span>${data[i].favorite}</span></p>
+          </div>
+          <div class="ribbon"></div>
+    </div>`);
+  }
 }
+createCard();
 let count = 0;
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('card')) {
@@ -207,41 +258,9 @@ document.addEventListener('click', (e) => {
   }
 })
 
-/* function countFavorite(data) {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].favorite === "Да") {
-    // counterFavorite.textContent = Number(data[i].favorite === "Да");
-    }
-  }
-} */
-
 const buttons = document.querySelectorAll('.filter-button');
 let cards = document.querySelectorAll('.card');
-const checkBox = document.getElementById('checkbox');
 
-
-cards.forEach((item, index) => {
-  item.dataset.num = index + 1;
-})
-
-function filterCategory(category, items) {
-  items.forEach((item) => {
-    if (item.children[2].children[2].lastChild.textContent !== category) {
-      item.classList.add('anime');
-    } else {
-      item.classList.remove('hide-anime')
-      item.classList.remove('anime');
-    }
-  })
-}
-
-buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    //button.classList.toggle('active');
-    const currentCategory = button.dataset.filter;
-    filterCategory(currentCategory, cards);
-  })
-})
 
 cards.forEach((card) => {
   card.ontransitionend = function () {
@@ -251,23 +270,4 @@ cards.forEach((card) => {
   }
 })
 
-/*cards.forEach((card)=> {
-  if (checkBox.checked) {
-    if(card.children[2].children[5].textContent == "Любимая: Да"){
-      card.style.display = "block";
-  } else {
-    card.style.display = "none";
-}
-}
-})*/
 
-/*checkBox.addEventListener('change', () => {
-  cards.forEach((card) => {
-    if (card.children[2].children[5].textContent !== "Любимая: Да") {
-      card.classList.add('anime');
-    } else {
-      card.classList.remove('hide-anime')
-      card.classList.remove('anime');
-    }
-  })
-})*/
