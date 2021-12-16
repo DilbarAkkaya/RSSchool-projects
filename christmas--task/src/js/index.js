@@ -7,7 +7,7 @@ import {
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
-  color: ['желтый', 'синий', 'красный', 'белый', 'зеленый'],
+  color: ['желтый', 'синий', 'красный', 'белый', 'зелёный'],
   size: ['малый', 'средний', 'большой'],
   year: [1940, 2020],
   count: [1, 12],
@@ -17,27 +17,27 @@ const setting = {
 if (localStorage.getItem('setting') === null || localStorage.getItem('setting') === '') {
   localStorage.setItem('setting', JSON.stringify(setting))
 }
+const mainButton = document.querySelector('.main-page-button');
 const sliderCount = document.getElementById('slider-count');
 const cardBlock = document.querySelector('.card-block');
 const sliderYear = document.getElementById('slider-year');
 const checkBox = document.getElementById('checkbox');
-setSetting();
 const dataSetting = JSON.parse(localStorage.getItem('setting'));
 
+setSetting();
 
 function createCountSlider() {
   const dataSetting = JSON.parse(localStorage.getItem('setting'));
   noUiSlider.create(sliderCount, {
-  start: [dataSetting.count[0], dataSetting.count[1]],
-  connect: true,
-  range: {
-    'min': 1,
-    'max': 12
-  },
-  step: 1
-})
+    start: [dataSetting.count[0], dataSetting.count[1]],
+    connect: true,
+    range: {
+      'min': 1,
+      'max': 12
+    },
+    step: 1
+  })
 }
-
 
 function createYearSlider() {
   const dataSetting = JSON.parse(localStorage.getItem('setting'));
@@ -65,7 +65,6 @@ sliderCount.noUiSlider.on('update', function (values, handle, unencoded, isTap, 
   localStorage.setItem('setting', JSON.stringify(dataSetting));
   cardBlock.textContent = '';
   createCard();
-  console.log(1)
 });
 
 let nodesYear = [
@@ -81,7 +80,6 @@ sliderYear.noUiSlider.on('update', function (values, handle, unencoded, isTap, p
   localStorage.setItem('setting', JSON.stringify(dataSetting));
   cardBlock.textContent = '';
   createCard();
-  console.log(1)
 });
 
 function setSetting() {
@@ -130,10 +128,7 @@ filterShape.addEventListener('click', function (e) {
     localStorage.setItem('setting', JSON.stringify(dataSetting));
     cardBlock.textContent = '';
     createCard();
-    console.log(1)
   }
-
-
 })
 
 const filterColor = document.querySelector('.filter-color');
@@ -151,9 +146,7 @@ filterColor.addEventListener('click', function (e) {
     localStorage.setItem('setting', JSON.stringify(dataSetting));
     cardBlock.textContent = '';
     createCard();
-    console.log(1)
   }
-  cardBlock.textContent = '';
 })
 
 const filterSize = document.querySelector('.filter-size');
@@ -171,44 +164,37 @@ filterSize.addEventListener('click', function (e) {
     localStorage.setItem('setting', JSON.stringify(dataSetting));
     cardBlock.textContent = '';
     createCard();
-    console.log(1)
   }
-  cardBlock.textContent = '';
 })
-
-const filterFavorite = document.querySelector('.filter-favorite-label');
 
 checkBox.addEventListener('change', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
   if (e.target.closest('.filter-favorite-form')) {
     dataSetting.favorite = checkBox.checked;
-    localStorage.setItem('setting', JSON.stringify(dataSetting))
+    localStorage.setItem('setting', JSON.stringify(dataSetting));
+    cardBlock.textContent = '';
+    createCard();
   }
 })
 
-
-function filterCards(){
+function filterCards() {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
-const colorFilter = new Set(dataSetting.color);
-const shapeFilter = new Set(dataSetting.shape);
-const sizeFilter = new Set(dataSetting.size);
-const dataFilter = data.filter(item => item.count >= dataSetting.count[0] && item.count <= dataSetting.count[1])
-  .filter(item => item.year >= dataSetting.year[0] && item.year <= dataSetting.year[1])
-  .filter(item => colorFilter.has(item.color))
-  .filter(item => sizeFilter.has(item.size))
-  .filter(item => shapeFilter.has(item.shape))
-  .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
-  console.log(dataFilter);
-  console.log(data);
-  console.log(colorFilter);
-  console.log(shapeFilter);
-  console.log(sizeFilter);
+  const colorFilter = new Set(dataSetting.color);
+  const shapeFilter = new Set(dataSetting.shape);
+  const sizeFilter = new Set(dataSetting.size);
+  const dataFilter = data.filter(item => item.count >= dataSetting.count[0] && item.count <= dataSetting.count[1])
+    .filter(item => item.year >= dataSetting.year[0] && item.year <= dataSetting.year[1])
+    .filter(item => colorFilter.has(item.color))
+    .filter(item => sizeFilter.has(item.size))
+    .filter(item => shapeFilter.has(item.shape))
+    .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
   return dataFilter;
 }
 
 const pages = document.querySelectorAll('.page');
+const mainPage = document.querySelector('.main-page');
+const toysPage = document.querySelector('.toys-page');
 const links = document.querySelectorAll('.link');
-
 const counterFavorite = document.querySelector('.favorite-count');
 
 links.forEach(link => link.addEventListener('click', function () {
@@ -222,10 +208,13 @@ links.forEach(link => link.addEventListener('click', function () {
   })
 }))
 
-function createCard(){
+function createCard() {
   const data = filterCards();
   for (let i = 0; i < data.length; i++) {
-    data[i].favorite = data[i].favorite ? "Да" : "Нет";
+    function makeFavorite() {
+      let isFavorited = data[i].favorite == true ? "Да" : "Нет";
+    return isFavorited
+  }
     let card = new Card(cardBlock, `
           <h2 class="card-title">${data[i].name}</h2>
           <img src="/assets/toys/${data[i].num}.png" alt="toy" class="card-img">
@@ -235,13 +224,17 @@ function createCard(){
             <p class="shape">Форма: <span>${data[i].shape}</span></p>
             <p class="color">Цвет: <span>${data[i].color}</span></p>
             <p class="size">Размер: <span>${data[i].size}</span></p>
-            <p class="favorite">Любимая: <span>${data[i].favorite}</span></p>
+            <p class="favorite">Любимая: <span>${makeFavorite()}</span></p>
           </div>
-          <div class="ribbon"></div>
+          <div class= "ribbon"></div>
     </div>`);
   }
 }
+
+//${data[i].favorite == true ? "ribbon colored" : "ribbon"}
+
 createCard();
+
 let count = 0;
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('card')) {
@@ -261,7 +254,6 @@ document.addEventListener('click', (e) => {
 const buttons = document.querySelectorAll('.filter-button');
 let cards = document.querySelectorAll('.card');
 
-
 cards.forEach((card) => {
   card.ontransitionend = function () {
     if (card.classList.contains('anime')) {
@@ -270,4 +262,7 @@ cards.forEach((card) => {
   }
 })
 
-
+mainButton.addEventListener('click', function(){
+  mainPage.classList.add('hide');
+  toysPage.classList.remove('hide');
+})
