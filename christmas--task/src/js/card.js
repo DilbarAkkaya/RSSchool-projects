@@ -7,4 +7,4 @@ export class Card {
     this.card = card;
     el.append(card);
   }
-}
+  }

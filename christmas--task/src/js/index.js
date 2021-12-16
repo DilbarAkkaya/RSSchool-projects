@@ -213,8 +213,8 @@ function createCard() {
   for (let i = 0; i < data.length; i++) {
     function makeFavorite() {
       let isFavorited = data[i].favorite == true ? "Да" : "Нет";
-    return isFavorited
-  }
+      return isFavorited
+    }
     let card = new Card(cardBlock, `
           <h2 class="card-title">${data[i].name}</h2>
           <img src="/assets/toys/${data[i].num}.png" alt="toy" class="card-img">
@@ -230,10 +230,9 @@ function createCard() {
     </div>`);
   }
 }
-
+createCard();
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
 
-createCard();
 
 let count = 0;
 document.addEventListener('click', (e) => {
@@ -262,7 +261,12 @@ cards.forEach((card) => {
   }
 })
 
-mainButton.addEventListener('click', function(){
+mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
+})
+
+const resetLocal = document.querySelector('.reset-local');
+resetLocal.addEventListener('click', ()=>{
+  localStorage.clear();
 })
