@@ -1,9 +1,7 @@
 import('../styles/style.css')
 import data from './data.js';
 import noUiSlider from 'nouislider/dist/nouislider.mjs';
-import {
-  Card
-} from './card.js';
+import {Card} from './card.js';
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -230,6 +228,7 @@ function createCard() {
     </div>`);
   }
 }
+
 createCard();
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
 
@@ -250,7 +249,6 @@ document.addEventListener('click', (e) => {
   }
 })
 
-const buttons = document.querySelectorAll('.filter-button');
 let cards = document.querySelectorAll('.card');
 
 cards.forEach((card) => {
@@ -269,4 +267,46 @@ mainButton.addEventListener('click', function () {
 const resetLocal = document.querySelector('.reset-local');
 resetLocal.addEventListener('click', ()=>{
   localStorage.clear();
+  document.location.reload();
 })
+
+const search = document.querySelector('.search');
+search.addEventListener('input', function(){
+  cardBlock.textContent='';
+  let val = this.value.trim();
+    for(let i = 0; i < data.length; i++){
+       if(data[i].name.search(val) == val) {
+         createCard();
+       }
+      }
+    })
+
+
+const select = document.querySelector('.filter-select');
+/* let arr=[];
+for(let i = 0; i < data.length; i++){
+  cards[i].dataset.name = data[i].name;
+  let a = cards[i].dataset.name;
+  console.log(arr.push(a))
+ // Array.from(cards.map(item => item.getAttribute('name')));
+} */
+/* function sor() {
+  const data = filterCards();
+  let array=[];
+  for(let i =0; i<data.length;i++){
+    array.push(data[i].name)
+
+  }
+  array.sort((a,b)=> {a.toLowerCase().trim() > b.toLowerCase().trim() ? 1 : -1;})
+    console.log(array)
+}
+sor(data)
+ */
+
+function sort(){
+  const data = filterCards();
+  data.sort((a, b) => a.name.localeCompare(b.name));
+  console.log(data)
+}
+
+sort()
