@@ -21,6 +21,8 @@ const cardBlock = document.querySelector('.card-block');
 const sliderYear = document.getElementById('slider-year');
 const checkBox = document.getElementById('checkbox');
 const dataSetting = JSON.parse(localStorage.getItem('setting'));
+const search = document.querySelector('.search');
+let card = new Card(cardBlock);
 
 setSetting();
 
@@ -61,7 +63,7 @@ sliderCount.noUiSlider.on('update', function (values, handle, unencoded, isTap, 
   dataSetting.count[0] = parseInt(values[0].slice(0, -3));
   dataSetting.count[1] = parseInt(values[1].slice(0, -3));
   localStorage.setItem('setting', JSON.stringify(dataSetting));
-  cardBlock.textContent = '';
+
   createCard();
 });
 
@@ -76,7 +78,7 @@ sliderYear.noUiSlider.on('update', function (values, handle, unencoded, isTap, p
   dataSetting.year[0] = parseInt(values[0].slice(0, -3));
   dataSetting.year[1] = parseInt(values[1].slice(0, -3));
   localStorage.setItem('setting', JSON.stringify(dataSetting));
-  cardBlock.textContent = '';
+
   createCard();
 });
 
@@ -124,7 +126,7 @@ filterShape.addEventListener('click', function (e) {
     })
     dataSetting.shape = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-    cardBlock.textContent = '';
+
     createCard();
   }
 })
@@ -142,7 +144,7 @@ filterColor.addEventListener('click', function (e) {
     })
     dataSetting.color = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-    cardBlock.textContent = '';
+
     createCard();
   }
 })
@@ -160,7 +162,7 @@ filterSize.addEventListener('click', function (e) {
     })
     dataSetting.size = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-    cardBlock.textContent = '';
+
     createCard();
   }
 })
@@ -170,7 +172,7 @@ checkBox.addEventListener('change', function (e) {
   if (e.target.closest('.filter-favorite-form')) {
     dataSetting.favorite = checkBox.checked;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-    cardBlock.textContent = '';
+
     createCard();
   }
 })
@@ -180,12 +182,19 @@ function filterCards() {
   const colorFilter = new Set(dataSetting.color);
   const shapeFilter = new Set(dataSetting.shape);
   const sizeFilter = new Set(dataSetting.size);
-  const dataFilter = data.filter(item => item.count >= dataSetting.count[0] && item.count <= dataSetting.count[1])
+
+  let dataFilter = data.filter(item => item.count >= dataSetting.count[0] && item.count <= dataSetting.count[1])
     .filter(item => item.year >= dataSetting.year[0] && item.year <= dataSetting.year[1])
     .filter(item => colorFilter.has(item.color))
     .filter(item => sizeFilter.has(item.size))
     .filter(item => shapeFilter.has(item.shape))
     .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
+
+     dataFilter = sort(dataFilter);
+                  //  console.log("сортировка успещна", dataFilter);
+   // dataFilter = searchInData(dataFilter);
+                //    console.log("поиск успешен", dataFilter);
+
   return dataFilter;
 }
 
@@ -207,29 +216,13 @@ links.forEach(link => link.addEventListener('click', function () {
 }))
 
 function createCard() {
-  const data = filterCards();
-  for (let i = 0; i < data.length; i++) {
-    function makeFavorite() {
-      let isFavorited = data[i].favorite == true ? "Да" : "Нет";
-      return isFavorited
-    }
-    let card = new Card(cardBlock, `
-          <h2 class="card-title">${data[i].name}</h2>
-          <img src="/assets/toys/${data[i].num}.png" alt="toy" class="card-img">
-          <div class="card-descr">
-            <p class="count">Количество: <span>${data[i].count}</span></p>
-            <p class="year">Год покупки: <span>${data[i].year}</span></p>
-            <p class="shape">Форма: <span>${data[i].shape}</span></p>
-            <p class="color">Цвет: <span>${data[i].color}</span></p>
-            <p class="size">Размер: <span>${data[i].size}</span></p>
-            <p class="favorite">Любимая: <span>${makeFavorite()}</span></p>
-          </div>
-          <div class= "ribbon"></div>
-    </div>`);
-  }
+  cardBlock.innerHTML="";
+  const dataAfterFilter = filterCards();
+  card.renderCard(dataAfterFilter);
 }
 
-createCard();
+//createCard();
+
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
 
 
@@ -270,43 +263,28 @@ resetLocal.addEventListener('click', ()=>{
   document.location.reload();
 })
 
-const search = document.querySelector('.search');
-search.addEventListener('input', function(){
-  cardBlock.textContent='';
-  let val = this.value.trim();
-    for(let i = 0; i < data.length; i++){
-       if(data[i].name.search(val) == val) {
-         createCard();
-       }
-      }
-    })
 
+search.addEventListener('input', function(){
+  filterCards();
+
+  //console.log("поиск по полю")
+  })
+
+    function searchInData(data) {
+        let val = search.value.toLowerCase().trim();
+        if (data.includes(val)) {
+      createCard();
+        }
+      }
+
+
+   // searchInData(filterCards());
 
 const select = document.querySelector('.filter-select');
-/* let arr=[];
-for(let i = 0; i < data.length; i++){
-  cards[i].dataset.name = data[i].name;
-  let a = cards[i].dataset.name;
-  console.log(arr.push(a))
- // Array.from(cards.map(item => item.getAttribute('name')));
-} */
-/* function sor() {
-  const data = filterCards();
-  let array=[];
-  for(let i =0; i<data.length;i++){
-    array.push(data[i].name)
 
-  }
-  array.sort((a,b)=> {a.toLowerCase().trim() > b.toLowerCase().trim() ? 1 : -1;})
-    console.log(array)
-}
-sor(data)
- */
-
-function sort(){
-  const data = filterCards();
+function sort(data){
   data.sort((a, b) => a.name.localeCompare(b.name));
-  console.log(data)
+  return data;
 }
 
-sort()
+
