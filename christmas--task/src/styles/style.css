@@ -591,7 +591,7 @@ header {
 
 .anime{
   transform: scale(0);
-  opacity: 0.5;
+  opacity: 0;
 }
 
 .hide{
@@ -604,6 +604,20 @@ header {
   animation-fill-mode: forwards;
 }
 
+.search-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.alert{
+  width: 20rem;
+  height: 2rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid #24C5DB;
+  background-color: #192F2D;
+  background-color:#336662;
+}
 @keyframes hiden {
   0% {
     visibility: visible;

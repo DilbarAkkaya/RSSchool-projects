@@ -1,7 +1,9 @@
 import('../styles/style.css')
 import data from './data.js';
 import noUiSlider from 'nouislider/dist/nouislider.mjs';
-import {Card} from './card.js';
+import {
+  Card
+} from './card.js';
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -22,6 +24,10 @@ const sliderYear = document.getElementById('slider-year');
 const checkBox = document.getElementById('checkbox');
 const dataSetting = JSON.parse(localStorage.getItem('setting'));
 const search = document.querySelector('.search');
+const select = document.querySelector('.filter-select');
+const searchBlok = document.querySelector('.header-search-block');
+
+const alertD = document.querySelector('.alert');
 let card = new Card(cardBlock);
 
 setSetting();
@@ -190,11 +196,10 @@ function filterCards() {
     .filter(item => shapeFilter.has(item.shape))
     .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
 
-     dataFilter = sort(dataFilter);
-                  //  console.log("сортировка успещна", dataFilter);
-   // dataFilter = searchInData(dataFilter);
-                //    console.log("поиск успешен", dataFilter);
-
+  dataFilter = sort(dataFilter);
+  //  console.log("сортировка успещна", dataFilter);
+  dataFilter = searchInData(dataFilter);
+  //  console.log("поиск успешен", dataFilter);
   return dataFilter;
 }
 
@@ -205,7 +210,11 @@ const links = document.querySelectorAll('.link');
 const counterFavorite = document.querySelector('.favorite-count');
 
 links.forEach(link => link.addEventListener('click', function () {
+  searchBlok.classList.remove('hide')
+  document.getElementById('searchId').focus();
+  document.getElementById('searchId').select();
   const pageName = this.dataset.page;
+  if(pageName == "main-page"){searchBlok.classList.add('hide')}
   pages.forEach(page => {
     if (page.classList.contains(pageName)) {
       page.classList.remove('hide');
@@ -216,12 +225,12 @@ links.forEach(link => link.addEventListener('click', function () {
 }))
 
 function createCard() {
-  cardBlock.innerHTML="";
+  cardBlock.innerHTML = "";
   const dataAfterFilter = filterCards();
   card.renderCard(dataAfterFilter);
 }
 
-//createCard();
+createCard();
 
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
 
@@ -255,36 +264,58 @@ cards.forEach((card) => {
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
+  document.getElementById('searchId').focus();
+  document.getElementById('searchId').select();
+  searchBlok.classList.remove('hide')
 })
 
 const resetLocal = document.querySelector('.reset-local');
-resetLocal.addEventListener('click', ()=>{
+resetLocal.addEventListener('click', () => {
   localStorage.clear();
   document.location.reload();
 })
 
 
-search.addEventListener('input', function(){
+search.addEventListener('input', function () {
   filterCards();
+  createCard();
 
-  //console.log("поиск по полю")
-  })
+})
 
-    function searchInData(data) {
-        let val = search.value.toLowerCase().trim();
-        if (data.includes(val)) {
-      createCard();
-        }
-      }
+window.addEventListener('load', () => {
+  document.getElementById('searchId').focus();
+  document.getElementById('searchId').select();
+  alertD.classList.add('hide')
+})
 
 
-   // searchInData(filterCards());
-
-const select = document.querySelector('.filter-select');
-
-function sort(data){
-  data.sort((a, b) => a.name.localeCompare(b.name));
-  return data;
+function searchInData(data) {
+  let val = search.value.toLowerCase().trim();
+  let result = data.filter(toy => toy.name.toLowerCase().trim().includes(val));
+  if (data.filter(toy => toy.name.toLowerCase().trim().includes(!val))) {
+    alertD.classList.remove('hide')
+  }
+  if (!val) {
+    alertD.classList.add('hide')
+  }
+  return result
 }
 
+select.addEventListener('change', function () {
+  filterCards();
+  createCard();
+})
 
+function sort(data) {
+  let result;
+  if (select.value == 'max-name') {
+    result = data.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (select.value == 'min-name') {
+    result = data.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase());
+  } else if (select.value == 'max-count') {
+    result = data.sort((a, b) => +a.count > +b.count);
+  } else if (select.value == 'min-count') {
+    result = data.sort((a, b) => +a.count < +b.count);
+  }
+  return result;
+}
