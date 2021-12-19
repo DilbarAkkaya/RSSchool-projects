@@ -1,7 +1,9 @@
 import('../styles/style.css')
 import data from './data.js';
 import noUiSlider from 'nouislider/dist/nouislider.mjs';
-import { Card } from './card.js';
+import {
+  Card
+} from './card.js';
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -20,12 +22,22 @@ const sliderCount = document.getElementById('slider-count');
 const cardBlock = document.querySelector('.card-block');
 const sliderYear = document.getElementById('slider-year');
 const checkBox = document.getElementById('checkbox');
+const pages = document.querySelectorAll('.page');
+const mainPage = document.querySelector('.main-page');
+const toysPage = document.querySelector('.toys-page');
+const links = document.querySelectorAll('.link');
+const filterShape = document.querySelector('.filter-shape');
+const filterColor = document.querySelector('.filter-color');
+const filterSize = document.querySelector('.filter-size');
+const counterFavorite = document.querySelector('.favorite-count');
 const dataSetting = JSON.parse(localStorage.getItem('setting'));
 const search = document.querySelector('.search');
 const select = document.querySelector('.filter-select');
 const searchBlok = document.querySelector('.header-search-block');
 const alertD = document.querySelector('.alert');
 const alertC = document.querySelector('.alert-count');
+const reset = document.querySelector('.reset');
+const resetLocal = document.querySelector('.reset-local');
 let card = new Card(cardBlock);
 
 setSetting();
@@ -67,7 +79,6 @@ sliderCount.noUiSlider.on('update', function (values, handle, unencoded, isTap, 
   dataSetting.count[0] = parseInt(values[0].slice(0, -3));
   dataSetting.count[1] = parseInt(values[1].slice(0, -3));
   localStorage.setItem('setting', JSON.stringify(dataSetting));
-
   createCard();
 });
 
@@ -82,7 +93,6 @@ sliderYear.noUiSlider.on('update', function (values, handle, unencoded, isTap, p
   dataSetting.year[0] = parseInt(values[0].slice(0, -3));
   dataSetting.year[1] = parseInt(values[1].slice(0, -3));
   localStorage.setItem('setting', JSON.stringify(dataSetting));
-
   createCard();
 });
 
@@ -117,8 +127,6 @@ function setSetting() {
 //const a = JSON.parse(localStorage.getItem('setting')).color;
 //console.log(a)
 
-const filterShape = document.querySelector('.filter-shape');
-
 filterShape.addEventListener('click', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
   if (e.target.classList.contains('filter-button')) {
@@ -130,12 +138,9 @@ filterShape.addEventListener('click', function (e) {
     })
     dataSetting.shape = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-
     createCard();
   }
 })
-
-const filterColor = document.querySelector('.filter-color');
 
 filterColor.addEventListener('click', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
@@ -148,12 +153,9 @@ filterColor.addEventListener('click', function (e) {
     })
     dataSetting.color = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-
     createCard();
   }
 })
-
-const filterSize = document.querySelector('.filter-size');
 
 filterSize.addEventListener('click', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
@@ -166,7 +168,6 @@ filterSize.addEventListener('click', function (e) {
     })
     dataSetting.size = array;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-
     createCard();
   }
 })
@@ -176,7 +177,6 @@ checkBox.addEventListener('change', function (e) {
   if (e.target.closest('.filter-favorite-form')) {
     dataSetting.favorite = checkBox.checked;
     localStorage.setItem('setting', JSON.stringify(dataSetting));
-
     createCard();
   }
 })
@@ -195,24 +195,18 @@ function filterCards() {
     .filter(item => dataSetting.favorite === true ? item.favorite === true : item);
 
   dataFilter = sort(dataFilter);
-  //  console.log("сортировка успещна", dataFilter);
   dataFilter = searchInData(dataFilter);
-  //  console.log("поиск успешен", dataFilter);
   return dataFilter;
 }
-
-const pages = document.querySelectorAll('.page');
-const mainPage = document.querySelector('.main-page');
-const toysPage = document.querySelector('.toys-page');
-const links = document.querySelectorAll('.link');
-const counterFavorite = document.querySelector('.favorite-count');
 
 links.forEach(link => link.addEventListener('click', function () {
   searchBlok.classList.remove('hide');
   document.getElementById('searchId').focus();
   document.getElementById('searchId').select();
   const pageName = this.dataset.page;
-  if(pageName == "main-page"){searchBlok.classList.add('hide')}
+  if (pageName == "main-page") {
+    searchBlok.classList.add('hide')
+  }
   pages.forEach(page => {
     if (page.classList.contains(pageName)) {
       page.classList.remove('hide');
@@ -227,11 +221,9 @@ function createCard() {
   const dataAfterFilter = filterCards();
   card.renderCard(dataAfterFilter);
 }
-
 createCard();
 
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
-
 
 let count = 0;
 document.addEventListener('click', (e) => {
@@ -241,14 +233,14 @@ document.addEventListener('click', (e) => {
       count++;
       e.target.querySelector('.favorite span').textContent = 'Да';
       counterFavorite.textContent = count;
-      if(count > 2) {
-    count = 2;
-    counterFavorite.textContent = count;
-    e.target.children[3].classList.toggle('colored');
-    setTimeout(() => alertC.classList.remove('hide'));
-    setTimeout(() => alertC.classList.add('hide'), 1500);
-    e.target.querySelector('.favorite span').textContent = 'Нет';
-  }
+      if (count > 20) {
+        count = 20;
+        counterFavorite.textContent = count;
+        e.target.children[3].classList.toggle('colored');
+        setTimeout(() => alertC.classList.remove('hide'));
+        setTimeout(() => alertC.classList.add('hide'), 1500);
+        e.target.querySelector('.favorite span').textContent = 'Нет';
+      }
     } else {
       count--;
       e.target.querySelector('.favorite span').textContent = 'Нет'
@@ -272,23 +264,19 @@ cards.forEach((card) => {
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
+  searchBlok.classList.remove('hide');
   document.getElementById('searchId').focus();
   document.getElementById('searchId').select();
-  searchBlok.classList.remove('hide');
-
 })
 
-const resetLocal = document.querySelector('.reset-local');
 resetLocal.addEventListener('click', () => {
   localStorage.clear();
   document.location.reload();
 })
 
-
 search.addEventListener('input', function () {
   filterCards();
   createCard();
-
 })
 
 window.addEventListener('load', () => {
@@ -296,7 +284,6 @@ window.addEventListener('load', () => {
   document.getElementById('searchId').select();
   alertD.classList.add('hide')
 })
-
 
 function searchInData(data) {
   let val = search.value.toLowerCase().trim();
@@ -328,3 +315,40 @@ function sort(data) {
   }
   return result;
 }
+
+function unSetting() {
+  let dataSetting = JSON.parse(localStorage.getItem('setting'));
+  let colorsArray = document.querySelectorAll('.filter-color .filter-button');
+  let shapeArray = document.querySelectorAll('.filter-shape .filter-button');
+  let sizeArray = document.querySelectorAll('.filter-size .filter-button');
+  colorsArray.forEach((item, index) => {
+    dataSetting.color.includes(item.dataset.filter);
+    if (dataSetting.color.includes(item.dataset.filter)) {
+      item.classList.remove('color-active');
+    }
+  })
+  shapeArray.forEach((item, index) => {
+    dataSetting.shape.includes(item.dataset.filter);
+    if (dataSetting.shape.includes(item.dataset.filter)) {
+      item.classList.remove('active');
+    }
+  })
+  sizeArray.forEach((item, index) => {
+    dataSetting.size.includes(item.dataset.filter);
+    if (dataSetting.size.includes(item.dataset.filter)) {
+      item.classList.remove('active');
+    }
+  })
+  checkBox.checked = false;
+  resetSliders();
+  cardBlock.innerHTML = "";
+}
+
+function resetSliders() {
+  sliderYear.noUiSlider.set([1940, 2020]);
+  sliderCount.noUiSlider.set([1, 12]);
+}
+
+reset.addEventListener('click', () => {
+  unSetting();
+})
