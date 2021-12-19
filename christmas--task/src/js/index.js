@@ -1,9 +1,7 @@
 import('../styles/style.css')
 import data from './data.js';
 import noUiSlider from 'nouislider/dist/nouislider.mjs';
-import {
-  Card
-} from './card.js';
+import { Card } from './card.js';
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -26,8 +24,8 @@ const dataSetting = JSON.parse(localStorage.getItem('setting'));
 const search = document.querySelector('.search');
 const select = document.querySelector('.filter-select');
 const searchBlok = document.querySelector('.header-search-block');
-
 const alertD = document.querySelector('.alert');
+const alertC = document.querySelector('.alert-count');
 let card = new Card(cardBlock);
 
 setSetting();
@@ -210,7 +208,7 @@ const links = document.querySelectorAll('.link');
 const counterFavorite = document.querySelector('.favorite-count');
 
 links.forEach(link => link.addEventListener('click', function () {
-  searchBlok.classList.remove('hide')
+  searchBlok.classList.remove('hide');
   document.getElementById('searchId').focus();
   document.getElementById('searchId').select();
   const pageName = this.dataset.page;
@@ -241,14 +239,24 @@ document.addEventListener('click', (e) => {
     e.target.children[3].classList.toggle('colored');
     if (e.target.children[3].classList.contains('colored')) {
       count++;
-      e.target.querySelector('.favorite span').textContent = 'Да'
-      counterFavorite.textContent = count
+      e.target.querySelector('.favorite span').textContent = 'Да';
+      counterFavorite.textContent = count;
+      if(count > 2) {
+    count = 2;
+    counterFavorite.textContent = count;
+    e.target.children[3].classList.toggle('colored');
+    setTimeout(() => alertC.classList.remove('hide'));
+    setTimeout(() => alertC.classList.add('hide'), 1500);
+    e.target.querySelector('.favorite span').textContent = 'Нет';
+  }
     } else {
       count--;
       e.target.querySelector('.favorite span').textContent = 'Нет'
       counterFavorite.textContent = count;
+      //checkBox.checked = false;
     }
   }
+
 })
 
 let cards = document.querySelectorAll('.card');
@@ -266,7 +274,8 @@ mainButton.addEventListener('click', function () {
   toysPage.classList.remove('hide');
   document.getElementById('searchId').focus();
   document.getElementById('searchId').select();
-  searchBlok.classList.remove('hide')
+  searchBlok.classList.remove('hide');
+
 })
 
 const resetLocal = document.querySelector('.reset-local');
@@ -311,11 +320,11 @@ function sort(data) {
   if (select.value == 'max-name') {
     result = data.sort((a, b) => a.name.localeCompare(b.name));
   } else if (select.value == 'min-name') {
-    result = data.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase());
+    result = data.sort((a, b) => b.name.localeCompare(a.name));
   } else if (select.value == 'max-count') {
-    result = data.sort((a, b) => +a.count > +b.count);
+    result = data.sort((a, b) => +a.year - +b.year);
   } else if (select.value == 'min-count') {
-    result = data.sort((a, b) => +a.count < +b.count);
+    result = data.sort((a, b) => +b.year - +a.year);
   }
   return result;
 }

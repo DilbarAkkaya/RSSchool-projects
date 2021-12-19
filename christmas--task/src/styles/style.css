@@ -609,15 +609,17 @@ header {
   flex-direction: column;
 }
 
-.alert{
+.alert, .alert-count{
+  text-align: center;
   width: 20rem;
   height: 2rem;
-  padding: 0.5rem;
+  padding: 0.4rem 0.5rem;
   border-radius: 1rem;
   border: 1px solid #24C5DB;
   background-color: #192F2D;
   background-color:#336662;
 }
+
 @keyframes hiden {
   0% {
     visibility: visible;
