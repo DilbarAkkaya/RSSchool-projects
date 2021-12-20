@@ -4,6 +4,7 @@ import noUiSlider from 'nouislider/dist/nouislider.mjs';
 import {
   Card
 } from './card.js';
+import('./score.js');
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -196,6 +197,7 @@ function filterCards() {
 
   dataFilter = sort(dataFilter);
   dataFilter = searchInData(dataFilter);
+
   return dataFilter;
 }
 
