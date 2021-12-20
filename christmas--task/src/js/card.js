@@ -8,7 +8,7 @@ export class Card {
       card.classList.add("card");
       card.innerHTML = `
     <h2 class="card-title">${data[i].name}</h2>
-    <img src="/assets/toys/${data[i].num}.png" alt="toy" class="card-img">
+    <img src="./assets/toys/${data[i].num}.png" alt="toy" class="card-img">
     <div class="card-descr">
       <p class="count">Количество: <span>${data[i].count}</span></p>
       <p class="year">Год покупки: <span>${data[i].year}</span></p>
