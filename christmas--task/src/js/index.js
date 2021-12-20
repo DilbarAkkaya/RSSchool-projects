@@ -247,13 +247,12 @@ document.addEventListener('click', (e) => {
       count--;
       e.target.querySelector('.favorite span').textContent = 'Нет'
       counterFavorite.textContent = count;
-      //checkBox.checked = false;
     }
   }
 
 })
 
-let cards = document.querySelectorAll('.card');
+/* let cards = document.querySelectorAll('.card');
 
 cards.forEach((card) => {
   card.ontransitionend = function () {
@@ -262,7 +261,7 @@ cards.forEach((card) => {
     }
   }
 })
-
+ */
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
