@@ -619,6 +619,9 @@ header {
   background-color: #192F2D;
   background-color:#336662;
 }
+.hide{
+  display: none;
+}
 
 @keyframes hiden {
   0% {

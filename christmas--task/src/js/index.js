@@ -276,23 +276,23 @@ resetLocal.addEventListener('click', () => {
 })
 
 search.addEventListener('input', function () {
-  filterCards();
+  if(filterCards() == false){
+    alertD.classList.remove('hide')
+  } else{
+    alertD.classList.add('hide')
+  }
   createCard();
 })
 
 window.addEventListener('load', () => {
   document.getElementById('searchId').focus();
   document.getElementById('searchId').select();
-  alertD.classList.add('hide')
 })
 
 function searchInData(data) {
   let val = search.value.toLowerCase().trim();
   let result = data.filter(toy => toy.name.toLowerCase().trim().includes(val));
-  if (data.filter(toy => toy.name.toLowerCase().trim().includes(!val))) {
-    alertD.classList.remove('hide')
-  }
-  if (!val) {
+ if (val === '') {
     alertD.classList.add('hide')
   }
   return result
