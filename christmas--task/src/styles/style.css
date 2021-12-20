@@ -623,15 +623,18 @@ header {
 @keyframes hiden {
   0% {
     visibility: hidden;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     opacity: 0;
     transform: scale(0);
+    font-size: 14px;
   }
   100% {
     visibility: visible;
+    width: 280px;
     height: 280px;
     transform: scale(1);
     opacity: 1;
+    font-size: 1.25rem;
 }
 }
