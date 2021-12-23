@@ -611,10 +611,10 @@ header {
 
 .alert, .alert-count{
   display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   width: 40rem;
   height:40rem;
@@ -628,56 +628,11 @@ header {
   display: none;
 }
 
-.tree-page-block{
-  max-width: 1600px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-}
-
-.choose-favorites{
-  width: 400px;
-  height: 100%;
-  padding-top: 25px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(36, 197, 219, 0.15) 0%, rgba(36, 197, 219, 0) 100%);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-}
-
-.choose-tree{
-  display: flex;
-  flex-direction: column;
-  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(36, 197, 219, 0.15) 0%, rgba(36, 197, 219, 0) 100%);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-}
-
-.choose-tree-block{
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tree{
-  width: 115px;
-  height: 115px;
-  background-size: auto 110px;
-  background-repeat: no-repeat;
-}
-.tree:nth-child(1) {
-  background-image:url(../assets/tree/1.png)
-}
-
 .audio-block{
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .ico{
@@ -695,14 +650,262 @@ header {
 .snow{
   background-image: url(../assets/svg/snow.svg);
 }
+
+.tree-page-block{
+  max-width: 1500px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.choose-favorites{
+  width: 24.5rem;
+  height: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(36, 197, 219, 0.15) 0%, rgba(36, 197, 219, 0) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding-left: 1rem;
+}
+
+.choose-tree{
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.choose-tree-block{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.tree{
+  width: 115px;
+  height: 115px;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-size: auto 110px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.tree:nth-child(1) {
+  background-image:url(../assets/tree/1.png)
+}
+
+.tree:nth-child(2) {
+  background-image:url(../assets/tree/2.png)
+}
+
+.tree:nth-child(3) {
+  background-image:url(../assets/tree/3.png)
+}
+
+.tree:nth-child(4) {
+  background-image:url(../assets/tree/4.png)
+}
+
+.tree:nth-child(5) {
+  background-image:url(../assets/tree/5.png)
+}
+
+.tree:nth-child(6) {
+  background-image:url(../assets/tree/6.png)
+}
+
+
 .tree-block{
+  display: flex;
+  align-items: flex-end;
+  width: 44.75rem;
   background-image: url(../assets/bg/1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
 }
 .tree-img{
   display: block;
   width: 500px;
-  height: 700px;
+  height: 714px;
 }
+
+.bg{
+  width: 65px;
+  height: 65px;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.bg:nth-child(1){
+  background-image: url(../assets/bg/1.jpg);
+}
+.bg:nth-child(2){
+  background-image: url(../assets/bg/2.jpg);
+}
+.bg:nth-child(3){
+  background-image: url(../assets/bg/3.jpg);
+}
+.bg:nth-child(4){
+  background-image: url(../assets/bg/4.jpg);
+}
+.bg:nth-child(5){
+  background-image: url(../assets/bg/5.jpg);
+}
+.bg:nth-child(6){
+  background-image: url(../assets/bg/6.jpg);
+}
+.bg:nth-child(7){
+  background-image: url(../assets/bg/7.jpg);
+}
+.bg:nth-child(8){
+  background-image: url(../assets/bg/8.jpg);
+}
+.bg:nth-child(9){
+  background-image: url(../assets/bg/9.jpg);
+}
+.bg:nth-child(10){
+  background-image: url(../assets/bg/10.jpg);
+}
+
+.garland-btn{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.garland-btn:nth-child(1){
+  background: linear-gradient(200deg, #ff2456, #e81544, #e8b71e, #e8b72a, #1de350, #24C5DB, #2b1de1);
+}
+
+.garland-btn:nth-child(2){
+  background: #e81544;
+}
+
+.garland-btn:nth-child(3){
+  background: #6bb0e9;
+}
+
+.garland-btn:nth-child(4){
+  background: #e8b72a;
+}
+
+.garland-btn:nth-child(5){
+  background: #1de350;
+}
+
+.block-garland-switch{
+  display: flex;
+  flex-direction: row;
+}
+
+.switch-block{
+  position: relative;
+  width: 85px;
+  align-self: center;
+}
+
+.switch-label{
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #999990;
+  border-radius: 20px;
+}
+
+.switch-input{
+  display: none;
+}
+
+.switch-label-inner{
+  width: 200%;
+ /* margin-left: -100%;*/
+  transition: margin 0.3s ease-in 0s;
+}
+
+.switch-label-inner::before{
+  float: left;
+  width: 50%;
+  content: "Вкл";
+  height: 30px;
+  padding-left: 10px;
+  color: #fff;
+  background-color: #24C5DB;
+}
+
+.switch-label-inner::after{
+  float: left;
+  width: 50%;
+  content: "Выкл";
+  padding-left: 10px;
+  height: 30px;
+  color: #24C5DB;
+  background-color: #fff;
+}
+
+.switch-label-switch{
+  width: 26px;
+  height: 26px;
+  border-radius: 20px;
+  border: 2px solid #999990;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 55px;
+  background: #fff;
+  transition: all 0.3s ease-in 0s;
+}
+
+.switch-input:checked + .switch-label.switch-label-inner{
+  margin-left: 0;
+}
+
+.switch-input:checked + .switch-label.switch-label-switch{
+  right: 0px;
+}
+
+.favorite-toys{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 1.5rem 0 1.5rem 0;
+}
+
+.item-toys{
+  width: 84px;
+  height: 84px;
+}
+.favorite-toys .card-img{
+  display: block;
+  position: absolute;
+  object-fit: contain;
+  cursor: move;
+  width: 84px;
+  height: 84px;
+}
+
+
+
+
 
 
 @keyframes hiden {

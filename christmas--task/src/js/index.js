@@ -4,7 +4,6 @@ import noUiSlider from 'nouislider/dist/nouislider.mjs';
 import {
   Card
 } from './card.js';
-import('./score.js');
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -226,7 +225,7 @@ function createCard() {
 createCard();
 
 //${data[i].favorite == true ? "ribbon colored" : "ribbon"}
-
+const favoriteToys = document.querySelector('.favorite-toys');
 let count = 0;
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('card')) {
@@ -235,6 +234,10 @@ document.addEventListener('click', (e) => {
       count++;
       e.target.querySelector('.favorite span').textContent = 'Да';
       counterFavorite.textContent = count;
+      let containerForToys = document.createElement('div');
+      containerForToys.classList.add('item-toys');
+      containerForToys.append(e.target.children[1].cloneNode());
+      favoriteToys.append(containerForToys);
       if (count > 20) {
         count = 20;
         counterFavorite.textContent = count;
@@ -247,6 +250,7 @@ document.addEventListener('click', (e) => {
       count--;
       e.target.querySelector('.favorite span').textContent = 'Нет'
       counterFavorite.textContent = count;
+
     }
   }
 
