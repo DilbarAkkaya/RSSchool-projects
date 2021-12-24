@@ -14,9 +14,17 @@ const setting = {
   favorite: true
 };
 
+const isMyFavoriteToy = {
+  isFavorites: false
+}
+
+if(localStorage.getItem('isMyFavoriteToy') === null || localStorage.getItem('isMyFavoriteToy') === '') {
+  localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy))
+};
+
 if (localStorage.getItem('setting') === null || localStorage.getItem('setting') === '') {
   localStorage.setItem('setting', JSON.stringify(setting))
-}
+};
 const mainButton = document.querySelector('.main-page-button');
 const sliderCount = document.getElementById('slider-count');
 const cardBlock = document.querySelector('.card-block');
@@ -224,19 +232,23 @@ function createCard() {
 }
 createCard();
 
-//${data[i].favorite == true ? "ribbon colored" : "ribbon"}
 const favoriteToys = document.querySelector('.favorite-toys');
 let count = 0;
 document.addEventListener('click', (e) => {
+  let isMyFavoriteToy = JSON.parse(localStorage.getItem('isMyFavoriteToy'));
   if (e.target.classList.contains('card')) {
     e.target.children[3].classList.toggle('colored');
     if (e.target.children[3].classList.contains('colored')) {
       count++;
       e.target.querySelector('.favorite span').textContent = 'Да';
       counterFavorite.textContent = count;
+      e.target.dataset.favor = 'true';
+     // isMyFavoriteToy.isFavorites = e.target.dataset.favor;
+     // localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy));
       let containerForToys = document.createElement('div');
       containerForToys.classList.add('item-toys');
       containerForToys.append(e.target.children[1].cloneNode());
+      containerForToys.append(e.target.children[2].children[0].lastChild.innerHTML);
       favoriteToys.append(containerForToys);
       if (count > 20) {
         count = 20;
@@ -250,22 +262,13 @@ document.addEventListener('click', (e) => {
       count--;
       e.target.querySelector('.favorite span').textContent = 'Нет'
       counterFavorite.textContent = count;
-
-    }
-  }
-
-})
-
-/* let cards = document.querySelectorAll('.card');
-
-cards.forEach((card) => {
-  card.ontransitionend = function () {
-    if (card.classList.contains('anime')) {
-      card.classList.add('hide-anime')
+      e.target.dataset.favor = 'false';
+      isMyFavoriteToy.isFavorites = e.target.dataset.favor;
+      localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy));
     }
   }
 })
- */
+
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
@@ -356,4 +359,23 @@ function resetSliders() {
 
 reset.addEventListener('click', () => {
   unSetting();
+})
+
+const treeBlock = document.querySelector('.tree-block');
+//const trees = document.querySelectorAll('.tree');
+const choosedTree = document.querySelector('.choose-tree-block');
+const choosedBg = document.querySelector('.bg-block')
+
+choosedTree.addEventListener('click', (e) => {
+  let treeNum = e.target.dataset.tree;
+    if(treeNum) {
+      treeBlock.innerHTML = `<img src="./assets/tree/${treeNum}.png" alt="tree" class="tree-img">`
+    }
+})
+
+choosedBg.addEventListener('click', (e) => {
+  let bgNum = e.target.dataset.bg;
+    if(bgNum) {
+      treeBlock.style.backgroundImage = `url(../assets/bg/${bgNum}.jpg)`
+    }
 })
