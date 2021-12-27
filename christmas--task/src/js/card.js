@@ -21,6 +21,7 @@ export class Card {
 </div>`;
       this.el.append(card);
       card.classList.add("hide-anime");
+      card.dataset.num = data[i].num;
     }
   }
 }

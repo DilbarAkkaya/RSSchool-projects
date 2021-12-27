@@ -4,6 +4,9 @@ import noUiSlider from 'nouislider/dist/nouislider.mjs';
 import {
   Card
 } from './card.js';
+import { createSnowFlake } from './snow.js';
+
+const body = document.body;
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -14,14 +17,14 @@ const setting = {
   favorite: true
 };
 
-const isMyFavoriteToy = {
-  isFavorites: false
-}
-
-if(localStorage.getItem('isMyFavoriteToy') === null || localStorage.getItem('isMyFavoriteToy') === '') {
-  localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy))
+const myFavoriteToys = [];
+const colored = [];
+if (localStorage.getItem('myFavoriteToys') === null || localStorage.getItem('myFavoriteToys') === '') {
+  localStorage.setItem('myFavoriteToys', JSON.stringify(myFavoriteToys))
 };
-
+if (localStorage.getItem('colored') === null || localStorage.getItem('colored') === '') {
+  localStorage.setItem('colored', JSON.stringify(colored))
+};
 if (localStorage.getItem('setting') === null || localStorage.getItem('setting') === '') {
   localStorage.setItem('setting', JSON.stringify(setting))
 };
@@ -46,7 +49,12 @@ const alertD = document.querySelector('.alert');
 const alertC = document.querySelector('.alert-count');
 const reset = document.querySelector('.reset');
 const resetLocal = document.querySelector('.reset-local');
+const snow = document.querySelector('.snow');
+const treeBlock = document.querySelector('.tree-block');
 let card = new Card(cardBlock);
+
+snow.addEventListener('click', ()=>{
+  setInterval(createSnowFlake, 50);})
 
 setSetting();
 
@@ -223,6 +231,12 @@ links.forEach(link => link.addEventListener('click', function () {
       page.classList.add('hide');
     }
   })
+  if (pageName == 'tree-page') {
+    treeBlock.innerHTML = `<img src="./assets/tree/${1}.png" alt="tree" class="tree-img">`;
+    const favoriteToys = document.querySelector('.favorite-toys');
+    favoriteToys.innerHTML = '';
+    createFavoriteCard();
+  }
 }))
 
 function createCard() {
@@ -232,9 +246,68 @@ function createCard() {
 }
 createCard();
 
-const favoriteToys = document.querySelector('.favorite-toys');
-let count = 0;
+function createFavoriteCard() {
+  let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
+  const favoriteToys = document.querySelector('.favorite-toys');
+  if (favoriteCards = []) {
+    favoriteToys.innerHTML = '';
+    for (let i = 1; i < 21; i++) {
+      let card = document.createElement("div");
+      card.classList.add('favorite-toys-card');
+      card.innerHTML = `
+        <img src="./assets/toys/${i}.png" alt="toy" class="card-img">
+        <p class="count">${data[i].count}</p>`
+      favoriteToys.append(card)
+    }
+  } else if (favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'))) {
+    favoriteToys.innerHTML = '';
+    for (let i = 0; i < favoriteCards.length; i++) {
+      let card = document.createElement("div");
+      card.classList.add('favorite-toys-card');
+      //  if(data[i].num.includes(favoriteCards[i])){
+      card.innerHTML = `
+      <img src="./assets/toys/${favoriteCards[i]}.png" alt="toy" class="card-img">
+      <p class="count">${data[favoriteCards[i]].count}</p>`
+      favoriteToys.append(card)
+    }
+  }
+}
+
 document.addEventListener('click', (e) => {
+  const targetCard = e.target.closest('.card');
+  const targetCardNum = e.target.dataset.num;
+  let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
+  //let coloredClass = JSON.parse(localStorage.getItem('coloredClass'));
+  let favoriteCardsSet = new Set(favoriteCards);
+  //let coloredClassCard = new Set (coloredClass);
+  const favoriteCardsCount = document.querySelector('.favorite-count');
+
+  if (targetCard) {
+    if (favoriteCardsSet.size >= 20) {
+      setTimeout(() => alertC.classList.remove('hide'));
+      setTimeout(() => alertC.classList.add('hide'), 1500);
+    } else {
+      e.target.children[3].classList.toggle('colored');
+      if (e.target.children[3].classList.contains('colored')) {
+        favoriteCardsCount.textContent = (parseInt(favoriteCardsCount.textContent) + 1).toString();
+        favoriteCardsSet.add(targetCardNum);
+        //coloredClassCard.add('colored');
+        localStorage.setItem('myFavoriteToys', JSON.stringify([...favoriteCardsSet]));
+        // localStorage.setItem('colored', JSON.stringify([...coloredClassCard]));
+      } else {
+        favoriteCardsCount.textContent = (parseInt(favoriteCardsCount.textContent) - 1).toString();
+        favoriteCardsSet.delete(targetCardNum);
+        localStorage.setItem('myFavoriteToys', JSON.stringify([...favoriteCardsSet]));
+        createCard()
+      }
+    }
+  }
+})
+
+
+
+let count = 0;
+/*document.addEventListener('click', (e) => {
   let isMyFavoriteToy = JSON.parse(localStorage.getItem('isMyFavoriteToy'));
   if (e.target.classList.contains('card')) {
     e.target.children[3].classList.toggle('colored');
@@ -267,7 +340,7 @@ document.addEventListener('click', (e) => {
       localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy));
     }
   }
-})
+})*/
 
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
@@ -283,9 +356,9 @@ resetLocal.addEventListener('click', () => {
 })
 
 search.addEventListener('input', function () {
-  if(filterCards() == false){
+  if (filterCards() == false) {
     alertD.classList.remove('hide')
-  } else{
+  } else {
     alertD.classList.add('hide')
   }
   createCard();
@@ -299,7 +372,7 @@ window.addEventListener('load', () => {
 function searchInData(data) {
   let val = search.value.toLowerCase().trim();
   let result = data.filter(toy => toy.name.toLowerCase().trim().includes(val));
- if (val === '') {
+  if (val === '') {
     alertD.classList.add('hide')
   }
   return result
@@ -361,21 +434,21 @@ reset.addEventListener('click', () => {
   unSetting();
 })
 
-const treeBlock = document.querySelector('.tree-block');
+
 //const trees = document.querySelectorAll('.tree');
 const choosedTree = document.querySelector('.choose-tree-block');
 const choosedBg = document.querySelector('.bg-block')
 
 choosedTree.addEventListener('click', (e) => {
   let treeNum = e.target.dataset.tree;
-    if(treeNum) {
-      treeBlock.innerHTML = `<img src="./assets/tree/${treeNum}.png" alt="tree" class="tree-img">`
-    }
+  if (treeNum) {
+    treeBlock.innerHTML = `<img src="./assets/tree/${treeNum}.png" alt="tree" class="tree-img">`
+  }
 })
 
 choosedBg.addEventListener('click', (e) => {
   let bgNum = e.target.dataset.bg;
-    if(bgNum) {
-      treeBlock.style.backgroundImage = `url(../assets/bg/${bgNum}.jpg)`
-    }
+  if (bgNum) {
+    treeBlock.style.backgroundImage = `url(../assets/bg/${bgNum}.jpg)`
+  }
 })

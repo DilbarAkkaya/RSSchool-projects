@@ -1,5 +1,6 @@
 @import 'normalize.css';
 @import 'nouislider/dist/nouislider.css';
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
 * {
   box-sizing: border-box;
@@ -10,7 +11,6 @@ body {
   min-width: 360px;
   min-height: 100vh;
   font-family:'Neucha', cursive;
-  font-size: 1.25rem;
   color: #fff;
 }
 .footer{
@@ -726,7 +726,9 @@ header {
   background-image:url(../assets/tree/6.png)
 }
 
-
+.brawn{
+  background-color: #cbb774;
+}
 .tree-block{
   display: flex;
   align-items: flex-end;
@@ -878,6 +880,21 @@ header {
   right: 0px;
 }
 
+.favorite-toys-block{
+  width: 24.5rem;
+  height: 100%;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(36, 197, 219, 0.15) 0%, rgba(36, 197, 219, 0) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding-left: 1rem;
+}
+
 .favorite-toys{
   display: flex;
   flex-wrap: wrap;
@@ -886,7 +903,19 @@ header {
   align-content: flex-start;
   gap: 10px;
   width: 100%;
-  padding: 1.5rem 0 1.5rem 0;
+  padding-top: 25px;
+}
+
+.favorite-toys-card{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  max-width: 84px;
+  min-height: 84px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, .5) ;
 }
 
 .item-toys{
@@ -900,23 +929,45 @@ header {
   position: absolute;
   object-fit: contain;
   cursor: move;
-  width: 84px;
-  height: 84px;
+  width: 60px;
+  height: 60px;
 }
 
-.favorite-toys span{
+.favorite-toys p{
   display: block;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #24C5DB;
-  text-align: center;
-  padding-top: 5px;
+  align-self: flex-end;
   z-index: 10;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #24C5DB;
+  margin-left: 60px;
+  }
+
+  i.fa-snowflake:before{
+    content: url(../assets/svg/snowflake.svg);
+    z-index: 10000;
+  }
+
+.fa-snowflake {
+	position: absolute;
+	top: -20px;
+	animation: fall linear forwards;
 }
 
-
-
+.circle{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 50px;
+}
+@keyframes fall {
+	to {
+		transform: translateY(115vh);
+	}
+}
 
 @keyframes hiden {
   0% {
