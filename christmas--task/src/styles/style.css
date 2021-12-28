@@ -963,6 +963,8 @@ header {
 .garland {
   z-index: 100000;
   position: absolute;
+  left: 205px;
+  bottom: 80px;
   pointer-events: none;
   height: 500px;
   width:100%;
@@ -993,6 +995,25 @@ header {
   animation: var(--speed) alternate 0s infinite blinkGreen;
 }
 
+.redFill {
+  fill: var(--red);
+  animation: var(--speed) alternate 0s infinite flash-1;
+}
+
+.blueFill {
+  fill: var(--blue);
+  animation: var(--speed) alternate 0s infinite flash-2;
+}
+
+.yellowFill {
+  fill: var(--yellow);
+  animation: var(--speed) alternate 0.5s infinite flash-3;
+}
+
+.greenFill {
+  fill: var(--green);
+  animation: var(--speed) alternate 0s infinite flash-4;
+}
 
 @keyframes fall {
 	to {
@@ -1077,5 +1098,50 @@ header {
   }
   75% {
     fill: var(--blue);
+  }
+}
+@keyframes flash-1 {
+  0%, 100% {
+    fill: #f70021;
+    box-shadow: 0px 4.66667px 24px 3px #f70067;
+  }
+  50% {
+    fill: rgba(231, 127, 141, 0.966);
+    box-shadow: 0px 4.66667px 24px 3px rgba(0, 247, 165, 0.2);
+  }
+}
+
+@keyframes flash-2 {
+  0%, 100% {
+    fill: #0400f7;
+    box-shadow: 0px 4.66667px 24px 3px #0088f7;
+  }
+  50% {
+    fill: rgba(128, 216, 243, 0.966);
+    box-shadow: 0px 4.66667px 24px 3px rgba(0, 247, 165, 0.2);
+  }
+}
+
+@keyframes flash-3 {
+  0%, 100% {
+    fill: #f8fc0af8;
+    box-shadow: 0px 4.66667px 24px 3px #e7f700;
+  }
+  50% {
+    fill: rgba(237, 247, 212, 0.966);
+    box-shadow: 0px 4.66667px 24px 3px rgba(191, 216, 189, 0.2);
+  }
+}
+
+@keyframes flash-3 {
+  0%, 100% {
+    fill: #64d805;
+    box-shadow: 0px 4.66667px 24px 3px #07c707;
+    opacity: 1;
+  }
+  50% {
+    fill: rgba(206, 221, 208, 0.966);
+    box-shadow: 0px 4.66667px 24px 3px rgba(225, 235, 223, 0.2);
+    opacity: 0.1;
   }
 }

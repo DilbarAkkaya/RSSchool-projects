@@ -5,14 +5,19 @@ import {
   Card
 } from './card.js';
 import { createSnowFlake } from './snow.js';
-window.addEventListener('load', ()=> {
+import { createRainGarland} from './garland.js';
+import { createRedGarland } from './garland.js';
+import { createBlueGarland } from './garland.js';
+import { createYellowGarland } from './garland.js';
+import { createGreenGarland } from './garland.js';
+/* window.addEventListener('load', ()=> {
   const alertSms = document.querySelector('.alert-sms');
   alertSms.classList.remove('hide');
 
 	setTimeout(() => {
 		alertSms.classList.add('hide');
 	}, 5000)
-})
+}) */
 const body = document.body;
 
 const setting = {
@@ -474,81 +479,25 @@ choosedBg.addEventListener('click', (e) => {
 })
 
 document.addEventListener('click', (e) => {
-  const targetGarlandButton = e.target.closest('.rain');
-  if(targetGarlandButton) {
-    let ns = "http://www.w3.org/2000/svg";
-    let garlandSvg = document.createElementNS(ns,'svg');
-    garlandSvg.classList.add('garland');
-    garlandSvg.innerHTML = `
-    <path d="M0 0 C 0 0, 3 3, 5 5,
-             C 5 5, 10 20, 25 25,
-             C 25 25, 30 30, 35 55,
-             C 35 55, 35 75, 65 75,
-             C 65 75, 80 75, 105 65,
-             C 105 65, 120 65, 135 45,
-             C 135 45, 150 55, 165 25,
-             C 165 25, 180 35, 195 5,
-             C 195 5, 210 25, 235 5,
-             C 235 5, 250 25, 265 25,
-             C 265 25, 280 45, 295 45,
-             C 295 45, 310 55, 335 35,
-             C 335 35, 350 45, 375 20,
-             C 375 20, 390 25, 405 5,
-             C 405 5, 410 5, 425 0
-             "stroke="black" fill="transparent"</path>`;
-  for(let x = 105; x<500; x+=50){
-    for(let y = 65; y < 500; y+=50) {
-      let circle = document.createElementNS(ns, 'circle');
-      circle.setAttributeNS(null, 'cx', x);
-      circle.setAttributeNS(null, 'cy', y);
-      circle.setAttributeNS(null,'r', 5);
-      circle.classList.add('red')
-      garlandSvg.append(circle);
-    }
+  const targetGarlandButtonRain = e.target.closest('.rain');
+  const targetGarlandButtonRed = e.target.closest('.red');
+  const targetGarlandButtonBlue = e.target.closest('.blue');
+  const targetGarlandButtonYellow = e.target.closest('.yellow');
+  const targetGarlandButtonGreen = e.target.closest('.green');
+  if(targetGarlandButtonRain) {
+    createRainGarland()
   }
-  treeBlock.append(garlandSvg)
+  if(targetGarlandButtonRed) {
+    createRedGarland()
+  }
+  if(targetGarlandButtonBlue) {
+    createBlueGarland()
+  }
+  if(targetGarlandButtonYellow) {
+    createYellowGarland()
+  }
+  if(targetGarlandButtonGreen) {
+    createGreenGarland()
   }
 })
 
-
-/* document.addEventListener('click', (e) => {
-  const targetGarlandButton = e.target.closest('.rain');
-  if(targetGarlandButton) {
-    let garlandSvg =  document.createElement('svg');
-    garlandSvg.classList.add('garland');
-    console.log(99999)
-    garlandSvg.innerHTML=`<path d="M0 0 C 0 0, 3 3, 5 5,
-    C 5 5, 10 20, 25 25,
-    C 25 25, 30 30, 35 55,
-    C 35 55, 35 75, 65 75,
-    C 65 75, 80 75, 105 65,
-    C 105 65, 120 65, 135 45,
-    C 135 45, 150 55, 165 25,
-    C 165 25, 180 35, 195 5,
-    C 195 5, 210 25, 235 5,
-    C 235 5, 250 25, 265 25,
-    C 265 25, 280 45, 295 45,
-    C 295 45, 310 55, 335 35,
-    C 335 35, 350 45, 375 20,
-    C 375 20, 390 25, 405 5,
-    C 405 5, 410 5, 425 0
-    " stroke="black" fill="transparent"></path>
-<circle cx="5" cy="5" r="5" class="red"></circle>
-<circle cx="25" cy="25" r="5" class="blue"></circle>
-<circle cx="35" cy="55" r="5" class="green"></circle>
-<circle cx="65" cy="75" r="5" class="yellow"></circle>
-<circle cx="105" cy="65" r="5" class="red"></circle>
-<circle cx="135" cy="45" r="5" class="blue"></circle>
-<circle cx="165" cy="25" r="5" class="green"></circle>
-<circle cx="195" cy="5" r="5" class="yellow"></circle>
-<circle cx="235" cy="5" r="5" class="red"></circle>
-<circle cx="265" cy="25" r="5" class="blue"></circle>
-<circle cx="295" cy="45" r="5" class="green"></circle>
-<circle cx="335" cy="35" r="5" class="yellow"></circle>
-<circle cx="375" cy="20" r="5" class="red"></circle>
-<circle cx="405" cy="5" r="5" class="blue"></circle>
-`;
-treeBlock.append(garlandSvg);
-  }
-})
- */
