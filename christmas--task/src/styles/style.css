@@ -609,7 +609,7 @@ header {
   flex-direction: column;
 }
 
-.alert, .alert-count{
+.alert, .alert-count, .alert-sms{
   display: block;
   position: fixed;
   top: 50%;
@@ -623,6 +623,8 @@ header {
   border: 1px solid #24C5DB;
   background-color: #192F2D;
   background-color:#336662;
+  z-index: 10000;
+  font-size: 40px;
 }
 .hide{
   display: none;
@@ -730,6 +732,7 @@ header {
   background-color: #cbb774;
 }
 .tree-block{
+  position: relative;
   display: flex;
   align-items: flex-end;
   width: 44.75rem;
@@ -741,6 +744,7 @@ header {
 .tree-img{
   width: 500px;
   height: 714px;
+  z-index: 9999;
 }
 
 .bg{
@@ -956,13 +960,40 @@ header {
 	animation: fall linear forwards;
 }
 
-.circle{
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  float: left;
-  margin-right: 50px;
+.garland {
+  z-index: 100000;
+  position: absolute;
+  pointer-events: none;
+  height: 500px;
+  width:100%;
+  --red: #ff2c2c;
+  --yellow: #ffeb00;
+  --green: #00ff5d;
+  --blue: #0095ff;
+  --speed: 1.5s;
 }
+
+.red {
+  fill: var(--red);
+  animation: var(--speed) alternate 0s infinite blinkRed;
+}
+
+.yellow {
+  fill: var(--yellow);
+  animation: var(--speed) alternate 0s infinite blinkYellow;
+}
+
+.blue {
+  fill: var(--blue);
+  animation: var(--speed) alternate 0s infinite blinkBlue;
+}
+
+.green {
+  fill: var(--green);
+  animation: var(--speed) alternate 0s infinite blinkGreen;
+}
+
+
 @keyframes fall {
 	to {
 		transform: translateY(115vh);
@@ -986,4 +1017,65 @@ header {
     opacity: 1;
     font-size: 1.25rem;
 }
+}
+
+
+@keyframes blinkRed {
+  0%{
+    fill: var(--red);
+  }
+  25% {
+    fill: var(--blue);
+  }
+  50% {
+    fill: var(--green);
+  }
+  75% {
+    fill: var(--yellow);
+  }
+}
+
+@keyframes blinkYellow {
+  0%{
+    fill: var(--yellow);
+  }
+  25% {
+    fill: var(--red);
+  }
+  50% {
+    fill: var(--blue);
+  }
+  75% {
+    fill: var(--green);
+  }
+}
+
+@keyframes blinkBlue {
+  0%{
+    fill: var(--blue);
+  }
+  25% {
+    fill: var(--green);
+  }
+  50% {
+    fill: var(--yellow);
+  }
+  75% {
+    fill: var(--red);
+  }
+}
+
+@keyframes blinkGreen {
+  0%{
+    fill: var(--green);
+  }
+  25% {
+    fill: var(--yellow);
+  }
+  50% {
+    fill: var(--red);
+  }
+  75% {
+    fill: var(--blue);
+  }
 }
