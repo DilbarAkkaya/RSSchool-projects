@@ -469,7 +469,7 @@ choosedTree.addEventListener('click', (e) => {
 choosedBg.addEventListener('click', (e) => {
   let bgNum = e.target.dataset.bg;
   if (bgNum) {
-    treeBlock.style.backgroundImage = `url(../assets/bg/${bgNum}.jpg)`
+    treeBlock.style.backgroundImage = `url(./assets/bg/${bgNum}.jpg)`
   }
 })
 
