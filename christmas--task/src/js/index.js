@@ -5,7 +5,8 @@ import {
   Card
 } from './card.js';
 import {
-  createSnowFlake, updateSnow
+  createSnowFlake,
+  updateSnow
 } from './snow.js';
 import {
   createRainGarland
@@ -310,16 +311,35 @@ function createFavoriteCard() {
   if (favoriteCards.length == 0) {
     favoriteToys.innerHTML = '';
     for (let i = 0; i < 20; i++) {
+      let currentCount = data[i].count;
+      let card = document.createElement("div");
+      card.classList.add('favorite-toys-card');
+      for (let j = 0; j < currentCount; j++) {
+        let image = document.createElement('img');
+        image.src = `./assets/toys/${data[i].num}.png`;
+        image.setAttribute('alt', 'toy');
+        image.setAttribute('id', `un${i}-${j}`);
+        image.setAttribute('draggable', 'true');
+        image.classList.add('card-img')
+        card.append(image);
+      }
+      let countText = document.createElement('p');
+  countText.classList.add('count');
+  countText.textContent = currentCount;
+  favoriteToys.append(card);
+  card.append(countText)
+    }
+  }
+}
+
+   /*  for (let i = 0; i < 20; i++) {
       let card = document.createElement("div");
       card.classList.add('favorite-toys-card');
       card.innerHTML = `
         <img src="./assets/toys/${data[i].num}.png" alt="toy" id = ${i} draggable ="true" class="card-img">
         <p class="count">${data[i].count}</p>`
       favoriteToys.append(card)
-    }
-  }
-}
-
+    } */
 const favoriteCardsCount = document.querySelector('.favorite-count');
 let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
 favoriteCardsCount.textContent = favoriteCards.length;
@@ -452,8 +472,13 @@ choosedTree.addEventListener('click', (e) => {
     let treeImg = document.createElement('img');
     treeImg.src = `./assets/tree/${treeNum}.png`;
     treeImg.classList.add('tree-img');
+    treeImg.setAttribute('usemap', '#image-map');
+    treeBlock.innerHTML = `<map name="image-map">
+  <area target="" alt="" coords="18,543,252,0,485,566,51,613,31,431" data-drop-target = "true" shape="poly">
+</map>`
     treeBlock.append(treeImg);
   }
+  dragHandler();
 })
 
 choosedBg.addEventListener('click', (e) => {
@@ -487,65 +512,59 @@ document.addEventListener('click', (e) => {
 })
 
 
-function dragHandler(){function handleDragStart(e) {
-  e.dataTransfer.setData("text", this.id);
-}
-
-function handleDragEnterLeave(e) {
-  if (e.type == "dragenter") {
-    this.className = "drag-enter"
-  } else {
-    this.className = ""
+function dragHandler() {
+  function handleDragStart(e) {
+    e.dataTransfer.setData("text", this.id);
   }
-}
 
-function handleOverDrop(e) {
-  let draggedId = e.dataTransfer.getData("text");
-  let draggedEl = document.getElementById(draggedId);
-  e.preventDefault();
-  if (e.type != "drop") {
-    return;
+  function handleDragEnterLeave(e) {
+    if (e.type == "dragenter") {
+      this.className = "drag-enter"
+    } else {
+      this.className = ""
+    }
   }
-  if (e.type == "drop") {
+
+  function handleOverDrop(e) {
+    let draggedId = e.dataTransfer.getData("text");
+    let draggedEl = document.getElementById(draggedId);
+    e.preventDefault();
+    if (e.type != "drop") {
+      return;
+    }
+    if (e.type == "drop") {
 
 
-  draggedEl.style.position = 'absolute';
-  draggedEl.style.transform = 'translate(-50%, -50%)';
- // draggedEl.style.left = `${(e.offsetX - draggedEl.offsetWidth / 2)}px`;
- // draggedEl.style.top = `${(e.offsetY - draggedEl.offsetHeight / 2)}px`;
- draggedEl.style.left = `${(e.layerX)}px`;
- draggedEl.style.top = `${(e.layerY)}px`;
-  console.log((`${e.layerX}`))
-  console.log(draggedEl.offsetHeight)
+      draggedEl.style.position = 'absolute';
+      draggedEl.style.transform = 'translate(-50%, -50%)';
+      // draggedEl.style.left = `${(e.offsetX - draggedEl.offsetWidth / 2)}px`;
+      // draggedEl.style.top = `${(e.offsetY - draggedEl.offsetHeight / 2)}px`;
+      draggedEl.style.left = `${(e.layerX)}px`;
+      draggedEl.style.top = `${(e.layerY)}px`;
+      console.log((`${e.layerX}`))
+      console.log(draggedEl.offsetHeight)
 
-}
-  if (draggedEl.parentNode == this) {
+    }
+    if (draggedEl.parentNode == this) {
+      this.className = "";
+      return;
+    }
+    draggedEl.parentNode.removeChild(draggedEl);
+    this.appendChild(draggedEl);
     this.className = "";
-    return;
   }
-  draggedEl.parentNode.removeChild(draggedEl);
-  this.appendChild(draggedEl);
-  this.className = "";
-}
-/* function test(){
+
+  let draggable = document.querySelectorAll('[draggable]')
   let targets = document.querySelectorAll('[data-drop-target]');
-  console.log(targets)
+
+  for (let i = 0; i < draggable.length; i++) {
+    draggable[i].addEventListener("dragstart", handleDragStart);
+  }
+
+  for (let i = 0; i < targets.length; i++) {
+    targets[i].addEventListener("dragover", handleOverDrop);
+    targets[i].addEventListener("drop", handleOverDrop);
+    targets[i].addEventListener("dragenter", handleDragEnterLeave);
+    targets[i].addEventListener("dragleave", handleDragEnterLeave);
+  }
 }
-snow.addEventListener('click', test) */
-
-let draggable = document.querySelectorAll('[draggable]')
-let targets = document.querySelectorAll('[data-drop-target]');
-
-for (let i = 0; i < draggable.length; i++) {
-  draggable[i].addEventListener("dragstart", handleDragStart);
-}
-
-for (let i = 0; i < targets.length; i++) {
-  targets[i].addEventListener("dragover", handleOverDrop);
-  targets[i].addEventListener("drop", handleOverDrop);
-  targets[i].addEventListener("dragenter", handleDragEnterLeave);
-  targets[i].addEventListener("dragleave", handleDragEnterLeave);
-}
-}
-
-
