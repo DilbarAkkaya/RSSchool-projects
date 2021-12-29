@@ -3,6 +3,7 @@ export class Card {
     this.el = el;
   }
   renderCard(data) {
+    let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
     for (let i = 0; i < data.length; i++) {
       let card = document.createElement("div");
       card.classList.add("card");
@@ -17,11 +18,12 @@ export class Card {
       <p class="size">Размер: <span>${data[i].size}</span></p>
       <p class="favorite">Любимая: <span>${data[i].favorite == true ? "Да" : "Нет"}</span></p>
     </div>
-    <div class= "ribbon"></div>
+    ${favoriteCards.includes(data[i].num) ? '<div class= "ribbon colored"></div>': '<div class= "ribbon"></div>'}
+
 </div>`;
-      this.el.append(card);
       card.classList.add("hide-anime");
       card.dataset.num = data[i].num;
+      this.el.append(card);
     }
   }
 }

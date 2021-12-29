@@ -526,7 +526,6 @@ header {
   width: 90px;
   height: 110px;
   object-fit: contain;
-  pointer-events: none;
 }
 
 .card-descr{
@@ -742,9 +741,9 @@ header {
   justify-content: center;
 }
 .tree-img{
+  display: block;
   width: 500px;
   height: 714px;
-  z-index: 9999;
 }
 
 .bg{
@@ -951,7 +950,6 @@ header {
 
   i.fa-snowflake:before{
     content: url(../assets/svg/snowflake.svg);
-    z-index: 10000;
   }
 
 .fa-snowflake {
@@ -964,7 +962,7 @@ header {
   z-index: 100000;
   position: absolute;
   left: 205px;
-  bottom: 80px;
+  bottom: 30px;
   pointer-events: none;
   height: 500px;
   width:100%;
@@ -1017,7 +1015,7 @@ header {
 
 @keyframes fall {
 	to {
-		transform: translateY(115vh);
+		transform: translateY(105vh);
 	}
 }
 

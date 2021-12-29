@@ -4,12 +4,24 @@ import noUiSlider from 'nouislider/dist/nouislider.mjs';
 import {
   Card
 } from './card.js';
-import { createSnowFlake } from './snow.js';
-import { createRainGarland} from './garland.js';
-import { createRedGarland } from './garland.js';
-import { createBlueGarland } from './garland.js';
-import { createYellowGarland } from './garland.js';
-import { createGreenGarland } from './garland.js';
+import {
+  createSnowFlake, updateSnow
+} from './snow.js';
+import {
+  createRainGarland
+} from './garland.js';
+import {
+  createRedGarland
+} from './garland.js';
+import {
+  createBlueGarland
+} from './garland.js';
+import {
+  createYellowGarland
+} from './garland.js';
+import {
+  createGreenGarland
+} from './garland.js';
 /* window.addEventListener('load', ()=> {
   const alertSms = document.querySelector('.alert-sms');
   alertSms.classList.remove('hide');
@@ -18,7 +30,6 @@ import { createGreenGarland } from './garland.js';
 		alertSms.classList.add('hide');
 	}, 5000)
 }) */
-const body = document.body;
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -30,7 +41,9 @@ const setting = {
 };
 
 const myFavoriteToys = [];
+
 const colored = [];
+
 if (localStorage.getItem('myFavoriteToys') === null || localStorage.getItem('myFavoriteToys') === '') {
   localStorage.setItem('myFavoriteToys', JSON.stringify(myFavoriteToys))
 };
@@ -52,7 +65,6 @@ const links = document.querySelectorAll('.link');
 const filterShape = document.querySelector('.filter-shape');
 const filterColor = document.querySelector('.filter-color');
 const filterSize = document.querySelector('.filter-size');
-const counterFavorite = document.querySelector('.favorite-count');
 const dataSetting = JSON.parse(localStorage.getItem('setting'));
 const search = document.querySelector('.search');
 const select = document.querySelector('.filter-select');
@@ -63,11 +75,10 @@ const reset = document.querySelector('.reset');
 const resetLocal = document.querySelector('.reset-local');
 const snow = document.querySelector('.snow');
 const treeBlock = document.querySelector('.tree-block');
-
 let card = new Card(cardBlock);
+const snow_flake = document.querySelector('.fas');
 
-snow.addEventListener('click', ()=>{
-  setInterval(createSnowFlake, 50);})
+snow.addEventListener('click', updateSnow)
 
 setSetting();
 
@@ -152,9 +163,6 @@ function setSetting() {
   createCountSlider();
   createYearSlider();
 }
-
-//const a = JSON.parse(localStorage.getItem('setting')).color;
-//console.log(a)
 
 filterShape.addEventListener('click', function (e) {
   let dataSetting = JSON.parse(localStorage.getItem('setting'));
@@ -250,13 +258,19 @@ links.forEach(link => link.addEventListener('click', function () {
     const favoriteToys = document.querySelector('.favorite-toys');
     favoriteToys.innerHTML = '';
     createFavoriteCard();
+    dragHandler();
   }
 }))
 
-function creatImage(){
-  let treeImg  = document.createElement('img');
+function creatImage() {
+  let treeImg = document.createElement('img');
   treeImg.src = `./assets/tree/1.png`;
-  treeImg.classList.add('.tree-img');
+  treeImg.classList.add('tree-img');
+  treeImg.setAttribute('usemap', '#image-map');
+  treeBlock.innerHTML = `<map name="image-map">
+  <area target="" alt="" coords="18,543,252,0,485,566,51,613,31,431" data-drop-target = "true" shape="poly">
+</map>`
+
   treeBlock.append(treeImg);
 }
 
@@ -270,99 +284,72 @@ createCard();
 function createFavoriteCard() {
   let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
   const favoriteToys = document.querySelector('.favorite-toys');
-  if (favoriteCards = []) {
-    favoriteToys.innerHTML = '';
-    for (let i = 1; i < 21; i++) {
-      let card = document.createElement("div");
-      card.classList.add('favorite-toys-card');
-      card.innerHTML = `
-        <img src="./assets/toys/${i}.png" alt="toy" class="card-img">
-        <p class="count">${data[i].count}</p>`
-      favoriteToys.append(card)
-    }
-  } else if (favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'))) {
+  if (favoriteCards.length > 0) {
     favoriteToys.innerHTML = '';
     for (let i = 0; i < favoriteCards.length; i++) {
+      let currentCount = data[parseInt(favoriteCards[i]) - 1].count;
       let card = document.createElement("div");
       card.classList.add('favorite-toys-card');
-      //  if(data[i].num.includes(favoriteCards[i])){
+
+      for (let j = 0; j < currentCount; j++) {
+        let image = document.createElement('img');
+        image.src = `./assets/toys/${favoriteCards[i]}.png`;
+        image.setAttribute('alt', 'toy-img');
+        image.setAttribute('id', `${i}-${j}`);
+        image.setAttribute('draggable', 'true');
+        image.classList.add('card-img')
+        card.append(image);
+      }
+      let countText = document.createElement('p');
+      countText.classList.add('count');
+      countText.textContent = currentCount;
+      favoriteToys.append(card);
+      card.append(countText)
+    }
+  }
+  if (favoriteCards.length == 0) {
+    favoriteToys.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+      let card = document.createElement("div");
+      card.classList.add('favorite-toys-card');
       card.innerHTML = `
-      <img src="./assets/toys/${favoriteCards[i]}.png" alt="toy" class="card-img">
-      <p class="count">${data[favoriteCards[i]].count}</p>`
+        <img src="./assets/toys/${data[i].num}.png" alt="toy" id = ${i} draggable ="true" class="card-img">
+        <p class="count">${data[i].count}</p>`
       favoriteToys.append(card)
     }
   }
 }
 
+const favoriteCardsCount = document.querySelector('.favorite-count');
+let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
+favoriteCardsCount.textContent = favoriteCards.length;
+
 document.addEventListener('click', (e) => {
   const targetCard = e.target.closest('.card');
-  const targetCardNum = e.target.dataset.num;
+  const targetCardNum = targetCard.dataset.num;
   let favoriteCards = JSON.parse(localStorage.getItem('myFavoriteToys'));
-  //let coloredClass = JSON.parse(localStorage.getItem('coloredClass'));
   let favoriteCardsSet = new Set(favoriteCards);
-  //let coloredClassCard = new Set (coloredClass);
-  const favoriteCardsCount = document.querySelector('.favorite-count');
-
   if (targetCard) {
     if (favoriteCardsSet.size >= 20) {
       setTimeout(() => alertC.classList.remove('hide'));
       setTimeout(() => alertC.classList.add('hide'), 1500);
     } else {
-      e.target.children[3].classList.toggle('colored');
-      if (e.target.children[3].classList.contains('colored')) {
+      targetCard.children[3].classList.toggle('colored');
+      if (targetCard.children[3].classList.contains('colored')) {
+
         favoriteCardsCount.textContent = (parseInt(favoriteCardsCount.textContent) + 1).toString();
         favoriteCardsSet.add(targetCardNum);
-        //coloredClassCard.add('colored');
         localStorage.setItem('myFavoriteToys', JSON.stringify([...favoriteCardsSet]));
-        // localStorage.setItem('colored', JSON.stringify([...coloredClassCard]));
       } else {
         favoriteCardsCount.textContent = (parseInt(favoriteCardsCount.textContent) - 1).toString();
         favoriteCardsSet.delete(targetCardNum);
         localStorage.setItem('myFavoriteToys', JSON.stringify([...favoriteCardsSet]));
-        createCard()
       }
     }
   }
 })
 
-
-
 let count = 0;
-/*document.addEventListener('click', (e) => {
-  let isMyFavoriteToy = JSON.parse(localStorage.getItem('isMyFavoriteToy'));
-  if (e.target.classList.contains('card')) {
-    e.target.children[3].classList.toggle('colored');
-    if (e.target.children[3].classList.contains('colored')) {
-      count++;
-      e.target.querySelector('.favorite span').textContent = 'Да';
-      counterFavorite.textContent = count;
-      e.target.dataset.favor = 'true';
-     // isMyFavoriteToy.isFavorites = e.target.dataset.favor;
-     // localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy));
-      let containerForToys = document.createElement('div');
-      containerForToys.classList.add('item-toys');
-      containerForToys.append(e.target.children[1].cloneNode());
-      containerForToys.append(e.target.children[2].children[0].lastChild.innerHTML);
-      favoriteToys.append(containerForToys);
-      if (count > 20) {
-        count = 20;
-        counterFavorite.textContent = count;
-        e.target.children[3].classList.toggle('colored');
-        setTimeout(() => alertC.classList.remove('hide'));
-        setTimeout(() => alertC.classList.add('hide'), 1500);
-        e.target.querySelector('.favorite span').textContent = 'Нет';
-      }
-    } else {
-      count--;
-      e.target.querySelector('.favorite span').textContent = 'Нет'
-      counterFavorite.textContent = count;
-      e.target.dataset.favor = 'false';
-      isMyFavoriteToy.isFavorites = e.target.dataset.favor;
-      localStorage.setItem('isMyFavoriteToy', JSON.stringify(isMyFavoriteToy));
-    }
-  }
-})*/
-
 mainButton.addEventListener('click', function () {
   mainPage.classList.add('hide');
   toysPage.classList.remove('hide');
@@ -455,18 +442,16 @@ reset.addEventListener('click', () => {
   unSetting();
 })
 
-
-//const trees = document.querySelectorAll('.tree');
 const choosedTree = document.querySelector('.choose-tree-block');
 const choosedBg = document.querySelector('.bg-block')
 
 choosedTree.addEventListener('click', (e) => {
-  treeBlock.innerHTML="";
+  treeBlock.innerHTML = "";
   let treeNum = e.target.dataset.tree;
   if (treeNum) {
-    let treeImg  = document.createElement('img');
+    let treeImg = document.createElement('img');
     treeImg.src = `./assets/tree/${treeNum}.png`;
-    treeImg.classList.add('.tree-img');
+    treeImg.classList.add('tree-img');
     treeBlock.append(treeImg);
   }
 })
@@ -484,20 +469,83 @@ document.addEventListener('click', (e) => {
   const targetGarlandButtonBlue = e.target.closest('.blue');
   const targetGarlandButtonYellow = e.target.closest('.yellow');
   const targetGarlandButtonGreen = e.target.closest('.green');
-  if(targetGarlandButtonRain) {
+  if (targetGarlandButtonRain) {
     createRainGarland()
   }
-  if(targetGarlandButtonRed) {
+  if (targetGarlandButtonRed) {
     createRedGarland()
   }
-  if(targetGarlandButtonBlue) {
+  if (targetGarlandButtonBlue) {
     createBlueGarland()
   }
-  if(targetGarlandButtonYellow) {
+  if (targetGarlandButtonYellow) {
     createYellowGarland()
   }
-  if(targetGarlandButtonGreen) {
+  if (targetGarlandButtonGreen) {
     createGreenGarland()
   }
 })
+
+
+function dragHandler(){function handleDragStart(e) {
+  e.dataTransfer.setData("text", this.id);
+}
+
+function handleDragEnterLeave(e) {
+  if (e.type == "dragenter") {
+    this.className = "drag-enter"
+  } else {
+    this.className = ""
+  }
+}
+
+function handleOverDrop(e) {
+  let draggedId = e.dataTransfer.getData("text");
+  let draggedEl = document.getElementById(draggedId);
+  e.preventDefault();
+  if (e.type != "drop") {
+    return;
+  }
+  if (e.type == "drop") {
+
+
+  draggedEl.style.position = 'absolute';
+  draggedEl.style.transform = 'translate(-50%, -50%)';
+ // draggedEl.style.left = `${(e.offsetX - draggedEl.offsetWidth / 2)}px`;
+ // draggedEl.style.top = `${(e.offsetY - draggedEl.offsetHeight / 2)}px`;
+ draggedEl.style.left = `${(e.layerX)}px`;
+ draggedEl.style.top = `${(e.layerY)}px`;
+  console.log((`${e.layerX}`))
+  console.log(draggedEl.offsetHeight)
+
+}
+  if (draggedEl.parentNode == this) {
+    this.className = "";
+    return;
+  }
+  draggedEl.parentNode.removeChild(draggedEl);
+  this.appendChild(draggedEl);
+  this.className = "";
+}
+/* function test(){
+  let targets = document.querySelectorAll('[data-drop-target]');
+  console.log(targets)
+}
+snow.addEventListener('click', test) */
+
+let draggable = document.querySelectorAll('[draggable]')
+let targets = document.querySelectorAll('[data-drop-target]');
+
+for (let i = 0; i < draggable.length; i++) {
+  draggable[i].addEventListener("dragstart", handleDragStart);
+}
+
+for (let i = 0; i < targets.length; i++) {
+  targets[i].addEventListener("dragover", handleOverDrop);
+  targets[i].addEventListener("drop", handleOverDrop);
+  targets[i].addEventListener("dragenter", handleDragEnterLeave);
+  targets[i].addEventListener("dragleave", handleDragEnterLeave);
+}
+}
+
 
