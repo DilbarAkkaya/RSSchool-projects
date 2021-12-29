@@ -1,6 +1,5 @@
 export function createRainGarland(){
   let ns = "http://www.w3.org/2000/svg";
-
   let garlandSvg = document.createElementNS(ns,'svg');
   const treeBlock = document.querySelector('.tree-block');
   garlandSvg.classList.add('garland');

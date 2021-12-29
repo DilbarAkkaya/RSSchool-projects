@@ -1,5 +1,6 @@
 import('../styles/style.css')
 import data from './data.js';
+import('./score')
 import noUiSlider from 'nouislider/dist/nouislider.mjs';
 import {
   Card
@@ -9,7 +10,7 @@ import {
   updateSnow
 } from './snow.js';
 import {
-  createRainGarland
+  createRainGarland, updateGarland
 } from './garland.js';
 import {
   createRedGarland
@@ -23,14 +24,6 @@ import {
 import {
   createGreenGarland
 } from './garland.js';
-/* window.addEventListener('load', ()=> {
-  const alertSms = document.querySelector('.alert-sms');
-  alertSms.classList.remove('hide');
-
-	setTimeout(() => {
-		alertSms.classList.add('hide');
-	}, 5000)
-}) */
 
 const setting = {
   shape: ['колокольчик', 'шар', 'снежинка', 'фигурка', 'шишка'],
@@ -568,3 +561,15 @@ function dragHandler() {
     targets[i].addEventListener("dragleave", handleDragEnterLeave);
   }
 }
+const update = (e) => {
+  e.target.classList.toggle('audio--active');
+  document.querySelector('audio').play();
+    if (e.target.classList.contains('audio--active')) {
+      document.querySelector('audio').play();
+    }
+    else  {document.querySelector('audio').pause();
+  }
+}
+
+document.querySelector('.audio').addEventListener('click', update)
+
