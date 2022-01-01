@@ -1,75 +1,85 @@
-import ('../styles/style.css')
+import('../styles/style.css')
 import images from './images.js';
-import { Raund } from './raund.js';
-import { pages, bloks, btnHome, pageHome, boxBlok, questionBox, artBox, answersBox, COUNT_OF_RAUNDS } from './variables.js'
+import {
+  Raund
+} from './raund.js';
+import {
+  pages,
+  bloks,
+  btnHome,
+  pageHome,
+  boxBlok,
+  questionBox,
+  artBox,
+  answersBox,
+  COUNT_OF_RAUNDS
+} from './variables.js'
 
 localStorage.setItem('currentRaund', 0);
 localStorage.setItem('currentQuestion', 0);
 
-let arrayOfRaunds =[];
-for(let i= 0; i < COUNT_OF_RAUNDS; i++) {
+let arrayOfRaunds = [];
+for (let i = 0; i < COUNT_OF_RAUNDS; i++) {
   arrayOfRaunds.push(null);
 }
-if(localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
+if (localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
   localStorage.setItem('authorsAnswer', JSON.stringify(array))
 }
-if(localStorage.getItem('picturesAnswer') === null || localStorage.getItem('picturesAnswer') === '') {
+if (localStorage.getItem('picturesAnswer') === null || localStorage.getItem('picturesAnswer') === '') {
   localStorage.setItem('picturesAnswer', JSON.stringify(array))
 }
 
-bloks.forEach(blok => blok.addEventListener('click', function() {
+bloks.forEach(blok => blok.addEventListener('click', function () {
   const pageName = this.dataset.page;
   this.parentNode.classList.add('hide');
   setImageForRaunds()
   pages.forEach(page => {
-    if(page.classList.contains(pageName)) {
+    if (page.classList.contains(pageName)) {
       page.classList.remove('hide')
     }
   })
 }))
 
-btnHome.addEventListener('click', function(){
+btnHome.addEventListener('click', function () {
   this.parentNode.classList.add('hide');
   pageHome.classList.remove('hide');
   questionBox.classList.add('hide');
 })
 
-
-function createRaunds(){
-  for (let i = 0; i < 12; i++) {
+function createRaunds() {
+  for (let i = 0; i < COUNT_OF_RAUNDS; i++) {
     new Raund(boxBlok, `Raund ${i+1}`);
   }
 }
+
 createRaunds()
 
-function setImageForRaunds(){
+function setImageForRaunds() {
   let raunds = boxBlok.querySelectorAll('.child-blok');
-
   raunds.forEach((item, index) => {
-     item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
-     item.dataset.raund = index;
+    item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
+    item.dataset.raund = index;
   })
 }
 
-
-const splitArr = (arr,chunks) =>[
+const splitArr = (arr, chunks) => [
   ...Array(chunks),
-].map((_,c) => arr.filter((n, index) => index % chunks === c));
-const questionByAuthor =[];
+].map((_, c) => arr.filter((n, index) => index % chunks === c));
+const questionByAuthor = [];
 const questionByName = [];
 images.forEach((item, index) => {
-  if(index % 2===0){
+  if (index % 2 === 0) {
     questionByAuthor.push({
       ...item,
       type: 'author',
     });
   }
-  if(index %2 !== 0){
+  if (index % 2 !== 0) {
     questionByName.push({
       ...item,
       type: 'name',
-  });
- }
+    });
+  }
 });
 
 const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
@@ -78,30 +88,28 @@ const uniqAnswersByName = [...new Set(questionByName.map(item => item.author))];
 const newQuestionsByAuthor = splitArr(questionByAuthor, 12);
 const newQuestionsByName = splitArr(questionByName, 12);
 
-const answers ={
+const answers = {
   uniqAnswersByAuthors,
   uniqAnswersByName,
 }
-const questions ={
+const questions = {
   questionByAuthor,
   questionByName,
 }
-
-
 
 function getQuestion(raundNum, quesNum) {
   const arrayOfGettingAnswers = getAnswers();
   boxBlok.classList.add('hide');
   questionBox.classList.remove('hide');
   let imgQ = document.createElement('img');
-    imgQ.src = `./assets/img/${raundNum * 10 + quesNum}.jpg`;
-    artBox.append(imgQ);
-    for(let i = 0; i <= 3; i++){
-      let but = document.createElement('button');
-      but.classList.add('btn');
-      but.textContent = arrayOfGettingAnswers[i];
-      answersBox.append(but);
-    }
+  imgQ.src = `./assets/img/${raundNum * 10 + quesNum}.jpg`;
+  artBox.append(imgQ);
+  for (let i = 0; i <= 3; i++) {
+    let but = document.createElement('button');
+    but.classList.add('btn');
+    but.textContent = arrayOfGettingAnswers[i];
+    answersBox.append(but);
+  }
 }
 
 function getRandom(min, max) {
@@ -111,18 +119,18 @@ function getRandom(min, max) {
   return ranNum;
 }
 
-function getAnswers(){
+function getAnswers() {
   const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
   let arrayOfAnswers = [];
   let currRaund = +localStorage.getItem('currentRaund');
   let currQues = +localStorage.getItem('currentQuestion');
-  arrayOfAnswers.push(images[currRaund*10+currQues].author);
-  for(let i = 0; i < 3; i++){
-    let ranNum = getRandom(1,67);
-    if(arrayOfAnswers.some(el => el === uniqAnswersByAuthors[ranNum])) {
+  arrayOfAnswers.push(images[currRaund * 10 + currQues].author);
+  for (let i = 0; i < 3; i++) {
+    let ranNum = getRandom(1, 67);
+    if (arrayOfAnswers.some(el => el === uniqAnswersByAuthors[ranNum])) {
       i--;
     } else {
-    arrayOfAnswers.push(uniqAnswersByAuthors[ranNum]);
+      arrayOfAnswers.push(uniqAnswersByAuthors[ranNum]);
     }
   }
 
@@ -136,11 +144,11 @@ function getAnswers(){
   return arrayOfAnswers;
 }
 
- document.addEventListener('click', (e)=>{
-if (e.target.classList.contains('child-blok')) {
-  let currRaund = +localStorage.getItem('currentRaund');
-  let currQues = +localStorage.getItem('currentQuestion');
-  getQuestion(currRaund, currQues);
-  getAnswers()
-}
- })
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('child-blok')) {
+    let currRaund = +localStorage.getItem('currentRaund');
+    let currQues = +localStorage.getItem('currentQuestion');
+    getQuestion(currRaund, currQues);
+    getAnswers()
+  }
+})
