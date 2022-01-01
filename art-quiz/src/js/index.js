@@ -8,12 +8,12 @@ const btnHome = document.querySelector('.category-btn');
 const pageHome = document.querySelector('.quiz-list');
 const boxBlok = document.querySelector('.blok-box');
 const questionBox = document.querySelector('.question-box');
-
+const COUNT_OF_RAUNDS = 12;
 localStorage.setItem('currentRaund', 0);
 localStorage.setItem('currentQuestion', 0);
 
 let array =[];
-for(let i= 0; i < 12; i++) {
+for(let i= 0; i < COUNT_OF_RAUNDS; i++) {
   array.push(null);
 }
 if(localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
