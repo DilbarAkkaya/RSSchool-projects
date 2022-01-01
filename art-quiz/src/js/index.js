@@ -26,6 +26,7 @@ if(localStorage.getItem('picturesAnswer') === null || localStorage.getItem('pict
 bloks.forEach(blok => blok.addEventListener('click', function() {
   const pageName = this.dataset.page;
   this.parentNode.classList.add('hide');
+  setImageForRaunds()
   pages.forEach(page => {
     if(page.classList.contains(pageName)) {
       page.classList.remove('hide')
@@ -40,16 +41,22 @@ btnHome.addEventListener('click', function(){
 })
 
 
-
-for (let i = 0; i < 12; i++) {
-  new Raund(boxBlok, `Raund ${i+1}`);
+function createRaunds(){
+  for (let i = 0; i < 12; i++) {
+    new Raund(boxBlok, `Raund ${i+1}`);
+  }
 }
-let raunds = boxBlok.querySelectorAll('.child-blok');
+createRaunds()
 
- raunds.forEach((item, index) => {
-    item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
-    item.dataset.raund = index;
- })
+function setImageForRaunds(){
+  let raunds = boxBlok.querySelectorAll('.child-blok');
+
+  raunds.forEach((item, index) => {
+     item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
+     item.dataset.raund = index;
+  })
+}
+
 
 const splitArr = (arr,chunks) =>[
   ...Array(chunks),
@@ -136,8 +143,9 @@ function getAnswers(){
   return arrayOfAnswers;
 }
 
-
+let raunds = boxBlok.querySelectorAll('.child-blok');
  raunds.forEach(raund => raund.addEventListener('click', ()=>{
+
    let currRaund = +localStorage.getItem('currentRaund');
    let currQues = +localStorage.getItem('currentQuestion');
    getQuestion(currRaund, currQues);
