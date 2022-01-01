@@ -12,9 +12,9 @@ const COUNT_OF_RAUNDS = 12;
 localStorage.setItem('currentRaund', 0);
 localStorage.setItem('currentQuestion', 0);
 
-let array =[];
+let arrayOfRaunds =[];
 for(let i= 0; i < COUNT_OF_RAUNDS; i++) {
-  array.push(null);
+  arrayOfRaunds.push(null);
 }
 if(localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
   localStorage.setItem('authorsAnswer', JSON.stringify(array))
