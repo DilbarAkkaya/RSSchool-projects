@@ -42,8 +42,8 @@ btnHome.addEventListener('click', function(){
 
 
 for (let i = 0; i < 12; i++) {
-  let raunds = new Raund(boxBlok, `Raund ${i+1}`);
-  }
+  new Raund(boxBlok, `Raund ${i+1}`);
+}
 let raunds = boxBlok.querySelectorAll('.child-blok');
 
  raunds.forEach((item, index) => {
