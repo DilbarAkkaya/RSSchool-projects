@@ -85,8 +85,6 @@ const questions ={
   questionByAuthor,
   questionByName,
 }
-console.log(questions)
-console.log(answers)
 
 const artBox = document.querySelector('.art-box');
 const answersBox = document.querySelector('.answers-box');
@@ -142,7 +140,6 @@ function getAnswers(){
  raunds.forEach(raund => raund.addEventListener('click', ()=>{
    let currRaund = +localStorage.getItem('currentRaund');
    let currQues = +localStorage.getItem('currentQuestion');
-   console.log(currQues,currRaund);
    getQuestion(currRaund, currQues);
    getAnswers()
  }))
