@@ -1,14 +1,8 @@
 import ('../styles/style.css')
 import images from './images.js';
 import { Raund } from './raund.js';
+import { pages, bloks, btnHome, pageHome, boxBlok, questionBox, artBox, answersBox, COUNT_OF_RAUNDS } from './variables.js'
 
-const pages = document.querySelectorAll('.page');
-const bloks = document.querySelectorAll('.quiz-blok');
-const btnHome = document.querySelector('.category-btn');
-const pageHome = document.querySelector('.quiz-list');
-const boxBlok = document.querySelector('.blok-box');
-const questionBox = document.querySelector('.question-box');
-const COUNT_OF_RAUNDS = 12;
 localStorage.setItem('currentRaund', 0);
 localStorage.setItem('currentQuestion', 0);
 
@@ -93,11 +87,10 @@ const questions ={
   questionByName,
 }
 
-const artBox = document.querySelector('.art-box');
-const answersBox = document.querySelector('.answers-box');
+
 
 function getQuestion(raundNum, quesNum) {
-  const array = getAnswers();
+  const arrayOfGettingAnswers = getAnswers();
   boxBlok.classList.add('hide');
   questionBox.classList.remove('hide');
   let imgQ = document.createElement('img');
@@ -106,7 +99,7 @@ function getQuestion(raundNum, quesNum) {
     for(let i = 0; i <= 3; i++){
       let but = document.createElement('button');
       but.classList.add('btn');
-      but.textContent = array[i];
+      but.textContent = arrayOfGettingAnswers[i];
       answersBox.append(but);
     }
 }
@@ -143,11 +136,11 @@ function getAnswers(){
   return arrayOfAnswers;
 }
 
-let raunds = boxBlok.querySelectorAll('.child-blok');
- raunds.forEach(raund => raund.addEventListener('click', ()=>{
-
-   let currRaund = +localStorage.getItem('currentRaund');
-   let currQues = +localStorage.getItem('currentQuestion');
-   getQuestion(currRaund, currQues);
-   getAnswers()
- }))
+ document.addEventListener('click', (e)=>{
+if (e.target.classList.contains('child-blok')) {
+  let currRaund = +localStorage.getItem('currentRaund');
+  let currQues = +localStorage.getItem('currentQuestion');
+  getQuestion(currRaund, currQues);
+  getAnswers()
+}
+ })
