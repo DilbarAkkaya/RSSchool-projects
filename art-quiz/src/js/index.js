@@ -1,5 +1,6 @@
 import ('../styles/style.css')
 import images from './images.js';
+import { Raund } from './raund.js';
 
 const pages = document.querySelectorAll('.page');
 const bloks = document.querySelectorAll('.quiz-blok');
@@ -38,15 +39,7 @@ btnHome.addEventListener('click', function(){
   questionBox.classList.add('hide');
 })
 
-class Raund {
-  constructor(el, cont) {
-    let raundBox = document.createElement("div");
-    raundBox.classList.add("child-blok");
-    raundBox.innerText = cont;
-    this.el = raundBox;
-    el.append(raundBox);
-  }
-}
+
 
 for (let i = 0; i < 12; i++) {
   let raunds = new Raund(boxBlok, `Raund ${i+1}`);
