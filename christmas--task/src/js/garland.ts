@@ -1,7 +1,7 @@
 export function createRainGarland(){
-  let ns = "http://www.w3.org/2000/svg";
-  let garlandSvg = document.createElementNS(ns,'svg');
-  const treeBlock = document.querySelector('.tree-block');
+  const ns = 'http://www.w3.org/2000/svg';
+  const garlandSvg = document.createElementNS(ns, 'svg');
+  const treeBlock = document.querySelector('.tree-block') as HTMLElement;
   garlandSvg.classList.add('garland');
   garlandSvg.innerHTML = `
   <path d="M85 5 C 85 5, 100 15, 65 25,
@@ -131,13 +131,13 @@ export function createRainGarland(){
 <circle cx="35" cy="470" r="5" class="blue" />
 <circle cx="10" cy="455" r="5" class="yellow" />
 <circle cx="5" cy="435" r="5" class="green" />`;
-treeBlock.append(garlandSvg)
+  treeBlock.append(garlandSvg);
 }
 
 export function createRedGarland(){
-  let ns = "http://www.w3.org/2000/svg";
-  let garlandSvg = document.createElementNS(ns,'svg');
-  const treeBlock = document.querySelector('.tree-block');
+  const ns = 'http://www.w3.org/2000/svg';
+  const garlandSvg = document.createElementNS(ns, 'svg');
+  const treeBlock = document.querySelector('.tree-block') as HTMLElement;
   garlandSvg.classList.add('garland');
   garlandSvg.innerHTML = `
   <path d="M85 5 C 85 5, 100 15, 65 25,
@@ -267,13 +267,13 @@ export function createRedGarland(){
 <circle cx="35" cy="470" r="5" class="redFill flash-1" />
 <circle cx="10" cy="455" r="5" class="redFill flash-1" />
 <circle cx="5" cy="435" r="5" class="redFill flash-1" />`;
-treeBlock.append(garlandSvg)
+  treeBlock.append(garlandSvg);
 }
 
 export function createBlueGarland(){
-  let ns = "http://www.w3.org/2000/svg";
-  let garlandSvg = document.createElementNS(ns,'svg');
-  const treeBlock = document.querySelector('.tree-block');
+  const ns = 'http://www.w3.org/2000/svg';
+  const garlandSvg = document.createElementNS(ns, 'svg');
+  const treeBlock = document.querySelector('.tree-block') as HTMLElement;
   garlandSvg.classList.add('garland');
   garlandSvg.innerHTML = `
   <path d="M85 5 C 85 5, 100 15, 65 25,
@@ -403,13 +403,13 @@ export function createBlueGarland(){
 <circle cx="35" cy="470" r="5" class="blueFill flash-2" />
 <circle cx="10" cy="455" r="5" class="blueFill flash-2" />
 <circle cx="5" cy="435" r="5" class="blueFill flash-2" />`;
-treeBlock.append(garlandSvg)
+  treeBlock.append(garlandSvg);
 }
 
 export function createYellowGarland(){
-  let ns = "http://www.w3.org/2000/svg";
-  let garlandSvg = document.createElementNS(ns,'svg');
-  const treeBlock = document.querySelector('.tree-block');
+  const ns = 'http://www.w3.org/2000/svg';
+  const garlandSvg = document.createElementNS(ns, 'svg');
+  const treeBlock = document.querySelector('.tree-block') as HTMLElement;
   garlandSvg.classList.add('garland');
   garlandSvg.innerHTML = `
   <path d="M85 5 C 85 5, 100 15, 65 25,
@@ -539,13 +539,13 @@ export function createYellowGarland(){
 <circle cx="35" cy="470" r="5" class="yellowFill flash-3" />
 <circle cx="10" cy="455" r="5" class="yellowFill flash-3" />
 <circle cx="5" cy="435" r="5" class="yellowFill flash-3" />`;
-treeBlock.append(garlandSvg)
+  treeBlock.append(garlandSvg);
 }
 
 export function createGreenGarland(){
-  let ns = "http://www.w3.org/2000/svg";
-  let garlandSvg = document.createElementNS(ns,'svg');
-  const treeBlock = document.querySelector('.tree-block');
+  const ns = 'http://www.w3.org/2000/svg';
+  const garlandSvg = document.createElementNS(ns, 'svg');
+  const treeBlock = document.querySelector('.tree-block') as HTMLElement;
   garlandSvg.classList.add('garland');
   garlandSvg.innerHTML = `
   <path d="M85 5 C 85 5, 100 15, 65 25,
@@ -675,5 +675,5 @@ export function createGreenGarland(){
 <circle cx="35" cy="470" r="5" class="greenFill flash-4" />
 <circle cx="10" cy="455" r="5" class="greenFill flash-4" />
 <circle cx="5" cy="435" r="5" class="greenFill flash-4" />`;
-treeBlock.append(garlandSvg)
+  treeBlock.append(garlandSvg);
 }

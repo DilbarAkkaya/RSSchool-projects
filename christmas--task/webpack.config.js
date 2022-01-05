@@ -17,7 +17,7 @@ module.exports = ({develop}) => ({
   mode: develop ? 'development' : 'production',
   devtool: develop ? 'inline-source-map' : false,
   entry: {
-  app: './src/js/index.js',
+  app: './src/js/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

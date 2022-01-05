@@ -1,4 +1,5 @@
-const data = [
+import { IDataOfToys } from './types';
+export const data: IDataOfToys[] = [
   {
     num: '1',
     name: 'Большой шар с рисунком',
