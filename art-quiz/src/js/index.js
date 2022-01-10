@@ -1,4 +1,4 @@
-import('../styles/style.css')
+import '../styles/style.css';
 import images from './images.js';
 import {
   Raund
@@ -12,7 +12,10 @@ import {
   questionBox,
   artBox,
   answersBox,
-  COUNT_OF_RAUNDS
+  COUNT_OF_RAUNDS,
+  EVERY_TENS_PICTURE,
+  COUNT_OF_UNiQUM,
+  COUNT_OF_BUTTONS,
 } from './variables.js'
 
 localStorage.setItem('currentRaund', 0);
@@ -23,10 +26,10 @@ for (let i = 0; i < COUNT_OF_RAUNDS; i++) {
   arrayOfRaunds.push(null);
 }
 if (localStorage.getItem('authorsAnswer') === null || localStorage.getItem('authorsAnswer') === '') {
-  localStorage.setItem('authorsAnswer', JSON.stringify(array))
+  localStorage.setItem('authorsAnswer', JSON.stringify(arrayOfRaunds))
 }
 if (localStorage.getItem('picturesAnswer') === null || localStorage.getItem('picturesAnswer') === '') {
-  localStorage.setItem('picturesAnswer', JSON.stringify(array))
+  localStorage.setItem('picturesAnswer', JSON.stringify(arrayOfRaunds))
 }
 
 bloks.forEach(blok => blok.addEventListener('click', function () {
@@ -57,7 +60,7 @@ createRaunds()
 function setImageForRaunds() {
   let raunds = boxBlok.querySelectorAll('.child-blok');
   raunds.forEach((item, index) => {
-    item.style.backgroundImage = `url(./assets/img/${index * 10}.jpg)`;
+    item.style.backgroundImage = `url(./assets/img/${index * EVERY_TENS_PICTURE}.jpg)`;
     item.dataset.raund = index;
   })
 }
@@ -85,8 +88,8 @@ images.forEach((item, index) => {
 const uniqAnswersByAuthors = [...new Set(questionByAuthor.map(item => item.author))];
 const uniqAnswersByName = [...new Set(questionByName.map(item => item.author))];
 
-const newQuestionsByAuthor = splitArr(questionByAuthor, 12);
-const newQuestionsByName = splitArr(questionByName, 12);
+const newQuestionsByAuthor = splitArr(questionByAuthor, COUNT_OF_RAUNDS);
+const newQuestionsByName = splitArr(questionByName, COUNT_OF_RAUNDS);
 
 const answers = {
   uniqAnswersByAuthors,
@@ -102,9 +105,9 @@ function getQuestion(raundNum, quesNum) {
   boxBlok.classList.add('hide');
   questionBox.classList.remove('hide');
   let imgQ = document.createElement('img');
-  imgQ.src = `./assets/img/${raundNum * 10 + quesNum}.jpg`;
+  imgQ.src = `./assets/img/${raundNum * EVERY_TENS_PICTURE + quesNum}.jpg`;
   artBox.append(imgQ);
-  for (let i = 0; i <= 3; i++) {
+  for (let i = 0; i <= COUNT_OF_BUTTONS; i++) {
     let but = document.createElement('button');
     but.classList.add('btn');
     but.textContent = arrayOfGettingAnswers[i];
@@ -124,9 +127,9 @@ function getAnswers() {
   let arrayOfAnswers = [];
   let currRaund = +localStorage.getItem('currentRaund');
   let currQues = +localStorage.getItem('currentQuestion');
-  arrayOfAnswers.push(images[currRaund * 10 + currQues].author);
-  for (let i = 0; i < 3; i++) {
-    let ranNum = getRandom(1, 67);
+  arrayOfAnswers.push(images[currRaund * EVERY_TENS_PICTURE + currQues].author);
+  for (let i = 0; i < COUNT_OF_BUTTONS; i++) {
+    let ranNum = getRandom(1, COUNT_OF_UNiQUM);
     if (arrayOfAnswers.some(el => el === uniqAnswersByAuthors[ranNum])) {
       i--;
     } else {
