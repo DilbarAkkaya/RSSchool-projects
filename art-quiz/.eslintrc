@@ -13,6 +13,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
+    "import",
     "@typescript-eslint"
   ],
   "ignorePatterns": ["*.config.js", "node_modules/", "dist/"],
