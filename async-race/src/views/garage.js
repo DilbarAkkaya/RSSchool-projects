@@ -1,4 +1,4 @@
-import { getCars } from "../api";
+import { getCars } from "../api/methods.js";
 import store from "../api/store";
 
 export const renderCarImage = (color) => `<?xml version="1.0" standalone="no"?>
@@ -82,6 +82,7 @@ const renderListOfCars = async () => {
 }
 
 const renderFormOfGarage = () => {
+  const formHtml =
   `<div>
   <form class="form" id="create">
     <input type="text" class="input" id="create-name" name="name">
@@ -94,14 +95,17 @@ const renderFormOfGarage = () => {
     <button class="button" id="update-submit" type="submit">Update</button>
   </form>
 </div>`;
+return formHtml;
 }
 
 const renderButtonsOfRace = () => {
+  const buttonHtml =
   `<div class="race-controls">
   <button class="button race-button primary" id="race">Race</button>
   <button class="button reset-button primary" id="reset">Reset</button>
   <button class="button generator-button" id="generator">Generate cars</button>
 </div>`;
+return buttonHtml;
 }
 
 export const renderHeaderOfGarage = async () => {
@@ -125,6 +129,6 @@ export const renderHeaderOfGarage = async () => {
 export const renderGarageView = () => {
   renderHeaderOfGarage();
   renderListOfCars();
-  renderFormOfGarage();
-  renderButtonsOfRace();
+  const renderTotal = renderFormOfGarage() + renderButtonsOfRace();
+  return renderTotal;
 }
