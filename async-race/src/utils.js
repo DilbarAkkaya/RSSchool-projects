@@ -1,6 +1,5 @@
-import store from './store';
-const models = ['Tesla', 'Mersedes', 'BMW', 'Toyota', 'Zhiguli', 'Moskwich', 'Opel', 'Aston Martin', 'Porshe'];
-const names = ['Model S', 'CLK', '7', 'Camry', 'Combi', '9', 'Corsa', 'DB9', 'Cayene'];
+import store from './api/store';
+import { names, models } from './api/variables';
 
 const getRandomName = () => {
   const model = models[Math.floor(Math.random() * models.length)];

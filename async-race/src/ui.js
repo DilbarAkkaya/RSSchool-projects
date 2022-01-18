@@ -1,5 +1,5 @@
 import { getCar, getCars, createCar, deleteCar, updateCar, getWinners, deleteWinner} from './api';
-import store from './store';
+import store from './api/store';
 import { generateRandomCars } from './utils';
 let selectedCar = null;
 
