@@ -65,8 +65,66 @@ const renderCar = ({id, name, color, isEngineStarted}) => `
 <div class="flag" id="flag-${id}">🚩</div>
 </div>`;
 
-const renderCarsList = async () => {
+const renderListOfCars = async () => {
   await getCars().then((res) => {
-
+    const garageView = document.getElementById('garage-view');
+    const partOfgarageView = document.createDocumentFragment();
+    const listOfCars = document.createElement('ul');
+    listOfCars.classList.add('garage');
+    res.items.forEach((item) => {
+      const itemOfList = document.createElement('li');
+      itemOfList.innerHTML=renderCar(item);
+      listOfCars.append(itemOfList);
+    })
+    partOfgarageView.append(listOfCars);
+    garageView.appendChild(partOfgarageView);
   })
+}
+
+const renderFormOfGarage = () => {
+  `<div>
+  <form class="form" id="create">
+    <input type="text" class="input" id="create-name" name="name">
+    <input type="color" class="color" name="color" id="create-color" value="#ffffff">
+    <button class="button" id="submit" type="submit">Create</button>
+  </form>
+  <form class="form" id="update">
+    <input type="text" class="input" id="update-name" name="name" disabled>
+    <input type="color" class="color" name="color" id="update-color" value="#ffffff">
+    <button class="button" id="update-submit" type="submit">Update</button>
+  </form>
+</div>`;
+}
+
+const renderButtonsOfRace = () => {
+  `<div class="race-controls">
+  <button class="button race-button primary" id="race">Race</button>
+  <button class="button reset-button primary" id="reset">Reset</button>
+  <button class="button generator-button" id="generator">Generate cars</button>
+</div>`;
+}
+
+export const renderHeaderOfGarage = async () => {
+  await getCars().then((res) => {
+    const garageView = document.getElementById('garage-view');
+    const partOfgarageView = document.createDocumentFragment();
+    const header = document.createElement('div');
+    header.id = 'header-garage';
+    const titleOfGarageView = document.createElement('h1');
+    titleOfGarageView.classList.add('header');
+    titleOfGarageView.innerHTML = `Garage ${res.count}`;
+    const subTitle = document.createElement('h2');
+    subTitle.innerHTML = `Page #${store.carsPage}`;
+    header.append(titleOfGarageView);
+    header.append(subTitle);
+    partOfgarageView.append(header);
+    garageView.append(partOfgarageView);
+  })
+}
+
+export const renderGarageView = () => {
+  renderHeaderOfGarage();
+  renderListOfCars();
+  renderFormOfGarage();
+  renderButtonsOfRace();
 }
