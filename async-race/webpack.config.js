@@ -16,7 +16,7 @@ module.exports = ({develop}) => ({
   mode: develop ? 'development' : 'production',
   devtool: develop ? 'inline-source-map' : false,
   entry: {
-  app: './src/index.ts',
+  app: './src/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -53,36 +53,6 @@ module.exports = ({develop}) => ({
       filename: 'index.html',
       template: './src/index.html'
     }),
-  /*  new HtmlWebpackPlugin({
-      filename: 'tour1.html',
-      template: './src/tour1.html',
-    chunks: ['app']
-  }),
-  new HtmlWebpackPlugin({
-    filename: 'tour2.html',
-    template: './src/tour2.html',
-  chunks: ['app']
-}),
-new HtmlWebpackPlugin({
-  filename: 'tour3.html',
-  template: './src/tour3.html',
-chunks: ['app']
-}),
-new HtmlWebpackPlugin({
-  filename: 'tour4.html',
-  template: './src/tour4.html',
-chunks: ['app']
-}),
-new HtmlWebpackPlugin({
-  filename: 'tour5.html',
-  template: './src/tour5.html',
-chunks: ['app']
-}),
-new HtmlWebpackPlugin({
-  filename: 'tour6.html',
-  template: './src/tour6.html',
-chunks: ['app']
-}),*/
     new MiniCssExtractPlugin({filename: '[name].[contenthash].css'}),
     new CopyPlugin({
       patterns: [
@@ -97,5 +67,5 @@ chunks: ['app']
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  ...devServer(develop)
+  ...devServer(develop),
 });
