@@ -1,4 +1,4 @@
-import { getCars, getWinners } from "../api.js";
+import { getCars, getWinners } from "../utils";
 
 //const { items: cars, count: carsCount } = await getCars(1);
 //const { items: winners, count: winnersCount} = await getWinners({ page: 1});

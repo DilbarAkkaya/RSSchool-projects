@@ -3,7 +3,7 @@ import store from '../api/store';
 export const renderWinners = () => `
 <h1>Winners (${store.winnersCount})</h1>
 <h2>Page #${store.winnersPage}</h2>
-<table class="table" cellspacing="0" border="0" cellpadding="0"></table>
+<table class="table" cellspacing="0" border="0" cellpadding="0">
 <thead>
   <th>Number</th>
   <th>Car</th>

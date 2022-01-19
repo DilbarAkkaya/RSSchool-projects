@@ -171,6 +171,7 @@ body {
 }
 
 .table {
+  background: rgb(119, 196, 4);
   margin-bottom: 100px;
 }
 
@@ -180,7 +181,8 @@ body {
 }
 
 .table th {
-  background: rgb(19, 126, 248);
+  background: rgb(224, 238, 255);
+  color: #000000;
 }
 
 .table-button{

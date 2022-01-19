@@ -15,8 +15,8 @@ ${renderGarageView()}
 ${renderWinners()}
 </div>
 <div class="pagination">
-  <button class="button primary prev-button" disabled id="prev">Prev</button>
-  <button class="button primary next-button" disabled id="prev">Next</button>
+  <button class="button primary prev-button" id="prev">Prev</button>
+  <button class="button primary next-button" id="next">Next</button>
 </div>
   `
 const root = document.createElement('div');

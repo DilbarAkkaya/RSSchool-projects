@@ -1,39 +1,19 @@
-import { getCar, getCars, createCar, deleteCar, updateCar, getWinners, deleteWinner} from './api';
+import { getCar, getCars, createCar, deleteCar, updateCar} from './api/methods';
 import store from './api/store';
 import { generateRandomCars } from './utils';
-import { renderGarageView} from './views';
-import {updateStateGarage} from './state';
+import { renderGarageView} from './views/garage';
+import {updateStateGarage} from './state/updateState';
 import { garage } from './api/variables';
 let selectedCar = null;
 
-
-/* export const render = async() => {
-  const html = `
-  <div class="menu">
-  <button class="button garage-menu-button primary" id="garage-menu">To Garage</button>
-  <button class="button winners-menu-button primary" id="winners-menu">To winners</button>
-</div>
-<div id="garage-view">
-
-
-<div>
-  <p class="message" id="message"></p>
-</div>
-
-  `;
-  const root = document.createElement('div');
-  root.innerHTML = html;
-  document.body.appendChild(root);
-}; */
-
-/* const updateGarageView = () => {
+const updateGarageView = () => {
   const header = document.getElementById('header-garage');
   header.remove();
   const listOfCars = document.querySelector('.garage');
   listOfCars.remove();
   renderGarageView();
   updateStateGarage();
-} */
+}
 
 export const listen = () => {
   document.body.addEventListener('click', async (event) => {
@@ -47,6 +27,71 @@ export const listen = () => {
       await updateStateWinners();
       document.getElementById('winners-view').innerHTML = renderWinners();
     }
+    if (event.target.classList.contains('generator-button')) {
+      event.target.disabled = true;
+      const cars = generateRandomCars();
+      await Promise.all(cars.map((car) => createCar(car)));
+      updateGarageView();
+      event.target.disabled = false;
+    }
+    if (event.target.classList.contains('remove-button')) {
+      const id = +event.target.id.split('remove-car-')[1];
+      await deleteCar(id);
+      updateGarageView();
+    }
+    if (event.target.classList.contains('select-button')) {
+      const id = event.target.id.split('select-car-'[1]);
+      selectedCar = await getCar(Number(id));
+      const nameOfSelectCar = selectedCar.name;
+      const colorOfSelectCar = selectedCar.color;
+      const updateName = document.getElementById('update-name');
+      const updateColor = document.getElementById('update-color');
+      const updateButton = document.getElementById('update-submit');
+      updateName.value = nameOfSelectCar;
+      updateColor.value = colorOfSelectCar;
+      updateName.disabled = false;
+      updateColor.disabled = false;
+      updateButton.disabled = false;
+    }
+  })
+
+  const formOfCreateCar = document.getElementById('create');
+
+  formOfCreateCar.addEventListener('submit', async (event) => {
+    event.preventDefault()
+      const createName = document.getElementById('create-name');
+      const createColor = document.getElementById('create-color');
+      const car = {
+        name: createName.value,
+        color: createColor.value,
+      };
+      await createCar(car);
+      updateGarageView();
+      createName.value = '';
+      createColor.value = '';
+  })
+
+  const formOfUpdateCar = document.getElementById('update');
+
+  formOfUpdateCar.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const updateName = document.getElementById('update-name');
+    const updateColor = document.getElementById('update-color');
+    const updateButton = document.getElementById('update-submit');
+    const car = {
+      name: updateName.value,
+      color: updateColor.value,
+    }
+    if(selectedCar) {
+      const id = selectedCar.id;
+      await updateCar(id, car);
+    }
+    updateGarageView();
+    updateName.value='';
+    updateColor.value='#ffffff';
+    updateName.disabled=true;
+    updateColor.disabled=true;
+    updateButton.disabled=true;
   })
 }
 
