@@ -4,8 +4,7 @@ import store from "../api/store";
 export const renderCarImage = (color) => `<?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="981.000000pt" height="550.000000pt" viewBox="0 0 981.000000 550.000000"
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 981.000000 550.000000"
  preserveAspectRatio="xMidYMid meet">
 
 <g transform="translate(0.000000,550.000000) scale(0.100000,-0.100000)"

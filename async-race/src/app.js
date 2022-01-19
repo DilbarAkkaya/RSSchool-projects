@@ -20,6 +20,7 @@ ${renderWinners()}
 </div>
   `
 const root = document.createElement('div');
+root.classList.add('wrapper');
 root.innerHTML = main;
 document.body.append(root);
 }
