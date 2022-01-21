@@ -1,4 +1,3 @@
-import store from './api/store';
 import { names, models } from './api/variables';
 const COUNT_OF_HEXDEC_SYMBOLS = 6;
 const COUNT_OF_HEXDECIMALCODE = 16;

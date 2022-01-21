@@ -1,6 +1,7 @@
-import { getCar, getCars, createCar, deleteCar, updateCar} from './api/methods';
+import { getCar, createCar, deleteCar, updateCar} from './api/methods';
 import { generateRandomCars } from './utils';
 import { renderGarageView} from './views/garage';
+import { renderWinners } from './views/winners';
 import {updateStateGarage} from './state/updateStateGarage';
 let selectedCar = null;
 
