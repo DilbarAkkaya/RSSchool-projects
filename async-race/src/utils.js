@@ -1,6 +1,7 @@
 import store from './api/store';
 import { names, models } from './api/variables';
-
+const COUNT_OF_HEXDEC_SYMBOLS = 6;
+const COUNT_OF_HEXDECIMALCODE = 16;
 
 const getRandomName = () => {
   const model = models[Math.floor(Math.random() * models.length)];
@@ -11,8 +12,8 @@ const getRandomName = () => {
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
   let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+  for (let i = 0; i < COUNT_OF_HEXDEC_SYMBOLS; i++) {
+    color += letters[Math.floor(Math.random() * COUNT_OF_HEXDECIMALCODE)];
   }
   return color;
 }
