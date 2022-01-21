@@ -1,5 +1,5 @@
 import { listen } from './ui';
-import { updateStateGarage } from './state/updateState';
+import { updateStateGarage } from './state/updateStateGarage';
 import './style.css';
 import { renderAppHTML } from './app';
 

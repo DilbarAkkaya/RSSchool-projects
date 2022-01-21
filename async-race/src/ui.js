@@ -1,9 +1,7 @@
 import { getCar, getCars, createCar, deleteCar, updateCar} from './api/methods';
-import store from './api/store';
 import { generateRandomCars } from './utils';
 import { renderGarageView} from './views/garage';
-import {updateStateGarage} from './state/updateState';
-import { garage } from './api/variables';
+import {updateStateGarage} from './state/updateStateGarage';
 let selectedCar = null;
 
 const updateGarageView = () => {
@@ -24,7 +22,6 @@ export const listen = () => {
     if (event.target.classList.contains('winners-menu-button')) {
       document.getElementById('winners-view').style.display = 'block';
       document.getElementById('garage-view').style.display = 'none';
-      await updateStateWinners();
       document.getElementById('winners-view').innerHTML = renderWinners();
     }
     if (event.target.classList.contains('generator-button')) {
@@ -68,7 +65,7 @@ export const listen = () => {
       await createCar(car);
       updateGarageView();
       createName.value = '';
-      createColor.value = '';
+      createColor.value = '#ffffff';
   })
 
   const formOfUpdateCar = document.getElementById('update');
