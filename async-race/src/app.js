@@ -1,5 +1,5 @@
-import { renderGarageView } from "./views/garage";
-import { renderWinners } from "./views/winners";
+import { renderGarageView } from "./components/garageView/garage";
+import { renderWinners } from "./components/winnersView/winners";
 
 export const renderAppHTML = async () => {
   const main =

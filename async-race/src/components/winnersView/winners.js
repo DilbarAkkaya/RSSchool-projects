@@ -1,4 +1,4 @@
-import store from '../api/store';
+import store from '../../api/store';
 
 export const renderWinners = () => `
 <h1>Winners (${store.winnersCount})</h1>

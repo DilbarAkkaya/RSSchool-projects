@@ -1,4 +1,4 @@
-import { names, models } from './api/variables';
+import { names, models } from '../../api/variables';
 const COUNT_OF_HEXDEC_SYMBOLS = 6;
 const COUNT_OF_HEXDECIMALCODE = 16;
 
@@ -17,6 +17,5 @@ const getRandomColor = () => {
   return color;
 }
 
-export const generateRandomCars = (count = 100) => {
-  new Array(count).fill(1).map(() => ({name: getRandomName(), color: getRandomColor()}))
-}
+export const generateRandomCars = (count = 100) => new Array(count)
+  .fill(1).map(() => ({ name: getRandomName(), color: getRandomColor() }));

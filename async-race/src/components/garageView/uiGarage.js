@@ -1,21 +1,12 @@
-import { getCar, createCar, deleteCar, updateCar} from './api/methods';
-import { generateRandomCars } from './utils';
-import { renderGarageView} from './views/garage';
-import { renderWinners } from './views/winners';
-import {updateStateGarage} from './state/updateStateGarage';
+import { getCar, createCar, deleteCar, updateCar} from '../../api/methods';
+import { generateRandomCars } from '../utils/utils';
+import { renderWinners } from '../winnersView/winners';
+import { updateGarageView} from './updateGarageView';
+
 let selectedCar = null;
 
-const updateGarageView = () => {
-  const header = document.getElementById('header-garage');
-  header.remove();
-  const listOfCars = document.querySelector('.garage');
-  listOfCars.remove();
-  renderGarageView();
-  updateStateGarage();
-}
-
 export const listen = () => {
-  document.body.addEventListener('click', async (event) => {
+  document.addEventListener('click', async (event) => {
     if (event.target.classList.contains('garage-menu-button')) {
       document.getElementById('garage-view').style.display = 'block';
       document.getElementById('winners-view').style.display = 'none';
@@ -28,6 +19,7 @@ export const listen = () => {
     if (event.target.classList.contains('generator-button')) {
       event.target.disabled = true;
       const cars = generateRandomCars();
+      console.log(cars)
       await Promise.all(cars.map((car) => createCar(car)));
       updateGarageView();
       event.target.disabled = false;
@@ -38,7 +30,7 @@ export const listen = () => {
       updateGarageView();
     }
     if (event.target.classList.contains('select-button')) {
-      const id = event.target.id.split('select-car-'[1]);
+      const id = event.target.id.split('select-car-')[1];
       selectedCar = await getCar(Number(id));
       const nameOfSelectCar = selectedCar.name;
       const colorOfSelectCar = selectedCar.color;

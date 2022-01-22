@@ -1,0 +1,28 @@
+
+.table {
+  background: rgb(119, 196, 4);
+  margin-bottom: 100px;
+}
+
+.table td, .table th {
+  font-size: 20px;
+  padding: 8px;
+}
+
+.table th {
+  background: rgb(224, 238, 255);
+  color: #000000;
+}
+
+.table-button{
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-button.asc::after{
+  content: ' ↑';
+}
+
+.table-button.desc::after{
+  content: ' ↓'
+}
