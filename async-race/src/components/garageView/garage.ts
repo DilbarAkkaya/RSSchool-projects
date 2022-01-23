@@ -1,7 +1,9 @@
-import { getCars } from "../../api/methods.js";
+import { getCars } from "../../api/methods";
 import store from "../../api/store";
+import { ICar } from "../types";
 
-export const renderCarImage = (color) => `<?xml version="1.0" standalone="no"?>
+
+export const renderCarImage = (color: string | number) => `<?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 981.000000 550.000000"
@@ -44,33 +46,32 @@ m5483 0 c148 -27 342 -163 451 -314 56 -79 110 -193 125 -263 6 -33 10 -121 7
 </svg>
 `;
 
-
-const renderCar = ({id, name, color, isEngineStarted}) => `
+const renderCar: (car: ICar) => string = (car) => `
 <div class = "general-buttons">
-<button class="button select-button" id="select-car-${id}">Select</button>
-<button class="button remove-button" id="remove-car-${id}">Remove</button>
-<span class="car-name">${name}</span>
+<button class="button select-button" id="select-car-${car.id}">Select</button>
+<button class="button remove-button" id="remove-car-${car.id}">Remove</button>
+<span class="car-name">${car.name}</span>
 </div>
 <div class="road">
 <div class="launch-pad">
   <div class="control-panel">
-    <button class="icon start-engine-button" id="start-engine-car-${id}" ${isEngineStarted ? 'disabled' : ''}>A</button>
-    <button class="icon stop-engine-button" id="stop-engine-car-${id}" ${!isEngineStarted ? 'disabled' : ''}>B</button>
+    <button class="icon start-engine-button" id="start-engine-car-${car.id}" ${car.isEngineStarted ? 'disabled' : ''}>A</button>
+    <button class="icon stop-engine-button" id="stop-engine-car-${car.id}" ${!car.isEngineStarted ? 'disabled' : ''}>B</button>
   </div>
-  <div class="car" id="car-${id}">
-    ${renderCarImage(color)}
+  <div class="car" id="car-${car.id}">
+    ${renderCarImage(car.color)}
   </div>
 </div>
-<div class="flag" id="flag-${id}">🚩</div>
+<div class="flag" id="flag-${car.id}">🚩</div>
 </div>`;
 
 const renderListOfCars = async () => {
   await getCars().then((res) => {
-    const garageView = document.getElementById('garage-view');
+    const garageView = document.getElementById('garage-view') as HTMLElement;
     const partOfgarageView = document.createDocumentFragment();
     const listOfCars = document.createElement('ul');
     listOfCars.classList.add('garage');
-    res.items.forEach((item) => {
+    res.items.forEach((item: ICar) => {
       const itemOfList = document.createElement('li');
       itemOfList.innerHTML=renderCar(item);
       listOfCars.append(itemOfList);
@@ -109,7 +110,7 @@ return buttonHtml;
 
 export const renderHeaderOfGarage = async () => {
   await getCars().then((res) => {
-    const garageView = document.getElementById('garage-view');
+    const garageView = document.getElementById('garage-view') as HTMLElement;
     const partOfgarageView = document.createDocumentFragment();
     const header = document.createElement('div');
     header.id = 'header-garage';

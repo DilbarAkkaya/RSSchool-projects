@@ -1,6 +1,6 @@
 import store from '../../api/store';
 
-export const renderWinners = () => `
+export const renderWinners: () => string = () => `
 <h1>Winners (${store.winnersCount})</h1>
 <h2>Page #${store.winnersPage}</h2>
 <table class="table" cellspacing="0" border="0" cellpadding="0">

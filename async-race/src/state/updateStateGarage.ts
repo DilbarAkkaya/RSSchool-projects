@@ -8,13 +8,13 @@ export const updateStateGarage = async() => {
   store.carsCount = carsCount;
 
   if (store.carsPage * COUNT_OF_CARS_ON_PAGE < store.carsCount) {
-    document.getElementById('next').disabled = false;
+    (document.getElementById('next') as HTMLButtonElement).disabled = false;
   } else {
-    document.getElementById('next').disabled = true;
+    (document.getElementById('next') as HTMLButtonElement).disabled = true;
   }
   if (store.carsPage > 1) {
-    document.getElementById('prev').disabled = false;
+    (document.getElementById('prev') as HTMLButtonElement).disabled = false;
   } else {
-    document.getElementById('prev').disabled = true;
+    (document.getElementById('prev') as HTMLButtonElement).disabled = true;
   }
 };

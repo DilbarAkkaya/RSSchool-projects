@@ -1,7 +1,6 @@
 import { renderAppHTML } from './app';
 import { listen } from './components/garageView/uiGarage';
 import { updateStateGarage } from './state/updateStateGarage';
-import '../score'
 import './style.css';
 
 document.addEventListener('DOMContentLoaded', async () => {
