@@ -8,8 +8,8 @@ export const renderWinners: () => string = () => `
   <th>Number</th>
   <th>Car</th>
   <th>Name</th>
-  <th class="table-button table-wins ${store.sortBy === 'wins' ? store.sortOrder : ''}" id="sort-by-wins">Wins</th>
-  <th class="table-button table-time ${store.sortBy === 'time' ? store.sortOrder : ''}" id="sort-by-time">Best time (seconds)</th>
+  <th class="table-button table-wins" id="sort-by-wins">Wins</th>
+  <th class="table-button table-time" id="sort-by-time">Best time (seconds)</th>
 </thead>
 <tbody>
 <tr>
