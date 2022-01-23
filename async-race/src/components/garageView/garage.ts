@@ -2,14 +2,11 @@ import { getCars } from "../../api/methods";
 import store from "../../api/store";
 import { ICar } from "../types";
 
-
 export const renderCarImage = (color: string | number) => `<?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 981.000000 550.000000"
- preserveAspectRatio="xMidYMid meet">
-
-<g transform="translate(0.000000,550.000000) scale(0.100000,-0.100000)"
+ preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,550.000000) scale(0.100000,-0.100000)"
 style="fill:${color}" stroke="none">
 <path d="M3040 5491 c-432 -7 -412 -4 -543 -73 -81 -43 -263 -223 -346 -343
 -34 -49 -143 -227 -242 -396 -253 -428 -360 -571 -489 -657 -117 -79 -139 -83
@@ -43,27 +40,26 @@ m5483 0 c148 -27 342 -163 451 -314 56 -79 110 -193 125 -263 6 -33 10 -121 7
 -4 -258 2 -374 64 -419 222 -557 731 -304 1117 69 106 202 227 303 277 45 22
 111 47 147 54 79 17 304 20 385 5z"/>
 </g>
-</svg>
-`;
+</svg>`;
 
 const renderCar: (car: ICar) => string = (car) => `
-<div class = "general-buttons">
-<button class="button select-button" id="select-car-${car.id}">Select</button>
-<button class="button remove-button" id="remove-car-${car.id}">Remove</button>
-<span class="car-name">${car.name}</span>
-</div>
-<div class="road">
-<div class="launch-pad">
-  <div class="control-panel">
-    <button class="icon start-engine-button" id="start-engine-car-${car.id}" ${car.isEngineStarted ? 'disabled' : ''}>A</button>
-    <button class="icon stop-engine-button" id="stop-engine-car-${car.id}" ${!car.isEngineStarted ? 'disabled' : ''}>B</button>
+  <div class = "general-buttons">
+    <button class="button select-button" id="select-car-${car.id}">Select</button>
+    <button class="button remove-button" id="remove-car-${car.id}">Remove</button>
+    <span class="car-name">${car.name}</span>
   </div>
-  <div class="car" id="car-${car.id}">
-    ${renderCarImage(car.color)}
-  </div>
-</div>
-<div class="flag" id="flag-${car.id}">🚩</div>
-</div>`;
+  <div class="road">
+    <div class="launch-pad">
+      <div class="control-panel">
+        <button class="icon start-engine-button" id="start-engine-car-${car.id}" ${car.isStart ? 'disabled' : ''}>A</button>
+        <button class="icon stop-engine-button" id="stop-engine-car-${car.id}" ${!car.isStart ? 'disabled' : ''}>B</button>
+      </div>
+      <div class="car" id="car-${car.id}">
+        ${renderCarImage(car.color)}
+      </div>
+    </div>
+    <div class="flag" id="flag-${car.id}">🚩</div>
+  </div>`;
 
 const renderListOfCars = async () => {
   await getCars().then((res) => {
@@ -84,17 +80,17 @@ const renderListOfCars = async () => {
 const renderFormOfGarage = () => {
   const formHtml =
   `<div>
-  <form class="form" id="create">
-    <input type="text" class="input" id="create-name" name="name">
-    <input type="color" class="color" name="color" id="create-color" value="#ffffff">
-    <button class="button" id="create-submit" type="submit">Create</button>
-  </form>
-  <form class="form" id="update">
-    <input type="text" class="input" id="update-name" name="name" disabled>
-    <input type="color" class="color" name="color" id="update-color" value="#ffffff">
-    <button class="button" id="update-submit" type="submit">Update</button>
-  </form>
-</div>`;
+    <form class="form" id="create">
+      <input type="text" class="input" id="create-name" name="name">
+      <input type="color" class="color" name="color" id="create-color" value="#ffffff">
+      <button class="button" id="create-submit" type="submit">Create</button>
+    </form>
+    <form class="form" id="update">
+      <input type="text" class="input" id="update-name" name="name" disabled>
+      <input type="color" class="color" name="color" id="update-color" value="#ffffff">
+      <button class="button" id="update-submit" type="submit">Update</button>
+    </form>
+  </div>`;
   return formHtml;
 }
 
