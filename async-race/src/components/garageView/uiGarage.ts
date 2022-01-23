@@ -49,16 +49,16 @@ export const listen = () => {
 
   formOfCreateCar.addEventListener('submit', async (event) => {
     event.preventDefault()
-      const createName: HTMLInputElement = document.getElementById('create-name') as HTMLInputElement;
-      const createColor: HTMLInputElement = document.getElementById('create-color') as HTMLInputElement;
-      const car = {
-        name: createName.value,
-        color: createColor.value,
-      };
-      await createCar(car);
-      updateGarageView();
-      createName.value = '';
-      createColor.value = '#ffffff';
+    const createName: HTMLInputElement = document.getElementById('create-name') as HTMLInputElement;
+    const createColor: HTMLInputElement = document.getElementById('create-color') as HTMLInputElement;
+    const car = {
+      name: createName.value,
+      color: createColor.value,
+    };
+    await createCar(car);
+    updateGarageView();
+    createName.value = '';
+    createColor.value = '#ffffff';
   })
 
   const formOfUpdateCar: HTMLInputElement = document.getElementById('update') as HTMLInputElement;

@@ -1,5 +1,5 @@
 export interface ICar {
-[prop: string]: string | number
+  [prop: string]: string | number
 }
 
 export interface ICars  {

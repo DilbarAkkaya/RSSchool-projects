@@ -95,7 +95,7 @@ const renderFormOfGarage = () => {
     <button class="button" id="update-submit" type="submit">Update</button>
   </form>
 </div>`;
-return formHtml;
+  return formHtml;
 }
 
 const renderButtonsOfRace = () => {
@@ -105,7 +105,7 @@ const renderButtonsOfRace = () => {
   <button class="button reset-button primary" id="reset">Reset</button>
   <button class="button generator-button" id="generator">Generate cars</button>
 </div>`;
-return buttonHtml;
+  return buttonHtml;
 }
 
 export const renderHeaderOfGarage = async () => {
